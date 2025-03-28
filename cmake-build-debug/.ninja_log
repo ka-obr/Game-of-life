@@ -1,0 +1,11 @@
+# ninja log v6
+3	337	7648980119172197	build.ninja	c59dfe00de16580f
+2	450	7648932210136526	CMakeFiles/Game_of_life_cpp.dir/game_of_life.cpp.obj	381c70c42df3820a
+468	562	7648932214801116	Game_of_life_cpp.exe	17a6f6058e177df8
+4	261	7648980119172197	build.ninja	c59dfe00de16580f
+10	677	7648980119557392	CMakeFiles/Game_of_life_cpp.dir/Point.cpp.obj	df01ba64ac5a92a1
+6	516	7648982354928951	CMakeFiles/Game_of_life_cpp.dir/game_of_life.cpp.obj	381c70c42df3820a
+11	517	7648982354978814	CMakeFiles/Game_of_life_cpp.dir/World.cpp.obj	d887a1a9ea701c68
+22	518	7648982355098866	CMakeFiles/Game_of_life_cpp.dir/Gameplay.cpp.obj	813bb6cd15f0224
+14	532	7648982355018852	CMakeFiles/Game_of_life_cpp.dir/Organism.cpp.obj	f6224f1fac18ec18
+532	683	7648982360196938	Game_of_life_cpp.exe	f8725bd6e40a75f6

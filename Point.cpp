@@ -1,0 +1,13 @@
+//
+// Created by karol on 28.03.2025.
+//
+
+#include "Point.h"
+
+Point::Point(int x, int y) : x(x), y(y) {
+
+}
+
+Point::~Point() {
+    // Destructor implementation (if needed)
+}
