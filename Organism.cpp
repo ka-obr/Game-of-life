@@ -36,7 +36,7 @@ int Organism::getSymbol() const {
     return symbol;
 }
 
-Point& Organism::getPoint() {
+Point& Organism::getPosition() {
     return position;
 }
 

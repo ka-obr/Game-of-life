@@ -1,11 +1,20 @@
 # ninja log v6
-3	337	7648980119172197	build.ninja	c59dfe00de16580f
-2	450	7648932210136526	CMakeFiles/Game_of_life_cpp.dir/game_of_life.cpp.obj	381c70c42df3820a
-468	562	7648932214801116	Game_of_life_cpp.exe	17a6f6058e177df8
-4	261	7648980119172197	build.ninja	c59dfe00de16580f
-10	677	7648980119557392	CMakeFiles/Game_of_life_cpp.dir/Point.cpp.obj	df01ba64ac5a92a1
+4	261	7648989014229154	build.ninja	c59dfe00de16580f
+14	532	7648982355018852	CMakeFiles/Game_of_life_cpp.dir/Organism.cpp.obj	f6224f1fac18ec18
 6	516	7648982354928951	CMakeFiles/Game_of_life_cpp.dir/game_of_life.cpp.obj	381c70c42df3820a
+10	677	7648980119557392	CMakeFiles/Game_of_life_cpp.dir/Point.cpp.obj	df01ba64ac5a92a1
+532	683	7648982360196938	Game_of_life_cpp.exe	f8725bd6e40a75f6
 11	517	7648982354978814	CMakeFiles/Game_of_life_cpp.dir/World.cpp.obj	d887a1a9ea701c68
 22	518	7648982355098866	CMakeFiles/Game_of_life_cpp.dir/Gameplay.cpp.obj	813bb6cd15f0224
-14	532	7648982355018852	CMakeFiles/Game_of_life_cpp.dir/Organism.cpp.obj	f6224f1fac18ec18
-532	683	7648982360196938	Game_of_life_cpp.exe	f8725bd6e40a75f6
+14	605	7649016205388397	CMakeFiles/Game_of_life_cpp.dir/Point.cpp.obj	df01ba64ac5a92a1
+48	612	7649016205738484	CMakeFiles/Game_of_life_cpp.dir/Animal.cpp.obj	ef88a55d61780468
+30	621	7649016205558487	CMakeFiles/Game_of_life_cpp.dir/Organism.cpp.obj	f6224f1fac18ec18
+6	625	7649016205318545	CMakeFiles/Game_of_life_cpp.dir/game_of_life.cpp.obj	381c70c42df3820a
+21	657	7649016205468488	CMakeFiles/Game_of_life_cpp.dir/World.cpp.obj	d887a1a9ea701c68
+39	680	7649016205648481	CMakeFiles/Game_of_life_cpp.dir/Gameplay.cpp.obj	813bb6cd15f0224
+13	637	7649023527697487	CMakeFiles/Game_of_life_cpp.dir/game_of_life.cpp.obj	381c70c42df3820a
+25	643	7649023527817992	CMakeFiles/Game_of_life_cpp.dir/World.cpp.obj	d887a1a9ea701c68
+32	669	7649023527887968	CMakeFiles/Game_of_life_cpp.dir/Organism.cpp.obj	f6224f1fac18ec18
+37	670	7649023527933244	CMakeFiles/Game_of_life_cpp.dir/Gameplay.cpp.obj	813bb6cd15f0224
+42	684	7649023527983125	CMakeFiles/Game_of_life_cpp.dir/Animal.cpp.obj	ef88a55d61780468
+684	795	7649023534400965	Game_of_life_cpp.exe	9b0d4dc0e3909359

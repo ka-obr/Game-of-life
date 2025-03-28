@@ -14,7 +14,7 @@ using namespace std;
 
 
 class Organism {
-private:
+protected:
     int strength;
     int initiative;
     Point position;
@@ -29,15 +29,14 @@ public:
     virtual ~Organism();
 
     virtual void action() = 0;
-    virtual void collision(Organism* other) = 0;
+    virtual bool collision(Organism& other) = 0;
     virtual void draw() = 0;
 
     int getStrength() const;
     int getInitiative() const;
-    int getPosition() const;
     int getAge() const;
     int getSymbol() const;
-    Point& getPoint();
+    Point& getPosition();
 };
 
 

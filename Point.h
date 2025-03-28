@@ -10,10 +10,10 @@
 using namespace std;
 
 class Point {
-private:
+public:
         int x;
         int y;
-public:
+        Point();
         Point(int x = 0, int y = 0);
         ~Point();
 };

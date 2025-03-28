@@ -7,6 +7,7 @@
 #include <iostream>
 
 #include "Organism.h"
+#include "Point.h"
 #define WORLD_SIZE 80
 
 using namespace std;
@@ -19,6 +20,12 @@ public:
     ~World();
     void makeShout();
     void drawWorld();
+
+    void move(Point position, Point destination);
+    void remove(Point position);
+
+    bool isEmpty(Point position);
+    Point getRandomNeighbor(const Point& position) const;
 
 };
 
