@@ -14,12 +14,14 @@ using namespace std;
 
 class World {
 private:
+    int height;
+    int width;
     Organism* organisms[WORLD_SIZE][WORLD_SIZE];
 public:
     World();
     ~World();
     void makeShout();
-    void drawWorld();
+    void drawWorld(int height, int width);
 
     void move(Point position, Point destination);
     void remove(Point position);

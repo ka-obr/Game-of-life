@@ -10,7 +10,7 @@
 class Animal : public Organism {
 public:
     Animal(World& world, int strength, int initiative, Point& position, char symbol);
-    virtual ~Animal();
+    virtual ~Animal() override;
 
     virtual void action() override;
     virtual bool collision(Organism& other) override;

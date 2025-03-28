@@ -28,11 +28,11 @@ void World::makeShout() {
     // Implementation of makeShout TODO
 }
 
-void World::drawWorld() {
+void World::drawWorld(int height, int width) {
     system("cls");
 
-    for (int i = 0; i < WORLD_SIZE; ++i) {
-        for (int j = 0; j < WORLD_SIZE; ++j) {
+    for (int i = 0; i < height; ++i) {
+        for (int j = 0; j < width; ++j) {
             if (organisms[i][j] != nullptr) {
                 cout << organisms[i][j]->getSymbol();
             } else {
