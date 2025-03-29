@@ -31,16 +31,24 @@ void World::makeShout() {
 void World::drawWorld(int height, int width) {
     system("cls");
 
+    drawHorizontalBorder(width);
+
+    cout << endl;
+
     for (int i = 0; i < height; ++i) {
+        cout << '#';
         for (int j = 0; j < width; ++j) {
             if (organisms[i][j] != nullptr) {
                 cout << organisms[i][j]->getSymbol();
-            } else {
+            }
+            else {
                 cout << ' ';
             }
         }
-        cout << endl;
+        cout << '#' << endl;
     }
+
+    drawHorizontalBorder(width);
 }
 
 void World::move(Point position, Point destination) {
@@ -75,3 +83,10 @@ Point World::getRandomNeighbor(const Point& position) const {
             return Point(0, 0);
     }
 }
+
+void World::drawHorizontalBorder(int width) {
+    for (int i = 0; i < width + 2; i++) {
+        cout << '#';
+    }
+}
+

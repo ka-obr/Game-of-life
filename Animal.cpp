@@ -27,9 +27,9 @@ bool Animal::collision(Organism& other) {
     return false;
 }
 
-void Animal::draw() {
-    // Implementation of draw TODO
-}
+// void Animal::draw() {
+//     // Implementation of draw TODO
+// }
 
 void Animal::move(const Point& destination) {
     world.move(position, destination);

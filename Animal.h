@@ -14,7 +14,7 @@ public:
 
     virtual void action() override;
     virtual bool collision(Organism& other) override;
-    virtual void draw() override;
+    //virtual void draw() override;
 
 protected:
     virtual void move(const Point& destination);

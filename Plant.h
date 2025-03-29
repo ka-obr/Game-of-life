@@ -12,7 +12,7 @@
 
 class Plant : public Organism {
 private:
-    const int initiative = 0;
+    static const int initiative = 0;
 public:
     Plant(World& world, const Point& position, char symbol);
     Plant(World& world, int strength, const Point& position, char symbol);

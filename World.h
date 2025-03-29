@@ -22,6 +22,7 @@ public:
     ~World();
     void makeShout();
     void drawWorld(int height, int width);
+    void drawHorizontalBorder(int width);
 
     void move(Point position, Point destination);
     void remove(Point position);
