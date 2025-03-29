@@ -13,4 +13,6 @@ add_executable(Game_of_life_cpp game_of_life.cpp
         Gameplay.cpp
         Gameplay.h
         Animal.cpp
-        Animal.h)
+        Animal.h
+        Plant.cpp
+        Plant.h)

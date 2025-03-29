@@ -85,6 +85,12 @@ build CMakeFiles/Game_of_life_cpp.dir/Animal.cpp.obj: CXX_COMPILER__Game_of_life
   OBJECT_DIR = CMakeFiles\Game_of_life_cpp.dir
   OBJECT_FILE_DIR = CMakeFiles\Game_of_life_cpp.dir
 
+build CMakeFiles/Game_of_life_cpp.dir/Plant.cpp.obj: CXX_COMPILER__Game_of_life_cpp_unscanned_Debug C$:/Code/OOPprojects/Game-of-life-cpp/Plant.cpp || cmake_object_order_depends_target_Game_of_life_cpp
+  DEP_FILE = CMakeFiles\Game_of_life_cpp.dir\Plant.cpp.obj.d
+  FLAGS = -g -std=gnu++20 -fdiagnostics-color=always
+  OBJECT_DIR = CMakeFiles\Game_of_life_cpp.dir
+  OBJECT_FILE_DIR = CMakeFiles\Game_of_life_cpp.dir
+
 
 # =============================================================================
 # Link build statements for EXECUTABLE target Game_of_life_cpp
@@ -93,7 +99,7 @@ build CMakeFiles/Game_of_life_cpp.dir/Animal.cpp.obj: CXX_COMPILER__Game_of_life
 #############################################
 # Link the executable Game_of_life_cpp.exe
 
-build Game_of_life_cpp.exe: CXX_EXECUTABLE_LINKER__Game_of_life_cpp_Debug CMakeFiles/Game_of_life_cpp.dir/game_of_life.cpp.obj CMakeFiles/Game_of_life_cpp.dir/Point.cpp.obj CMakeFiles/Game_of_life_cpp.dir/World.cpp.obj CMakeFiles/Game_of_life_cpp.dir/Organism.cpp.obj CMakeFiles/Game_of_life_cpp.dir/Gameplay.cpp.obj CMakeFiles/Game_of_life_cpp.dir/Animal.cpp.obj
+build Game_of_life_cpp.exe: CXX_EXECUTABLE_LINKER__Game_of_life_cpp_Debug CMakeFiles/Game_of_life_cpp.dir/game_of_life.cpp.obj CMakeFiles/Game_of_life_cpp.dir/Point.cpp.obj CMakeFiles/Game_of_life_cpp.dir/World.cpp.obj CMakeFiles/Game_of_life_cpp.dir/Organism.cpp.obj CMakeFiles/Game_of_life_cpp.dir/Gameplay.cpp.obj CMakeFiles/Game_of_life_cpp.dir/Animal.cpp.obj CMakeFiles/Game_of_life_cpp.dir/Plant.cpp.obj
   FLAGS = -g
   LINK_LIBRARIES = -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
   OBJECT_DIR = CMakeFiles\Game_of_life_cpp.dir
