@@ -33,19 +33,19 @@ void World::drawWorld(int height, int width) {
 
     drawHorizontalBorder(width);
 
-    cout << endl;
+    for (int i = 0; i < width; i++) {
+        std::cout << "# ";
 
-    for (int i = 0; i < height; ++i) {
-        cout << '#';
-        for (int j = 0; j < width; ++j) {
-            if (organisms[i][j] != nullptr) {
-                cout << organisms[i][j]->getSymbol();
+        for (int j = 0; j < width; j++) {
+            if (organisms[j][i] != nullptr) {
+                std::cout << organisms[j][i]->getSymbol() << " ";
             }
             else {
-                cout << ' ';
+                std::cout << "  ";
             }
         }
-        cout << '#' << endl;
+
+        std::cout << "# " << std::endl;
     }
 
     drawHorizontalBorder(width);
@@ -86,7 +86,8 @@ Point World::getRandomNeighbor(const Point& position) const {
 
 void World::drawHorizontalBorder(int width) {
     for (int i = 0; i < width + 2; i++) {
-        cout << '#';
+        cout << "# ";
     }
+    cout << endl;
 }
 
