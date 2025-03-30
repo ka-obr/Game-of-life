@@ -51,6 +51,7 @@ void Plant::draw() {
 
 bool Plant::hasFreeSpace() const {
     //return world.hasFreeSpace(position);
+    return true;
 }
 
 bool Plant::canReproduce() const {

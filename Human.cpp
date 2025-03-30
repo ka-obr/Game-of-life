@@ -34,7 +34,7 @@ bool Human::collision(Organism& other) {
 }
 
 void Human::draw() {
-    // Implementation of draw TODO
+    //world.draw(position, symbol);
 }
 
 void Human::move(const Point& position) {

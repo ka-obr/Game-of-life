@@ -17,18 +17,35 @@ private:
     int height;
     int width;
     Organism* organisms[WORLD_SIZE][WORLD_SIZE];
+    Point playerPosition;
 public:
     World();
     ~World();
-    void makeShout();
     void drawWorld(int height, int width);
-    void drawHorizontalBorder(int width);
+    void setDimensions(int height, int width);
+    static void drawHorizontalBorder(int width);
 
-    void move(Point position, Point destination);
-    void remove(Point position);
+    void spawnOrganism(Organism* organism);
+    void spawnOrganism(Organism* organism, const Point& position);
 
-    bool isEmpty(Point position);
+    void move(const Point& position, const Point &destination);
+    void remove(const Point& position);
+
+    void movePlayerUp();
+    void movePlayerDown();
+    void movePlayerLeft();
+    void movePlayerRight();
+
+    bool isEmpty(const Point& position);
     Point getRandomNeighbor(const Point& position) const;
+
+    void printOrganismInfo(const Point& position);
+    void printShoutSummary();
+    void printStatistics();
+
+    Point getPlayerPosition() const;
+    void setPlayerPosition(int x, int y);
+    void setPlayerPosition(Point& position);
 
 };
 

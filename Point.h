@@ -14,7 +14,7 @@ public:
         int x;
         int y;
         Point();
-        Point(int x = 0, int y = 0);
+        Point(int x, int y);
         bool operator==(const Point& other) const;
         ~Point();
 };

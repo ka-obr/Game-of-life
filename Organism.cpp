@@ -36,6 +36,10 @@ int Organism::getSymbol() const {
     return symbol;
 }
 
+void Organism::die() {
+    //TODO
+}
+
 Point& Organism::getPosition() {
     return position;
 }
