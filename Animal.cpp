@@ -4,7 +4,7 @@
 
 #include "Animal.h"
 
-Animal::Animal(World& world, int strength, int initiative, Point& position, char symbol)
+Animal::Animal(World& world, int strength, int initiative, const Point& position, char symbol)
     : Organism(world, strength, initiative, position, symbol) {
     // Constructor implementation
 }
