@@ -32,7 +32,7 @@ int Organism::getAge() const {
     return age;
 }
 
-int Organism::getSymbol() const {
+char Organism::getSymbol() const {
     return symbol;
 }
 

@@ -7,30 +7,39 @@
 using namespace std;
 
 
-World::World() {
-    for (int i = 0; i < WORLD_SIZE; ++i) {
-        for (int j = 0; j < WORLD_SIZE; ++j) {
-            organisms[i][j] = nullptr;
-        }
-    }
+World::World(int width, int height ) {
+    organisms.resize(width);
+
+    // wskazniki na tablice organizmow
+    for (int i = 0; i < width; i++)
+        organisms[i].resize(height);
+
+    this->width = width;
+    this->height = height;
 }
 
 World::~World() {
-    for (int i = 0; i < WORLD_SIZE; ++i) {
-        for (int j = 0; j < WORLD_SIZE; ++j) {
-            if (organisms[i][j] != nullptr)
+    for (int i = 0; i < width; i++) {
+        for (int j = 0; j < height; j++) {
+            if (organisms[i][j] != nullptr) {
                 delete organisms[i][j];
+                organisms[i][j] = nullptr;
+            }
         }
     }
+    organisms.clear();
 }
 
+void World::update() {
+    
+}
 
-void World::drawWorld(int height, int width) {
+void World::drawWorld(int width, int height) {
     system("cls");
 
     drawHorizontalBorder(width);
 
-    for (int i = 0; i < width; i++) {
+    for (int i = 0; i < height; i++) {
         std::cout << "# ";
 
         for (int j = 0; j < width; j++) {
@@ -48,12 +57,10 @@ void World::drawWorld(int height, int width) {
     drawHorizontalBorder(width);
 }
 
-void World::setDimensions(int height, int width) {
-    this->height = height;
-    this->width = width;
-}
-
 void World::move(const Point& position, const Point &destination) {
+    if (destination.x < 0 || destination.x >= width || destination.y < 0 || destination.y >= height) {
+        return; // out of bounds
+    }
     organisms[destination.x][destination.y] = organisms[position.x][position.y];
     organisms[position.x][position.y] = nullptr;
 }
@@ -114,51 +121,31 @@ void World::spawnOrganism(Organism* organism, const Point& position) {
 
 
 void World::movePlayerUp() {
-    if (organisms[playerPosition.x][playerPosition.y - 1] != nullptr) {
-        //organisms[playerPosition.x][playerPosition.y - 1]->interact();
-    }
-    else {
-        move(playerPosition, Point(playerPosition.x, playerPosition.y - 1));
-
+    move(playerPosition, Point(playerPosition.x, playerPosition.y - 1));
+    if (playerPosition.y > 0)
         setPlayerPosition(playerPosition.x, playerPosition.y - 1);
-    }
 }
 
 
 void World::movePlayerDown() {
-    if (organisms[playerPosition.x][playerPosition.y + 1] != nullptr) {
-        //organisms[playerPosition.x][playerPosition.y + 1]->interact();
-    }
-    else {
-        move(playerPosition, Point(playerPosition.x, playerPosition.y + 1));
-
+    move(playerPosition, Point(playerPosition.x, playerPosition.y + 1));
+    
+    if(playerPosition.y < height - 1)
         setPlayerPosition(playerPosition.x, playerPosition.y + 1);
-    }
 }
 
 
 void World::movePlayerLeft() {
-    if (organisms[playerPosition.x - 1][playerPosition.y] != nullptr) {
-        //organisms[playerPosition.x - 1][playerPosition.y]->interact();
-    }
-    else {
-        move(playerPosition, Point(playerPosition.x - 1, playerPosition.y));
-        // set player position
-
+    move(playerPosition, Point(playerPosition.x - 1, playerPosition.y));
+    if (playerPosition.x > 0)
         setPlayerPosition(playerPosition.x - 1, playerPosition.y);
-    }
 }
 
 
 void World::movePlayerRight() {
-    if (organisms[playerPosition.x + 1][playerPosition.y] != nullptr) {
-        //organisms[playerPosition.x + 1][playerPosition.y]->interact();
-    }
-    else {
-        move(playerPosition, Point(playerPosition.x + 1, playerPosition.y));
-
+    move(playerPosition, Point(playerPosition.x + 1, playerPosition.y));
+    if (playerPosition.x < width - 1)
         setPlayerPosition(playerPosition.x + 1, playerPosition.y);
-    }
 }
 
 void World::printOrganismInfo(const Point& position) {

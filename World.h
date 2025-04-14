@@ -5,6 +5,7 @@
 #ifndef WORLD_H
 #define WORLD_H
 #include <iostream>
+#include <vector>
 
 #include "Organism.h"
 #include "Point.h"
@@ -16,14 +17,15 @@ class World {
 private:
     int height;
     int width;
-    Organism* organisms[WORLD_SIZE][WORLD_SIZE];
+    std::vector<std::vector<Organism*>> organisms;
     Point playerPosition;
 public:
-    World();
+    World(int width, int height);
     ~World();
     void drawWorld(int height, int width);
-    void setDimensions(int height, int width);
     static void drawHorizontalBorder(int width);
+
+    void update();
 
     void spawnOrganism(Organism* organism);
     void spawnOrganism(Organism* organism, const Point& position);
@@ -49,6 +51,4 @@ public:
 
 };
 
-
-
-#endif //WORLD_H
+#endif

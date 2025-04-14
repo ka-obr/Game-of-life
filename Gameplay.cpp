@@ -9,7 +9,6 @@
 using namespace std;
 
 Gameplay::Gameplay() {
-    world = new World();
     running = true;
     playerInput = ' ';
     shout = 0;
@@ -35,13 +34,16 @@ void Gameplay::startGame() {
             break;
         }
 
-        world->drawWorld(height, width);
+        world->update();
+
+        world->drawWorld(width, height);
         world->printShoutSummary();
         makeShout();
     }
 
     endGame();
 }
+
 void Gameplay::InitialText() {
     cout << "Welcome to the game!" << endl;
     cout << "Author: Karol Obrycki" << endl;
@@ -55,7 +57,7 @@ void Gameplay::setGame() {
     cin >> width;
     cout << "Enter board height: ";
     cin >> height;
-    world->setDimensions(width, height);
+    world = new World(width, height);
 }
 
 void Gameplay::makeShout() {
@@ -106,18 +108,25 @@ void Gameplay::stats() {
 
 void Gameplay::spawnOrganisms() {
     Point playerPosition = Point(0, 0);
-    world->spawnOrganism(new Human(*world, 5, 4, playerPosition, 'H'));
+    world->spawnOrganism(new Human(*world, 5, 4, playerPosition, 'H'), playerPosition);
     world->setPlayerPosition(playerPosition);
 }
 
 void Gameplay::getPlayerInput() {
-    playerInput = _getch();
+    int key = _getch();
+
+    if (key == 0 || key == 224) { 
+        key = _getch();
+    }
+
+    playerInput = key;
 }
 
 void Gameplay::handlePlayerInput() {
     switch (playerInput) {
         case 'q' :
             running = false;
+            shout--;
             break;
         case 72: // strzałka w górę
             world->movePlayerUp();
