@@ -3,16 +3,17 @@
 //
 
 #include "Organism.h"
+#include "World.h"
 
-Organism::Organism(World &world) : world(world), strength(0), initiative(0), position(Point(0,0)), age(0), alive(true) {
+Organism::Organism(World* world) : world(world), strength(0), initiative(0), position(Point(0,0)), age(0) {
     // Constructor implementation
 }
 
-Organism::Organism(World &world, int strength, int initiative, Point position, char symbol) : world(world), strength(strength), initiative(initiative), position(position), age(0), alive(true), symbol(symbol) {
+Organism::Organism(World* world, int strength, int initiative, Point position, char symbol) : world(world), strength(strength), initiative(initiative), position(position), age(0), symbol(symbol) {
     // Constructor implementation
 }
 
-Organism::Organism(World &world, int strength, int initiative, Point position, char symbol, int age) : world(world), strength(strength), initiative(initiative), position(position), age(age), alive(true), symbol(symbol) {
+Organism::Organism(World* world, int strength, int initiative, Point position, char symbol, int age) : world(world), strength(strength), initiative(initiative), position(position), age(age), symbol(symbol) {
     // Constructor implementation
 }
 
@@ -40,7 +41,14 @@ void Organism::die() {
     //TODO
 }
 
+void Organism::action(char input) {
+    action();
+}
+
 Point& Organism::getPosition() {
     return position;
 }
 
+void Organism::setPosition(Point pos) {
+    position = pos;
+}

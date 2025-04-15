@@ -10,7 +10,7 @@ using namespace std;
 
 Gameplay::Gameplay() {
     running = true;
-    playerInput = ' ';
+    input = ' ';
     shout = 0;
 }
 
@@ -21,22 +21,23 @@ Gameplay::~Gameplay() {
 void Gameplay::startGame() {
 
     InitialText();
-    getPlayerInput();
+    getInput();
     gameInfo();
-    getPlayerInput();
+    getInput();
     setGame();
     spawnOrganisms();
 
     while (running) {
-        getPlayerInput();
-        handlePlayerInput();
+        getInput();
+        handleInput();
         if (!running) {
             break;
         }
 
-        world->update();
+        world->update(input);
 
         world->drawWorld(width, height);
+        world->printHumanInfo();
         world->printShoutSummary();
         makeShout();
     }
@@ -108,37 +109,24 @@ void Gameplay::stats() {
 
 void Gameplay::spawnOrganisms() {
     Point playerPosition = Point(0, 0);
-    world->spawnOrganism(new Human(*world, 5, 4, playerPosition, 'H'), playerPosition);
-    world->setPlayerPosition(playerPosition);
+    world->spawnOrganism(new Human(world, 5, 4, playerPosition, 'H'), playerPosition);
 }
 
-void Gameplay::getPlayerInput() {
+void Gameplay::getInput() {
     int key = _getch();
 
     if (key == 0 || key == 224) { 
         key = _getch();
     }
 
-    playerInput = key;
+    input = key;
 }
 
-void Gameplay::handlePlayerInput() {
-    switch (playerInput) {
-        case 'q' :
+void Gameplay::handleInput() {
+    switch (input) {
+        case 'q':
             running = false;
             shout--;
-            break;
-        case 72: // strzałka w górę
-            world->movePlayerUp();
-            break;
-        case 80: // strzałka w dół
-            world->movePlayerDown();
-            break;
-        case 75: // strzałka w lewo
-            world->movePlayerLeft();
-            break;
-        case 77: // strzałka w prawo
-            world->movePlayerRight();
             break;
         default:
             break;
@@ -152,7 +140,7 @@ void Gameplay::endGame() {
     std::cout << "Thanks for playing!\n";
     std::cout << "Press any key to exit...\n";
 
-    playerInput = _getch();
+    input = _getch();
 }
 
 

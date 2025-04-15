@@ -8,30 +8,25 @@ using namespace std;
 
 
 World::World(int width, int height ) {
-    organisms.resize(width);
-
-    // wskazniki na tablice organizmow
-    for (int i = 0; i < width; i++)
-        organisms[i].resize(height);
-
     this->width = width;
     this->height = height;
 }
 
 World::~World() {
-    for (int i = 0; i < width; i++) {
-        for (int j = 0; j < height; j++) {
-            if (organisms[i][j] != nullptr) {
-                delete organisms[i][j];
-                organisms[i][j] = nullptr;
-            }
-        }
-    }
     organisms.clear();
 }
 
-void World::update() {
-    
+void World::update(char input) {
+    sort(organisms.begin(), organisms.end(), [](const Organism* a, const Organism* b) {
+        if (a->getInitiative() == b->getInitiative()) {
+            return a->getAge() > b->getAge();
+        }
+        return a->getInitiative() > b->getInitiative();
+    });
+
+    for (Organism* org : organisms) {
+        org->action(input);
+    }
 }
 
 void World::drawWorld(int width, int height) {
@@ -43,12 +38,11 @@ void World::drawWorld(int width, int height) {
         std::cout << "# ";
 
         for (int j = 0; j < width; j++) {
-            if (organisms[j][i] != nullptr) {
-                std::cout << organisms[j][i]->getSymbol() << " ";
-            }
-            else {
+            Organism* org = getAtCoordinates(Point(j, i));
+            if (org != nullptr)
+                std::cout << org->getSymbol() << ' ';
+            else
                 std::cout << "  ";
-            }
         }
 
         std::cout << "# " << std::endl;
@@ -57,23 +51,16 @@ void World::drawWorld(int width, int height) {
     drawHorizontalBorder(width);
 }
 
-void World::move(const Point& position, const Point &destination) {
-    if (destination.x < 0 || destination.x >= width || destination.y < 0 || destination.y >= height) {
-        return; // out of bounds
-    }
-    organisms[destination.x][destination.y] = organisms[position.x][position.y];
-    organisms[position.x][position.y] = nullptr;
-}
-
 void World::remove(const Point& position) {
-    if (organisms[position.x][position.y] != nullptr) {
-        delete organisms[position.x][position.y];
-        organisms[position.x][position.y] = nullptr;
+    if (getAtCoordinates(position) == human)
+        human = nullptr;
+    
+    for (auto it = organisms.begin(); it != organisms.end(); it++) {
+        if ((*it)->getPosition() == position) {
+            organisms.erase(it);
+            return;
+        }
     }
-}
-
-bool World::isEmpty(const Point& position) {
-    return organisms[position.x][position.y] == nullptr;
 }
 
 Point World::getRandomNeighbor(const Point& position) const {
@@ -101,81 +88,28 @@ void World::drawHorizontalBorder(int width) {
 }
 
 void World::spawnOrganism(Organism* organism) {
-    int x = rand() % WORLD_SIZE;
-    int y = rand() % WORLD_SIZE;
-    while (organisms[x][y] != nullptr) {
-        x = rand() % WORLD_SIZE;
-        y = rand() % WORLD_SIZE;
-    }
-    organisms[x][y] = organism;
-    organisms[x][y]->getPosition().x = x;
-    organisms[x][y]->getPosition().y = y;
+    organisms.push_back(organism);
+    organism->setPosition(Point(rand() % width, rand() % height));
 }
 
 
 void World::spawnOrganism(Organism* organism, const Point& position) {
-    organisms[position.x][position.y] = organism;
-    organisms[position.x][position.y]->getPosition().x = position.x;
-    organisms[position.x][position.y]->getPosition().y = position.y;
+    organisms.push_back(organism);
+    organism->setPosition(position);
 }
-
-
-void World::movePlayerUp() {
-    move(playerPosition, Point(playerPosition.x, playerPosition.y - 1));
-    if (playerPosition.y > 0)
-        setPlayerPosition(playerPosition.x, playerPosition.y - 1);
-}
-
-
-void World::movePlayerDown() {
-    move(playerPosition, Point(playerPosition.x, playerPosition.y + 1));
-    
-    if(playerPosition.y < height - 1)
-        setPlayerPosition(playerPosition.x, playerPosition.y + 1);
-}
-
-
-void World::movePlayerLeft() {
-    move(playerPosition, Point(playerPosition.x - 1, playerPosition.y));
-    if (playerPosition.x > 0)
-        setPlayerPosition(playerPosition.x - 1, playerPosition.y);
-}
-
-
-void World::movePlayerRight() {
-    move(playerPosition, Point(playerPosition.x + 1, playerPosition.y));
-    if (playerPosition.x < width - 1)
-        setPlayerPosition(playerPosition.x + 1, playerPosition.y);
-}
-
-void World::printOrganismInfo(const Point& position) {
-    // print organism info
-    std::cout << "Organism info:" << std::endl;
-    std::cout << "----------------" << std::endl;
-    std::cout << std::endl;
-
-    std::cout << "Organism strength: " << organisms[position.x][position.y]->getStrength() << std::endl;
-}
-
 
 void World::printShoutSummary() {
     std::cout << std::endl;
     std::cout << "Shout actions summary:" << std::endl;
     std::cout << "----------------" << std::endl;
     std::cout << std::endl;
-
-    std::cout << "Human position: " << playerPosition.x << ", " << playerPosition.y << std::endl;
-
-    // print organism info for human position
-    if (organisms[playerPosition.x][playerPosition.y] != nullptr) {
-        std::cout << "Organism info:" << std::endl;
-        std::cout << "----------------" << std::endl;
-        std::cout << std::endl;
-
-        printOrganismInfo(Point (playerPosition.x, playerPosition.y));
-    }
 }
 
+void World::printHumanInfo() {
+    std::cout << "Human - position: " << human->getPosition().x <<
+             ", " << human->getPosition().y <<
+             " strength: " << human->getStrength() <<  std::endl;
+}
 
 void World::printStatistics() {
     // TODO
@@ -186,19 +120,25 @@ void World::printStatistics() {
     std::cout << std::endl;
 }
 
-
 Point World::getPlayerPosition() const {
-    return playerPosition;
+    return human->getPosition();
 }
 
-
-void World::setPlayerPosition(int x, int y) {
-    playerPosition.x = x;
-    playerPosition.y = y;
+int World::getHeight() {
+    return height;
 }
 
-
-void World::setPlayerPosition(Point& position) {
-    playerPosition = position;
+int World::getWidth() {
+    return width;
 }
 
+Organism* World::getAtCoordinates(Point cords) {
+    for (Organism* org : organisms) {
+        if (org->getPosition() == cords) return org;
+    }
+    return nullptr;
+}
+
+void World::setHuman(Organism* org) {
+    human = org;
+}

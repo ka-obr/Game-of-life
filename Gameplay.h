@@ -13,7 +13,7 @@ class Gameplay {
 private:
     World* world;
     bool running;
-    char playerInput;
+    char input;
     int shout;
     int width, height;
 
@@ -25,8 +25,8 @@ public:
     void gameInfo();
     void spawnOrganisms();
 
-    void getPlayerInput();
-    void handlePlayerInput();
+    void getInput();
+    void handleInput();
     void makeShout();
     void stats();
     void setGame();

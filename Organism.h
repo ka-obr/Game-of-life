@@ -20,16 +20,16 @@ protected:
     Point position;
     int age;
     char symbol;
-    World& world;
+    World* world;
 public:
-    Organism(World& world);
-    Organism(World& world, int strength, int initiative, Point position, char symbol);
-    Organism(World& world, int strength, int initiative, Point position, char symbol, int age);
-    virtual ~Organism();
+    Organism(World* world);
+    Organism(World* world, int strength, int initiative, Point position, char symbol);
+    Organism(World* world, int strength, int initiative, Point position, char symbol, int age);
+    ~Organism();
 
     virtual void action() = 0;
+    virtual void action(char input);
     virtual bool collision(Organism& other) = 0;
-    virtual void draw() = 0;
     virtual void die();
     virtual void reproduce(Point& position) = 0;
 
@@ -38,6 +38,7 @@ public:
     int getAge() const;
     char getSymbol() const;
     Point& getPosition();
+    void setPosition(Point pos);
 };
 
 

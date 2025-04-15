@@ -9,20 +9,17 @@
 
 class Animal : public Organism {
 public:
-    Animal(World& world, int strength, int initiative, const Point& position, char symbol);
-    virtual ~Animal() override;
+    Animal(World* world, int strength, int initiative, const Point& position, char symbol);
+    ~Animal();
 
-    virtual void action() override;
-    virtual bool collision(Organism& other) override;
-    //virtual void draw() override;
-
+    void action() override;
+    bool collision(Organism& other) override;
 protected:
-    virtual void move(const Point& destination);
-    virtual void eat(Organism& other);
-    virtual void reproduce(Point& position);
+    void eat(Organism& other);
+    void reproduce(Point& position);
 
-    virtual bool canMoveTo(const Point& position) const;
-    virtual bool canEat(const Organism& other) const;
+    bool canMoveTo(const Point& position) const;
+    bool canEat(const Organism& other) const;
 
 };
 

@@ -14,16 +14,15 @@ class Plant : public Organism {
 private:
     static const int initiative = 0;
 public:
-    Plant(World& world, const Point& position, char symbol);
-    Plant(World& world, int strength, const Point& position, char symbol);
-    Plant(World& world, int strength, char symbol);
+    Plant(World* world, const Point& position, char symbol);
+    Plant(World* world, int strength, const Point& position, char symbol);
+    Plant(World* world, int strength, char symbol);
 
-    virtual ~Plant() override;
+    virtual ~Plant();
 
     virtual void action() override;
     virtual bool collision(Organism& other) override;
     virtual void die() override;
-    virtual void draw() override;
 
     virtual bool hasFreeSpace() const;
     virtual bool canReproduce() const;

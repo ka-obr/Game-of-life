@@ -4,7 +4,7 @@
 
 #include "Animal.h"
 
-Animal::Animal(World& world, int strength, int initiative, const Point& position, char symbol)
+Animal::Animal(World* world, int strength, int initiative, const Point& position, char symbol)
     : Organism(world, strength, initiative, position, symbol) {
     // Constructor implementation
 }
@@ -14,9 +14,9 @@ Animal::~Animal() {
 }
 
 void Animal::action() {
-    Point destination = world.getRandomNeighbor(position);
-    if (canMoveTo(destination))
-        move(destination);
+    Point destination = world->getRandomNeighbor(position);
+    if (canMoveTo(destination)) {}
+        //move(destination);
 }
 
 bool Animal::collision(Organism& other) {
@@ -27,17 +27,8 @@ bool Animal::collision(Organism& other) {
     return false;
 }
 
-// void Animal::draw() {
-//     // Implementation of draw TODO
-// }
-
-void Animal::move(const Point& destination) {
-    world.move(position, destination);
-    position = destination;
-}
-
 void Animal::eat(Organism& other) {
-    world.remove(other.getPosition());
+    world->remove(other.getPosition());
 }
 
 void Animal::reproduce(Point& position) {
@@ -45,7 +36,7 @@ void Animal::reproduce(Point& position) {
 }
 
 bool Animal::canMoveTo(const Point& position) const {
-    return world.isEmpty(position);
+    return world->getAtCoordinates(position) == nullptr;
 }
 
 bool Animal::canEat(const Organism& other) const {
