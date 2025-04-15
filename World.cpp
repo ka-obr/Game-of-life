@@ -80,6 +80,54 @@ Point World::getRandomNeighbor(const Point& position) const {
     }
 }
 
+Organism* World::getAtCoordinates(Point cords) const {
+    for (Organism* org : organisms) {
+        if (org->getPosition() == cords) return org;
+    }
+    return nullptr;
+}
+
+bool World::isWithinBounds(const Point& position) const {
+    return position.x >= 0 && position.x < width && position.y >= 0 && position.y < height;
+}
+
+Point World::getRandomFreeSpace() const {
+    for(int i = 0; i < width * height; i++) {
+        int x = rand() % width;
+        int y = rand() % height;
+        Point randomPoint(x, y);
+
+        if(getAtCoordinates(randomPoint) == nullptr) {
+            return randomPoint;
+        }
+    }
+
+    return Point(-1, -1);
+
+}
+
+Point World::getRandomFreeSpaceAround(const Point& position) const {
+    const int dx[] = {-1, -1, -1, 0, 0, 1, 1, 1};
+    const int dy[] = {-1, 0, 1, -1, 1, -1, 0, 1};
+
+    for (int i = 0; i < 8; i++) {
+        Point neighbor(position.x + dx[i], position.y + dy[i]);
+
+        if (isWithinBounds(neighbor) && getAtCoordinates(neighbor) == nullptr) {
+            return neighbor; // Zwróć pierwsze wolne sąsiednie pole
+        }
+    }
+
+    return Point(-1, -1);
+}
+
+void World::move(const Point& position, const Point &destination) {
+    Organism* org = getAtCoordinates(position);
+    if (org != nullptr && isWithinBounds(destination) && getAtCoordinates(destination) == nullptr) {
+        org->setPosition(destination);
+    }
+}
+
 void World::drawHorizontalBorder(int width) {
     for (int i = 0; i < width + 2; i++) {
         cout << "# ";
@@ -106,9 +154,9 @@ void World::printShoutSummary() {
 }
 
 void World::printHumanInfo() {
-    std::cout << "Human - position: " << human->getPosition().x <<
+    std::cout << "Human - position: (" << human->getPosition().x <<
              ", " << human->getPosition().y <<
-             " strength: " << human->getStrength() <<  std::endl;
+             ") strength: " << human->getStrength() <<  std::endl;
 }
 
 void World::printStatistics() {
@@ -130,13 +178,6 @@ int World::getHeight() {
 
 int World::getWidth() {
     return width;
-}
-
-Organism* World::getAtCoordinates(Point cords) {
-    for (Organism* org : organisms) {
-        if (org->getPosition() == cords) return org;
-    }
-    return nullptr;
 }
 
 void World::setHuman(Organism* org) {

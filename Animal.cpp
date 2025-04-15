@@ -9,14 +9,34 @@ Animal::Animal(World* world, int strength, int initiative, const Point& position
     // Constructor implementation
 }
 
+Animal::Animal(World* world, int strength, int initiative, const Point& position, char symbol, int age)
+    : Organism(world, strength, initiative, position, symbol, age) {
+    // Constructor implementation
+}
+
 Animal::~Animal() {
 
 }
 
 void Animal::action() {
     Point destination = world->getRandomNeighbor(position);
-    if (canMoveTo(destination)) {}
-        //move(destination);
+
+    if(!world->isWithinBounds(destination)) {
+        return;
+    }
+    if(canMoveTo(destination)) {
+        move(destination);
+    } 
+
+    //TODO KOLIZJA
+
+    // if {
+    //     Organism* other = world->getAtCoordinates(destination);
+    //     if (other != nullptr) {
+    //         collision(*other);
+    //     }
+    // }
+    age++;
 }
 
 bool Animal::collision(Organism& other) {
@@ -25,6 +45,11 @@ bool Animal::collision(Organism& other) {
         return true;
     }
     return false;
+}
+
+void Animal::move(const Point& destination) {
+    world->move(position, destination);
+    position = destination;
 }
 
 void Animal::eat(Organism& other) {

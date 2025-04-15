@@ -27,7 +27,7 @@ public:
 
     void update(char input);
 
-    Organism* getAtCoordinates(Point cords);
+    Organism* getAtCoordinates(Point cords) const;
 
     void spawnOrganism(Organism* organism);
     void spawnOrganism(Organism* organism, const Point& position);
@@ -36,6 +36,9 @@ public:
     void remove(const Point& position);
 
     Point getRandomNeighbor(const Point& position) const;
+    bool isWithinBounds(const Point& position) const;
+    Point getRandomFreeSpace() const;
+    Point getRandomFreeSpaceAround(const Point& position) const;
 
 
     void printHumanInfo();

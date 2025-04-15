@@ -4,6 +4,7 @@
 
 #include "Gameplay.h"
 #include "Human.h"
+#include "Wolf.h"
 #include <conio.h>
 
 using namespace std;
@@ -63,7 +64,6 @@ void Gameplay::setGame() {
 
 void Gameplay::makeShout() {
     //TODO
-
     shout++;
 }
 
@@ -110,6 +110,8 @@ void Gameplay::stats() {
 void Gameplay::spawnOrganisms() {
     Point playerPosition = Point(0, 0);
     world->spawnOrganism(new Human(world, 5, 4, playerPosition, 'H'), playerPosition);
+    Point wolfPosition = world->getRandomFreeSpace();
+    world->spawnOrganism(new Wolf(world, wolfPosition), wolfPosition);
 }
 
 void Gameplay::getInput() {

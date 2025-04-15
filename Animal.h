@@ -10,11 +10,13 @@
 class Animal : public Organism {
 public:
     Animal(World* world, int strength, int initiative, const Point& position, char symbol);
+    Animal(World* world, int strength, int initiative, const Point& position, char symbol, int age);
     ~Animal();
 
     void action() override;
     bool collision(Organism& other) override;
 protected:
+    void move(const Point& destination);
     void eat(Organism& other);
     void reproduce(Point& position);
 

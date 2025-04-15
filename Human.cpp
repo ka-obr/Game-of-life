@@ -45,4 +45,5 @@ void Human::action(char input) {
         default:
             break;
     }
+    age++;
 }
