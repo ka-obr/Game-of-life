@@ -16,12 +16,12 @@ public:
     void action() override;
     bool collision(Organism& other) override;
 protected:
-    void move(const Point& destination);
-    void eat(Organism& other);
-    void reproduce(Point& position);
+    virtual void move(const Point& destination);
+    virtual void eat(Organism& other);
+    virtual void reproduce(Point& position);
 
-    bool canMoveTo(const Point& position) const;
-    bool canEat(const Organism& other) const;
+    virtual bool canMoveTo(const Point& position) const;
+    virtual bool canEat(const Organism& other) const;
 
 };
 

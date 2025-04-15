@@ -125,7 +125,7 @@ void Gameplay::spawnSheep(int number) {
 void Gameplay::spawnOrganisms() {
     Point playerPosition = Point(0, 0);
     world->spawnOrganism(new Human(world, 5, 4, playerPosition, 'H'), playerPosition);
-    spawnWolves(5);
+    spawnWolves(2);
     spawnSheep(2);
 }
 
