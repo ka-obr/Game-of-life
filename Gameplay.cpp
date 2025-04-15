@@ -5,6 +5,7 @@
 #include "Gameplay.h"
 #include "Human.h"
 #include "Wolf.h"
+#include "Sheep.h"
 #include <conio.h>
 
 using namespace std;
@@ -107,11 +108,25 @@ void Gameplay::stats() {
 }
 
 
+void Gameplay::spawnWolves(int number) {
+    for (int i = 0; i < number; i++) {
+        Point wolfPosition = world->getRandomFreeSpace();
+        world->spawnOrganism(new Wolf(world, wolfPosition), wolfPosition);
+    }
+}
+
+void Gameplay::spawnSheep(int number) {
+    for (int i = 0; i < number; i++) {
+        Point sheepPosition = world->getRandomFreeSpace();
+        world->spawnOrganism(new Sheep(world, sheepPosition), sheepPosition);
+    }
+}
+
 void Gameplay::spawnOrganisms() {
     Point playerPosition = Point(0, 0);
     world->spawnOrganism(new Human(world, 5, 4, playerPosition, 'H'), playerPosition);
-    Point wolfPosition = world->getRandomFreeSpace();
-    world->spawnOrganism(new Wolf(world, wolfPosition), wolfPosition);
+    spawnWolves(5);
+    spawnSheep(2);
 }
 
 void Gameplay::getInput() {

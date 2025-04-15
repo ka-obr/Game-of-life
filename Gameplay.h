@@ -23,6 +23,8 @@ public:
     void startGame();
     void InitialText();
     void gameInfo();
+    void spawnWolves(int number);
+    void spawnSheep(int number);
     void spawnOrganisms();
 
     void getInput();
