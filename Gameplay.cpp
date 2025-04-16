@@ -6,6 +6,7 @@
 #include "include/Human.h"
 #include "include/Wolf.h"
 #include "include/Sheep.h"
+#include "include/Fox.h"
 #include <conio.h>
 
 using namespace std;
@@ -123,11 +124,19 @@ void Gameplay::spawnSheep(int number) {
     }
 }
 
+void Gameplay::spawnFoxes(int number) {
+    for (int i = 0; i < number; i++) {
+        Point foxPosition = world->getRandomFreeSpace();
+        world->spawnOrganism(new Fox(world, foxPosition, 1), foxPosition);
+    }
+}
+
 void Gameplay::spawnOrganisms() {
     Point playerPosition = Point(0, 0);
     world->spawnOrganism(new Human(world, 5, 4, playerPosition, 'H', 1), playerPosition);
-    spawnWolves(2);
+    spawnWolves(5);
     spawnSheep(2);
+    spawnFoxes(5);
 }
 
 void Gameplay::getInput() {

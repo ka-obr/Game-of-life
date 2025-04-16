@@ -25,6 +25,7 @@ public:
     void gameInfo();
     void spawnWolves(int number);
     void spawnSheep(int number);
+    void spawnFoxes(int number);
     void spawnOrganisms();
 
     void getInput();
