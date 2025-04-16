@@ -28,6 +28,7 @@ void Gameplay::startGame() {
     getInput();
     setGame();
     spawnOrganisms();
+    world->drawWorld(width, height);
 
     while (running) {
         getInput();
@@ -125,7 +126,7 @@ void Gameplay::spawnSheep(int number) {
 void Gameplay::spawnOrganisms() {
     Point playerPosition = Point(0, 0);
     world->spawnOrganism(new Human(world, 5, 4, playerPosition, 'H'), playerPosition);
-    spawnWolves(2);
+    //spawnWolves(2);
     spawnSheep(2);
 }
 

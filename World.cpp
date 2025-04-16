@@ -26,6 +26,7 @@ void World::update(char input) {
 
     for (Organism* org : organisms) {
         org->action(input);
+        org->setAge(org->getAge() + 1);
     }
 }
 
@@ -119,6 +120,21 @@ Point World::getRandomFreeSpaceAround(const Point& position) const {
     }
 
     return Point(-1, -1);
+}
+
+bool World::hasFreeSpaceAround(Point position) {
+    const int dx[] = {-1, -1, -1, 0, 0, 1, 1, 1};
+    const int dy[] = {-1, 0, 1, -1, 1, -1, 0, 1};
+
+    for (int i = 0; i < 8; i++) {
+        Point neighbor(position.x + dx[i], position.y + dy[i]);
+
+        if (isWithinBounds(neighbor) && getAtCoordinates(neighbor) == nullptr) {
+            return true; // Zwróć pierwsze wolne sąsiednie pole
+        }
+    }
+
+    return false;
 }
 
 void World::move(const Point& position, const Point &destination) {

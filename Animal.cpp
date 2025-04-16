@@ -26,24 +26,28 @@ void Animal::action() {
     }
     if(canMoveTo(destination)) {
         move(destination);
-    } 
+        return;
+    }
 
-    //TODO KOLIZJA
-
-    // if {
-    //     Organism* other = world->getAtCoordinates(destination);
-    //     if (other != nullptr) {
-    //         collision(*other);
-    //     }
-    // }
-    age++;
+    if(world->getAtCoordinates(destination) != nullptr) {
+        Organism* other = world->getAtCoordinates(destination);
+        
+        collision(*other);
+    }
 }
 
 bool Animal::collision(Organism& other) {
-    if (canEat(other)) {
-        eat(other);
+    if(canKill(other)) {
+        kill(other);
         return true;
     }
+    if (typeid(other) == typeid(*this)) {
+        if(canReproduce(other, position)) {
+            reproduce(position);
+        }
+        return false;
+    }
+    other.collision(*this);
     return false;
 }
 
@@ -56,8 +60,43 @@ void Animal::eat(Organism& other) {
     world->remove(other.getPosition());
 }
 
+bool Animal::canKill(const Organism& other) const {
+    if(typeid(*this) == typeid(other)) {
+        return false;
+    }
+
+    return other.canBeKilledBy(*this);
+}
+
+bool Animal::canBeKilledBy(const Organism& other) const {
+    if(typeid(*this) == typeid(other)) {
+        return false;
+    }
+
+    return strength < other.getStrength();
+}
+
+void Animal::kill(Organism& other) const {
+    world->remove(other.getPosition());
+}
+
+void Animal::die() {
+    world->remove(position);
+
+    //add message to event log
+    //std::cout << "Organism died at position: (" << position.x << ", " << position.y << ")" << std::endl;
+}
+
+bool Animal::canReproduce(const Organism& other, const Point& position) const {
+    if(typeid(*this) == typeid(other) && world->hasFreeSpaceAround(position)) {
+        return true;
+    }
+    return false;
+}
+
 void Animal::reproduce(Point& position) {
-    // Implementation of reproduce TODO
+    // message about reproduction
+    //std::cout << "Animal reproduced at position: (" << position.x << ", " << position.y << ")" << std::endl;
 }
 
 bool Animal::canMoveTo(const Point& position) const {

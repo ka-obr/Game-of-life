@@ -19,6 +19,12 @@ protected:
     virtual void move(const Point& destination);
     virtual void eat(Organism& other);
     virtual void reproduce(Point& position);
+    void die();
+
+    virtual bool canKill(const Organism& other) const override;
+    virtual bool canBeKilledBy(const Organism& other) const override;
+    virtual void kill(Organism& other) const override;
+    virtual bool canReproduce(const Organism& other, const Point& position) const;
 
     virtual bool canMoveTo(const Point& position) const;
     virtual bool canEat(const Organism& other) const;

@@ -52,3 +52,7 @@ Point& Organism::getPosition() {
 void Organism::setPosition(Point pos) {
     position = pos;
 }
+
+void Organism::setAge(int age) {
+    this->age = age;
+}
