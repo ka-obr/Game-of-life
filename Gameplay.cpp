@@ -2,10 +2,10 @@
 // Created by karol on 28.03.2025.
 //
 
-#include "Gameplay.h"
-#include "Human.h"
-#include "Wolf.h"
-#include "Sheep.h"
+#include "include/Gameplay.h"
+#include "include/Human.h"
+#include "include/Wolf.h"
+#include "include/Sheep.h"
 #include <conio.h>
 
 using namespace std;

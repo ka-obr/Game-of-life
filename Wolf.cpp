@@ -1,4 +1,4 @@
-#include "Wolf.h"
+#include "include/Wolf.h"
 
 Wolf::Wolf(World* world, Point& position)
     : Animal(world, 9, 5, position, 'W') {

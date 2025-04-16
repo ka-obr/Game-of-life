@@ -2,7 +2,7 @@
 // Created by karol on 28.03.2025.
 //
 #include <iostream>
-#include "Gameplay.h"
+#include "include/Gameplay.h"
 
 using namespace std;
 

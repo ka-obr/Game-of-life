@@ -1,4 +1,4 @@
-#include "Sheep.h"
+#include "include/Sheep.h"
 
 Sheep::Sheep(World* world, Point& position)
     : Animal(world, 4, 4, position, 'S') {

@@ -2,7 +2,7 @@
 // Created by karol on 28.03.2025.
 //
 
-#include "Point.h"
+#include "include/Point.h"
 
 Point ::Point() : x(0), y(0) {
 

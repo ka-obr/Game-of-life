@@ -2,8 +2,8 @@
 // Created by karol on 28.03.2025.
 //
 
-#include "Organism.h"
-#include "World.h"
+#include "include/Organism.h"
+#include "include/World.h"
 
 Organism::Organism(World* world) : world(world), strength(0), initiative(0), position(Point(0,0)), age(0) {
     // Constructor implementation

@@ -2,7 +2,7 @@
 // Created by karol on 28.03.2025.
 //
 
-#include "Animal.h"
+#include "include/Animal.h"
 
 Animal::Animal(World* world, int strength, int initiative, const Point& position, char symbol)
     : Organism(world, strength, initiative, position, symbol) {

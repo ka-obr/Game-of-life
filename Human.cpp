@@ -2,7 +2,7 @@
 // Created by karol on 30.03.2025.
 //
 
-#include "Human.h"
+#include "include/Human.h"
 
 Human::Human(const Point& position, World* world)
     : Animal(world, 5, 4, position, 'H') {

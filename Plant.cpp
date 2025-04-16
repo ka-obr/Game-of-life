@@ -2,7 +2,7 @@
 // Created by karol on 29.03.2025.
 //
 
-#include "Plant.h"
+#include "include/Plant.h"
 
 
 Plant::Plant(World* world, const Point& position, char symbol)

@@ -1,3 +1,0 @@
-C:/Code/OOPprojects/Game-of-life-cpp/cmake-build-debug/CMakeFiles/Game_of_life_cpp.dir
-C:/Code/OOPprojects/Game-of-life-cpp/cmake-build-debug/CMakeFiles/edit_cache.dir
-C:/Code/OOPprojects/Game-of-life-cpp/cmake-build-debug/CMakeFiles/rebuild_cache.dir
