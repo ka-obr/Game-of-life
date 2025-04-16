@@ -37,17 +37,17 @@ void World::drawWorld(int width, int height) {
     drawHorizontalBorder(width);
 
     for (int i = 0; i < height; i++) {
-        std::cout << "# ";
+        std::cout << "#";
 
         for (int j = 0; j < width; j++) {
             Organism* org = getAtCoordinates(Point(j, i));
             if (org != nullptr)
-                std::cout << org->getSymbol() << ' ';
+                std::cout << org->getSymbol();
             else
                 std::cout << "  ";
         }
 
-        std::cout << "# " << std::endl;
+        std::cout << " # " << std::endl;
     }
 
     drawHorizontalBorder(width);

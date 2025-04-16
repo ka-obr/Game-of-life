@@ -9,8 +9,8 @@
 
 class Animal : public Organism {
 public:
-    Animal(World* world, int strength, int initiative, const Point& position, char symbol);
-    Animal(World* world, int strength, int initiative, const Point& position, char symbol, int age);
+    Animal(World* world, int strength, int initiative, const Point& position, string symbol);
+    Animal(World* world, int strength, int initiative, const Point& position, string symbol, int age);
     ~Animal();
 
     void action() override;

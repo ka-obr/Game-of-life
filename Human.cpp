@@ -5,12 +5,12 @@
 #include "include/Human.h"
 
 Human::Human(const Point& position, World* world)
-    : Animal(world, 5, 4, position, 'H') {
+    : Animal(world, 5, 4, position, "🧍") {
     
     world->setHuman(this);
 }
 
-Human::Human(World* world, int strength, int initiative, Point& position, char symbol, int age)
+Human::Human(World* world, int strength, int initiative, Point& position, string symbol, int age)
     : Animal(world, strength, initiative, position, symbol, age) {
     
     world->setHuman(this);

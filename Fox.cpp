@@ -1,12 +1,12 @@
 #include "include/Fox.h"
 
 Fox::Fox(World* world, Point& position)
-    : Animal(world, 3, 7, position, 'F') {
+    : Animal(world, 3, 7, position, "🦊") {
     // Constructor implementation
 }
 
 Fox::Fox(World* world, Point& position, int age)
-    : Animal(world, 3, 7, position, 'F', age) {
+    : Animal(world, 3, 7, position, "🦊", age) {
     // Constructor implementation
 }
 

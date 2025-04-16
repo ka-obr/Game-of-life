@@ -5,17 +5,17 @@
 #include "include/Plant.h"
 
 
-Plant::Plant(World* world, const Point& position, char symbol)
+Plant::Plant(World* world, const Point& position, string symbol)
     : Organism(world, 0, initiative, position, symbol) {
     // Constructor implementation
 }
 
-Plant::Plant(World* world, int strength, const Point& position, char symbol)
+Plant::Plant(World* world, int strength, const Point& position, string symbol)
     : Organism(world, strength, initiative, position, symbol) {
     // Constructor implementation
 }
 
-Plant::Plant(World* world, int strength, char symbol)
+Plant::Plant(World* world, int strength, string symbol)
     : Organism(world, strength, initiative, Point(0, 0), symbol) {
     // Constructor implementation
 }

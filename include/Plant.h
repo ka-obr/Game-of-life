@@ -14,9 +14,9 @@ class Plant : public Organism {
 private:
     static const int initiative = 0;
 public:
-    Plant(World* world, const Point& position, char symbol);
-    Plant(World* world, int strength, const Point& position, char symbol);
-    Plant(World* world, int strength, char symbol);
+    Plant(World* world, const Point& position, string symbol);
+    Plant(World* world, int strength, const Point& position, string symbol);
+    Plant(World* world, int strength, string symbol);
 
     virtual ~Plant();
 

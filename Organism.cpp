@@ -9,11 +9,11 @@ Organism::Organism(World* world) : world(world), strength(0), initiative(0), pos
     // Constructor implementation
 }
 
-Organism::Organism(World* world, int strength, int initiative, Point position, char symbol) : world(world), strength(strength), initiative(initiative), position(position), age(0), symbol(symbol) {
+Organism::Organism(World* world, int strength, int initiative, Point position, string symbol) : world(world), strength(strength), initiative(initiative), position(position), age(0), symbol(symbol) {
     // Constructor implementation
 }
 
-Organism::Organism(World* world, int strength, int initiative, Point position, char symbol, int age) : world(world), strength(strength), initiative(initiative), position(position), age(age), symbol(symbol) {
+Organism::Organism(World* world, int strength, int initiative, Point position, string symbol, int age) : world(world), strength(strength), initiative(initiative), position(position), age(age), symbol(symbol) {
     // Constructor implementation
 }
 
@@ -33,7 +33,7 @@ int Organism::getAge() const {
     return age;
 }
 
-char Organism::getSymbol() const {
+string Organism::getSymbol() const {
     return symbol;
 }
 
