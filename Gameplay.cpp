@@ -112,21 +112,21 @@ void Gameplay::stats() {
 void Gameplay::spawnWolves(int number) {
     for (int i = 0; i < number; i++) {
         Point wolfPosition = world->getRandomFreeSpace();
-        world->spawnOrganism(new Wolf(world, wolfPosition), wolfPosition);
+        world->spawnOrganism(new Wolf(world, wolfPosition, 1), wolfPosition);
     }
 }
 
 void Gameplay::spawnSheep(int number) {
     for (int i = 0; i < number; i++) {
         Point sheepPosition = world->getRandomFreeSpace();
-        world->spawnOrganism(new Sheep(world, sheepPosition), sheepPosition);
+        world->spawnOrganism(new Sheep(world, sheepPosition, 1), sheepPosition);
     }
 }
 
 void Gameplay::spawnOrganisms() {
     Point playerPosition = Point(0, 0);
-    world->spawnOrganism(new Human(world, 5, 4, playerPosition, 'H'), playerPosition);
-    //spawnWolves(2);
+    world->spawnOrganism(new Human(world, 5, 4, playerPosition, 'H', 1), playerPosition);
+    spawnWolves(2);
     spawnSheep(2);
 }
 

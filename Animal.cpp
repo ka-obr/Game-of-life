@@ -20,35 +20,32 @@ Animal::~Animal() {
 
 void Animal::action() {
     Point destination = world->getRandomNeighbor(position);
-
-    if(!world->isWithinBounds(destination)) {
-        return;
-    }
-    if(canMoveTo(destination)) {
-        move(destination);
-        return;
-    }
-
-    if(world->getAtCoordinates(destination) != nullptr) {
+    if(world->isWithinBounds(destination) && age != 0) {
         Organism* other = world->getAtCoordinates(destination);
-        
-        collision(*other);
+    
+        int status = -1;
+        if(other != nullptr) {
+            status = collision(*other);
+        }
+        if (status != 1) move(destination);
     }
+
+    age++;
 }
 
-bool Animal::collision(Organism& other) {
+int Animal::collision(Organism& other) {
     if(canKill(other)) {
         kill(other);
-        return true;
+        return 0;
     }
     if (typeid(other) == typeid(*this)) {
         if(canReproduce(other, position)) {
             reproduce(position);
         }
-        return false;
+        return 1;
     }
     other.collision(*this);
-    return false;
+    return 0;
 }
 
 void Animal::move(const Point& destination) {
@@ -97,10 +94,6 @@ bool Animal::canReproduce(const Organism& other, const Point& position) const {
 void Animal::reproduce(Point& position) {
     // message about reproduction
     //std::cout << "Animal reproduced at position: (" << position.x << ", " << position.y << ")" << std::endl;
-}
-
-bool Animal::canMoveTo(const Point& position) const {
-    return world->getAtCoordinates(position) == nullptr;
 }
 
 bool Animal::canEat(const Organism& other) const {

@@ -50,7 +50,8 @@
         "xutility": "cpp",
         "vector": "cpp",
         "algorithm": "cpp",
-        "optional": "cpp"
+        "optional": "cpp",
+        "random": "cpp"
     },
     "github.copilot.enable": {
         "*": true,

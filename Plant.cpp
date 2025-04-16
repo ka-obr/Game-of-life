@@ -33,12 +33,12 @@ void Plant::action() {
     }
 }
 
-bool Plant::collision(Organism& other) {
+int Plant::collision(Organism& other) {
     if (other.getPosition() == position) {
         reproduce(other.getPosition());
-        return true;
+        return 1;
     }
-    return false;
+    return 0;
 }
 
 void Plant::die() {

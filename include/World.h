@@ -7,6 +7,7 @@
 #include <iostream>
 #include <vector>
 #include <algorithm>
+#include <random>
 
 #include "Organism.h"
 #include "Point.h"
@@ -17,6 +18,7 @@ class World {
 private:
     int height;
     int width;
+    int i;
     std::vector<Organism*> organisms;
     Organism* human;
 public:

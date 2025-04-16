@@ -14,7 +14,7 @@ public:
     ~Animal();
 
     void action() override;
-    bool collision(Organism& other) override;
+    int collision(Organism& other) override;
 protected:
     virtual void move(const Point& destination);
     virtual void eat(Organism& other);
@@ -26,7 +26,6 @@ protected:
     virtual void kill(Organism& other) const override;
     virtual bool canReproduce(const Organism& other, const Point& position) const;
 
-    virtual bool canMoveTo(const Point& position) const;
     virtual bool canEat(const Organism& other) const;
 
 };

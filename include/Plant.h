@@ -21,7 +21,7 @@ public:
     virtual ~Plant();
 
     virtual void action() override;
-    virtual bool collision(Organism& other) override;
+    virtual int collision(Organism& other) override;
     virtual void die() override;
 
     virtual bool hasFreeSpace() const;

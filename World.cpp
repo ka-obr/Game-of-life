@@ -10,6 +10,8 @@ using namespace std;
 World::World(int width, int height ) {
     this->width = width;
     this->height = height;
+    human = nullptr;
+    i = 0;
 }
 
 World::~World() {
@@ -24,9 +26,8 @@ void World::update(char input) {
         return a->getInitiative() > b->getInitiative();
     });
 
-    for (Organism* org : organisms) {
-        org->action(input);
-        org->setAge(org->getAge() + 1);
+    for (i = 0; i < organisms.size(); i++) {
+        organisms[i]->action(input);
     }
 }
 
@@ -58,6 +59,9 @@ void World::remove(const Point& position) {
     
     for (auto it = organisms.begin(); it != organisms.end(); it++) {
         if ((*it)->getPosition() == position) {
+            if (distance(organisms.begin(), it) <= i) {
+                i--;
+            }
             organisms.erase(it);
             return;
         }
@@ -65,20 +69,24 @@ void World::remove(const Point& position) {
 }
 
 Point World::getRandomNeighbor(const Point& position) const {
-    int randomNumber = rand() % 4;
+    std::vector<vector<int>> displaces = {{0, 1}, {1, 0}, {-1, 0}, {0, -1}};
 
-    switch (randomNumber) {
-        case 0:
-            return Point(position.x, position.y - 1);
-        case 1:
-            return Point(position.x, position.y + 1);
-        case 2:
-            return Point(position.x - 1, position.y);
-        case 3:
-            return Point(position.x + 1, position.y);
-        default:
-            return Point(0, 0);
+    // Tworzenie generatora liczb losowych
+    std::random_device rd;
+    std::default_random_engine rng(rd());
+
+    // Przetasowanie indeksów
+    std::shuffle(displaces.begin(), displaces.end(), rng);
+
+    for (vector<int> displace : displaces) {
+        Point neighbor(position.x + displace[0], position.y + displace[1]);
+
+        if (isWithinBounds(neighbor)) {
+            return neighbor; // Zwróć pierwsze wolne sąsiednie pole
+        }
     }
+    
+    return Point(-1, -1);
 }
 
 Organism* World::getAtCoordinates(Point cords) const {
@@ -107,18 +115,30 @@ Point World::getRandomFreeSpace() const {
 
 }
 
+
 Point World::getRandomFreeSpaceAround(const Point& position) const {
-    const int dx[] = {-1, -1, -1, 0, 0, 1, 1, 1};
-    const int dy[] = {-1, 0, 1, -1, 1, -1, 0, 1};
+    std::vector<int> dx = {0, 1, -1};
+    std::vector<int> dy = {0, 1, -1};
 
-    for (int i = 0; i < 8; i++) {
-        Point neighbor(position.x + dx[i], position.y + dy[i]);
+    // Tworzenie generatora liczb losowych
+    std::random_device rd;
+    std::default_random_engine rng(rd());
 
-        if (isWithinBounds(neighbor) && getAtCoordinates(neighbor) == nullptr) {
-            return neighbor; // Zwróć pierwsze wolne sąsiednie pole
+    // Przetasowanie indeksów
+    std::shuffle(dx.begin(), dx.end(), rng);
+    std::shuffle(dy.begin(), dy.end(), rng);
+
+    for (int x : dx) {
+        for (int y : dy) {
+            Point neighbor(position.x + x, position.y + y);
+
+            if (isWithinBounds(neighbor) && getAtCoordinates(neighbor) == nullptr) {
+                return neighbor; // Zwróć pierwsze wolne sąsiednie pole
+            }
+
         }
     }
-
+    
     return Point(-1, -1);
 }
 
@@ -170,9 +190,11 @@ void World::printShoutSummary() {
 }
 
 void World::printHumanInfo() {
-    std::cout << "Human - position: (" << human->getPosition().x <<
-             ", " << human->getPosition().y <<
-             ") strength: " << human->getStrength() <<  std::endl;
+    if (human != nullptr) {
+        std::cout << "Human - position: (" << human->getPosition().x <<
+        ", " << human->getPosition().y <<
+        ") strength: " << human->getStrength() <<  std::endl;
+    }
 }
 
 void World::printStatistics() {

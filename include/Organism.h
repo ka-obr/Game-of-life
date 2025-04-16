@@ -29,7 +29,7 @@ public:
 
     virtual void action() = 0;
     virtual void action(char input);
-    virtual bool collision(Organism& other) = 0;
+    virtual int collision(Organism& other) = 0;
     virtual void die();
     virtual void reproduce(Point& position) = 0;
     virtual bool canKill(const Organism& other) const = 0;
