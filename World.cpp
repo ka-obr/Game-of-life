@@ -142,6 +142,33 @@ Point World::getRandomFreeSpaceAround(const Point& position) const {
     return Point(-1, -1);
 }
 
+Point World::findSafeSpaceAround(Point& position) const {
+    std::vector<vector<int>> displaces = {{0, 1}, {1, 0}, {-1, 0}, {0, -1}};
+
+    // Tworzenie generatora liczb losowych
+    std::random_device rd;
+    std::default_random_engine rng(rd());
+
+    // Przetasowanie indeksów
+    std::shuffle(displaces.begin(), displaces.end(), rng);
+
+    Organism* org = getAtCoordinates(position);
+
+    for (vector<int> displace : displaces) {
+        Point neighbor(position.x + displace[0], position.y + displace[1]);
+
+        Organism* other = getAtCoordinates(neighbor);
+        if (other != nullptr && other->getStrength() > org->getStrength()) {
+            continue; // Skip if the neighbor is stronger
+        }
+
+        if (isWithinBounds(neighbor)) {
+            return neighbor;
+        }
+    }
+    return position;
+}
+
 bool World::hasFreeSpaceAround(Point position) {
     const int dx[] = {-1, -1, -1, 0, 0, 1, 1, 1};
     const int dy[] = {-1, 0, 1, -1, 1, -1, 0, 1};

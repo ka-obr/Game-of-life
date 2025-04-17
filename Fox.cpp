@@ -25,33 +25,8 @@ void Fox::reproduce(Point& position) {
     //std::cout << "Fox reproduced at position: (" << freeSpace.x << ", " << freeSpace.y << ")" << std::endl;
 }
 
-Point Fox::findSafeSpaceAround(Point& position) const {
-    std::vector<vector<int>> displaces = {{0, 1}, {1, 0}, {-1, 0}, {0, -1}};
-
-    // Tworzenie generatora liczb losowych
-    std::random_device rd;
-    std::default_random_engine rng(rd());
-
-    // Przetasowanie indeksów
-    std::shuffle(displaces.begin(), displaces.end(), rng);
-
-    for (vector<int> displace : displaces) {
-        Point neighbor(position.x + displace[0], position.y + displace[1]);
-
-        Organism* other = world->getAtCoordinates(neighbor);
-        if (other != nullptr && other->getStrength() > strength) {
-            continue; // Skip if the neighbor is stronger
-        }
-
-        if (world->isWithinBounds(neighbor)) {
-            return neighbor;
-        }
-    }
-    return position;
-}
-
 void Fox::action() {
-    Point destination = findSafeSpaceAround(position);
+    Point destination = world->findSafeSpaceAround(position);
     if(world->isWithinBounds(destination) && age != 0) {
         Organism* other = world->getAtCoordinates(destination);
     

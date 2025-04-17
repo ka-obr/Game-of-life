@@ -134,9 +134,9 @@ void Gameplay::spawnFoxes(int number) {
 void Gameplay::spawnOrganisms() {
     Point playerPosition = Point(0, 0);
     world->spawnOrganism(new Human(world, 5, 4, playerPosition, "🧍", 1), playerPosition);
-    //spawnWolves(2);
+    spawnWolves(2);
     spawnSheep(2);
-    //spawnFoxes(2);
+    spawnFoxes(2);
 }
 
 void Gameplay::getInput() {

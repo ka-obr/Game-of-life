@@ -12,8 +12,6 @@ public:
     ~Fox();
     void reproduce(Point& position) override;
     void action() override;
-    Point findSafeSpaceAround(Point& position) const;
-
 };
 
 

@@ -41,6 +41,7 @@ public:
     bool isWithinBounds(const Point& position) const;
     Point getRandomFreeSpace() const;
     Point getRandomFreeSpaceAround(const Point& position) const;
+    Point findSafeSpaceAround(Point& position) const;
     bool hasFreeSpaceAround(Point position);
 
 
