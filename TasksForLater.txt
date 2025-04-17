@@ -1,1 +1,1 @@
-Jutro zacznij od metody Animal::action by zaimplementować w niej kolizje (czyli albo walka organizmow albo rozmnożenie)
+Zaimplementuj metodę w klasie Animal haveSavedAttack. Wstaw do niej sprawdzanie związane z tym czy to żółw oraz czy moja siła mniejsza niż 5

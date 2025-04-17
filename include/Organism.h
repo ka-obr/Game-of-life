@@ -34,7 +34,6 @@ public:
     virtual void reproduce(Point& position) = 0;
     virtual bool canKill(const Organism& other) const = 0;
     virtual void kill(Organism& other) const = 0;
-    virtual bool canBeKilledBy(const Organism& other) const = 0;
 
     int getStrength() const;
     int getInitiative() const;

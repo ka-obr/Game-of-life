@@ -16,7 +16,7 @@ Turtle::~Turtle() {
 
 void Turtle::action(){
     Point destination = world->getRandomNeighbor(position);
-    int rand = std::rand() % 4 + 1; // Random number between 1 and 4
+    int rand = std::rand() % 4 + 1;
     if(world->isWithinBounds(destination) && age != 0) {
         Organism* other = world->getAtCoordinates(destination);
 

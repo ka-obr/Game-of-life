@@ -144,8 +144,8 @@ void Gameplay::spawnOrganisms() {
     world->spawnOrganism(new Human(world, 5, 4, playerPosition, "🧍", 1), playerPosition);
     spawnWolves(2);
     spawnSheep(2);
-    spawnFoxes(3);
-    spawnTurtles(5);
+    spawnFoxes(2);
+    spawnTurtles(2);
 }
 
 void Gameplay::getInput() {

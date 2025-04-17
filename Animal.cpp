@@ -23,20 +23,21 @@ void Animal::action() {
     Point destination = world->getRandomNeighbor(position);
     if(world->isWithinBounds(destination) && age != 0) {
         Organism* other = world->getAtCoordinates(destination);
-    
+
         int status = -1;
-        if(!isThisTurtle(*other) || this->getStrength() >= 5) { // ~(jeżeli to żółw i moja siła < 5)
-            if(other != nullptr) {
-                status = collision(*other);
-            }
-            if (status != 1) move(destination);
+        if(other != nullptr) {
+            status = collision(*other);
         }
+        if (status != 1) move(destination);
     }
 
     age++;
 }
 
 int Animal::collision(Organism& other) {
+    if (haveSavedAttack(other)) {
+        return 1;
+    }
     if(canKill(other)) {
         kill(other);
         return 0;
@@ -65,15 +66,7 @@ bool Animal::canKill(const Organism& other) const {
         return false;
     }
 
-    return other.canBeKilledBy(*this);
-}
-
-bool Animal::canBeKilledBy(const Organism& other) const {
-    if(typeid(*this) == typeid(other)) {
-        return false;
-    }
-
-    return strength < other.getStrength();
+    return strength >= other.getStrength();
 }
 
 void Animal::kill(Organism& other) const {
@@ -87,8 +80,11 @@ void Animal::die() {
     //std::cout << "Organism died at position: (" << position.x << ", " << position.y << ")" << std::endl;
 }
 
-bool Animal::isThisTurtle(const Organism& other) const {
-    return dynamic_cast<const Turtle*>(&other) != nullptr;
+bool Animal::haveSavedAttack(const Organism& other) const {
+    if (dynamic_cast<const Turtle*>(&other) != nullptr && this->getStrength() < 5 && dynamic_cast<const Turtle*>(this) == nullptr) {
+        return true;
+    }
+    return false;
 }
 
 bool Animal::canReproduce(const Organism& other, const Point& position) const {

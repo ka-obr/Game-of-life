@@ -24,12 +24,10 @@ void Human::tryCollisionAndMove(Point destination) {
     Organism* other = world->getAtCoordinates(destination);
     
     int status = -1;
-    if(!isThisTurtle(*other) || this->getStrength() >= 5) {
-        if(other != nullptr) {
-            status = collision(*other);
-        }
-        if (status != 1) move(destination);
+    if(other != nullptr) {
+        status = collision(*other);
     }
+    if (status != 1) move(destination);
 }
 
 void Human::action(char input) {
