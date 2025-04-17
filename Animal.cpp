@@ -3,6 +3,7 @@
 //
 
 #include "include/Animal.h"
+#include "include/Turtle.h"
 
 Animal::Animal(World* world, int strength, int initiative, const Point& position, string symbol)
     : Organism(world, strength, initiative, position, symbol) {
@@ -24,10 +25,12 @@ void Animal::action() {
         Organism* other = world->getAtCoordinates(destination);
     
         int status = -1;
-        if(other != nullptr) {
-            status = collision(*other);
+        if(!isThisTurtle(*other) || this->getStrength() >= 5) { // ~(jeżeli to żółw i moja siła < 5)
+            if(other != nullptr) {
+                status = collision(*other);
+            }
+            if (status != 1) move(destination);
         }
-        if (status != 1) move(destination);
     }
 
     age++;
@@ -82,6 +85,10 @@ void Animal::die() {
 
     //add message to event log
     //std::cout << "Organism died at position: (" << position.x << ", " << position.y << ")" << std::endl;
+}
+
+bool Animal::isThisTurtle(const Organism& other) const {
+    return dynamic_cast<const Turtle*>(&other) != nullptr;
 }
 
 bool Animal::canReproduce(const Organism& other, const Point& position) const {

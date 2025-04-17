@@ -26,6 +26,7 @@ public:
     void spawnWolves(int number);
     void spawnSheep(int number);
     void spawnFoxes(int number);
+    void spawnTurtles(int number);
     void spawnOrganisms();
 
     void getInput();

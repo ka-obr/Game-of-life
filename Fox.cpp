@@ -31,10 +31,12 @@ void Fox::action() {
         Organism* other = world->getAtCoordinates(destination);
     
         int status = -1;
-        if(other != nullptr) {
-            status = collision(*other);
+        if(!isThisTurtle(*other) || this->getStrength() >= 5) {
+            if(other != nullptr) {
+                status = collision(*other);
+            }
+            if (status != 1) move(destination);
         }
-        if (status != 1) move(destination);
     }
 
     age++;

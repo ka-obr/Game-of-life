@@ -25,6 +25,7 @@ protected:
     virtual bool canBeKilledBy(const Organism& other) const override;
     virtual void kill(Organism& other) const override;
     virtual bool canReproduce(const Organism& other, const Point& position) const;
+    bool isThisTurtle(const Organism& other) const;
 
     virtual bool canEat(const Organism& other) const;
 
