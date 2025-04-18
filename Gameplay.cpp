@@ -8,6 +8,7 @@
 #include "include/Sheep.h"
 #include "include/Fox.h"
 #include "include/Turtle.h"
+#include "include/Grass.h"
 #include <conio.h>
 
 using namespace std;
@@ -139,6 +140,13 @@ void Gameplay::spawnTurtles(int number) {
     }
 }
 
+void Gameplay::spawnGrass(int number) {
+    for (int i = 0; i < number; i++) {
+        Point grassPosition = world->getRandomFreeSpace();
+        world->spawnOrganism(new Grass(world, grassPosition), grassPosition);
+    }
+}
+
 void Gameplay::spawnOrganisms() {
     Point playerPosition = Point(0, 0);
     world->spawnOrganism(new Human(world, 5, 4, playerPosition, "🧍", 1), playerPosition);
@@ -146,6 +154,7 @@ void Gameplay::spawnOrganisms() {
     spawnSheep(2);
     spawnFoxes(2);
     spawnTurtles(2);
+    spawnGrass(2);
 }
 
 void Gameplay::getInput() {

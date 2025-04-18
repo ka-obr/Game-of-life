@@ -11,11 +11,9 @@
 
 
 class Plant : public Organism {
-private:
-    static const int initiative = 0;
 public:
     Plant(World* world, const Point& position, string symbol);
-    Plant(World* world, int strength, const Point& position, string symbol);
+    Plant(World* world, int strength, const Point& position, string symbol, int age);
     Plant(World* world, int strength, string symbol);
 
     virtual ~Plant();
@@ -23,9 +21,11 @@ public:
     virtual void action() override;
     virtual int collision(Organism& other) override;
     virtual void die() override;
+    virtual void kill(Organism& other) const override;
+    virtual bool canKill(const Organism& other) const override;
 
     virtual bool hasFreeSpace() const;
-    virtual bool canReproduce() const;
+    virtual bool canReproduceThisTurn() const;
 
 protected:
     virtual void reproduce(Point& position) override;

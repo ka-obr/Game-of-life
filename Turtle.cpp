@@ -16,18 +16,33 @@ Turtle::~Turtle() {
 
 void Turtle::action(){
     Point destination = world->getRandomNeighbor(position);
-    int rand = std::rand() % 4 + 1;
     if(world->isWithinBounds(destination) && age != 0) {
         Organism* other = world->getAtCoordinates(destination);
 
+        int randomValue = rand() % 4 + 1;
         int status = -1;
         if(other != nullptr) {
-            status = collision(*other);
+            status = collision(*other, randomValue);
         }
-        if (status != 1 && rand == 1) move(destination);
+        if (status != 1 && randomValue == 1) move(destination);
     }
 
     age++;
+}
+
+int Turtle::collision(Organism& other, int randomValue) {
+    if(canKill(other) && randomValue == 1) {
+        kill(other);
+        return 0;
+    }
+    if (typeid(other) == typeid(*this)) {
+        if(canReproduce(other, position)) {
+            reproduce(position);
+        }
+        return 1;
+    }
+    other.collision(*this);
+    return 0;
 }
 
 void Turtle::reproduce(Point& position) {

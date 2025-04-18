@@ -11,6 +11,7 @@ public:
     Turtle(World* world, Point& position, int age);
     ~Turtle();
     void reproduce(Point& position) override;
+    int collision(Organism& other, int randomValue);
     void action() override;
 };
 

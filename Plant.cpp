@@ -6,17 +6,17 @@
 
 
 Plant::Plant(World* world, const Point& position, string symbol)
-    : Organism(world, 0, initiative, position, symbol) {
+    : Organism(world, strength, 0, position, symbol) {
     // Constructor implementation
 }
 
-Plant::Plant(World* world, int strength, const Point& position, string symbol)
-    : Organism(world, strength, initiative, position, symbol) {
+Plant::Plant(World* world, int strength, const Point& position, string symbol, int age)
+    : Organism(world, strength, 0, position, symbol, age) {
     // Constructor implementation
 }
 
 Plant::Plant(World* world, int strength, string symbol)
-    : Organism(world, strength, initiative, Point(0, 0), symbol) {
+    : Organism(world, strength, 0, Point(0, 0), symbol) {
     // Constructor implementation
 }
 
@@ -25,20 +25,26 @@ Plant::~Plant() {
 }
 
 void Plant::action() {
-    if (hasFreeSpace() && canReproduce()) {
-        Point position = world->getRandomNeighbor(this->position);
-        if (world->getAtCoordinates(position) == nullptr) {
-            reproduce(position);
-        }
+    if (canReproduceThisTurn() && hasFreeSpace() && age != 0) {
+       Point position = world->getRandomFreeSpaceAround(this->position);
+       reproduce(position);
     }
+    age++;
 }
 
 int Plant::collision(Organism& other) {
-    if (other.getPosition() == position) {
-        reproduce(other.getPosition());
-        return 1;
-    }
     return 0;
+}
+
+void Plant::kill(Organism& other) const {
+    other.die();
+
+    //message o zabiciu
+    //cout << "Zabito " << other.getSymbol() << " na pozycji " << other.getPosition() << endl;
+}
+
+bool Plant::canKill(const Organism& other) const {
+    return false; // Plants cannot kill other organisms (normally)
 }
 
 void Plant::die() {
@@ -46,16 +52,13 @@ void Plant::die() {
 }
 
 bool Plant::hasFreeSpace() const {
-    //return world.hasFreeSpace(position);
-    return true;
+    return world->hasFreeSpaceAround(position);
 }
 
-bool Plant::canReproduce() const {
-    return (rand() % 12 == 0);
+bool Plant::canReproduceThisTurn() const {
+    return (rand() % 20 == 0);
 }
 
 void Plant::reproduce(Point& position) {
-    if (world->getAtCoordinates(position) == nullptr) {
-        //TODO
-    }
+    
 }
