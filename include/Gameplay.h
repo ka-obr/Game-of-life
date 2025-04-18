@@ -7,8 +7,6 @@
 
 #include "World.h"
 
-
-
 class Gameplay {
 private:
     World* world;
@@ -36,7 +34,5 @@ public:
     void setGame();
     void endGame();
 };
-
-
 
 #endif //GAMESTART_H

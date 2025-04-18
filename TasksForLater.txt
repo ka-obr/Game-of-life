@@ -1,1 +1,1 @@
-Zaimplementuj metodę w klasie Animal haveSavedAttack. Wstaw do niej sprawdzanie związane z tym czy to żółw oraz czy moja siła mniejsza niż 5
+Napraw haveSavedAttack aby działało tak, że jeżeli n

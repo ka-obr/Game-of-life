@@ -23,6 +23,9 @@ Human::~Human() {
 void Human::tryCollisionAndMove(Point destination) {
     Organism* other = world->getAtCoordinates(destination);
     
+    if(haveSavedAttack(*other)) {
+        return;
+    }
     int status = -1;
     if(other != nullptr) {
         status = collision(*other);

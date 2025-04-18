@@ -30,6 +30,9 @@ void Fox::action() {
     if(world->isWithinBounds(destination) && age != 0) {
         Organism* other = world->getAtCoordinates(destination);
     
+        if(haveSavedAttack(*other)) {
+            return;
+        }
         int status = -1;
         if(other != nullptr) {
             status = collision(*other);

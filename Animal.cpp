@@ -24,6 +24,9 @@ void Animal::action() {
     if(world->isWithinBounds(destination) && age != 0) {
         Organism* other = world->getAtCoordinates(destination);
 
+        if(haveSavedAttack(*other)) {
+            return;
+        }
         int status = -1;
         if(other != nullptr) {
             status = collision(*other);
@@ -35,9 +38,6 @@ void Animal::action() {
 }
 
 int Animal::collision(Organism& other) {
-    if (haveSavedAttack(other)) {
-        return 1;
-    }
     if(canKill(other)) {
         kill(other);
         return 0;
@@ -81,7 +81,7 @@ void Animal::die() {
 }
 
 bool Animal::haveSavedAttack(const Organism& other) const {
-    if (dynamic_cast<const Turtle*>(&other) != nullptr && this->getStrength() < 5 && dynamic_cast<const Turtle*>(this) == nullptr) {
+    if (dynamic_cast<const Turtle*>(&other) != nullptr && this->getStrength() < 5) {
         return true;
     }
     return false;
