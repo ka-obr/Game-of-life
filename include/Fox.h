@@ -10,6 +10,7 @@ public:
     Fox(World* world, Point& position);
     Fox(World* world, Point& position, int age);
     ~Fox();
+protected:
     void reproduce(Point& position) override;
     void action() override;
 };

@@ -26,29 +26,22 @@ private:
     int shout;
     int width, height;
 
+    void getInput();
+    void handleInput();
+
+    void InitialText();
+    void gameInfo();
+    void spawn(int number, OrganismType type);
+    void spawnOrganisms();
+    void setGame();
+    void endGame();
 public:
     Gameplay();
     ~Gameplay();
-    void startGame();
-    void InitialText();
-    void gameInfo();
-    void spawnWolves(int number);
-    void spawnSheep(int number);
-    void spawnFoxes(int number);
-    void spawnTurtles(int number);
-    void spawnGrass(int number);
-    void spawnDandelions(int number);
-    void spawnGuarana(int number);
-    void spawnNightshade(int number);
-    void spawn(int number, OrganismType type);
-    void spawnOrganisms();
 
-    void getInput();
-    void handleInput();
-    void makeShout();
+    void startGame();
     void stats();
-    void setGame();
-    void endGame();
+    void makeShout();
 };
 
 #endif //GAMESTART_H

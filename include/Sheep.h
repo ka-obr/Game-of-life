@@ -10,6 +10,7 @@ public:
     Sheep(World* world, Point& position);
     Sheep(World* world, Point& position, int age);
     ~Sheep();
+protected:
     void reproduce(Point& position) override;
 
 };
