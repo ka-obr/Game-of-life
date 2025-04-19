@@ -11,6 +11,7 @@
 #include "include/Grass.h"
 #include "include/Dandelion.h"
 #include "include/Guarana.h"
+#include "include/Nightshade.h"
 #include <conio.h>
 
 using namespace std;
@@ -145,21 +146,28 @@ void Gameplay::spawnTurtles(int number) {
 void Gameplay::spawnGrass(int number) {
     for (int i = 0; i < number; i++) {
         Point grassPosition = world->getRandomFreeSpace();
-        world->spawnOrganism(new Grass(world, grassPosition), grassPosition);
+        world->spawnOrganism(new Grass(world, grassPosition, 1), grassPosition);
     }
 }
 
 void Gameplay::spawnDandelions(int number) {
     for (int i = 0; i < number; i++) {
         Point dandelionPosition = world->getRandomFreeSpace();
-        world->spawnOrganism(new Dandelion(world, dandelionPosition), dandelionPosition);
+        world->spawnOrganism(new Dandelion(world, dandelionPosition, 1), dandelionPosition);
     }
 }
 
 void Gameplay::spawnGuarana(int number) {
     for (int i = 0; i < number; i++) {
         Point guaranaPosition = world->getRandomFreeSpace();
-        world->spawnOrganism(new Guarana(world, guaranaPosition), guaranaPosition);
+        world->spawnOrganism(new Guarana(world, guaranaPosition, 1), guaranaPosition);
+    }
+}
+
+void Gameplay::spawnNightshade(int number) {
+    for (int i = 0; i < number; i++) {
+        Point nightshadePosition = world->getRandomFreeSpace();
+        world->spawnOrganism(new Nightshade(world, nightshadePosition, 1), nightshadePosition);
     }
 }
 
@@ -173,6 +181,7 @@ void Gameplay::spawnOrganisms() {
     spawnGrass(2);
     spawnDandelions(2);
     spawnGuarana(2);
+    spawnNightshade(2);
 }
 
 void Gameplay::getInput() {

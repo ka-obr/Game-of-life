@@ -24,7 +24,7 @@ protected:
     virtual bool canKill(Organism& other) override;
     virtual bool canReproduce(const Organism& other, const Point& position) const;
     virtual bool haveSavedAttack(const Organism& other) const;
-    virtual void shouldReceiveStrength(Organism* plant, Organism* animal);
+    virtual void shouldReceiveStrength(Organism* plant, Organism* animal) override;
 
     virtual bool canEat(const Organism& other) const;
 

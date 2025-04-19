@@ -23,7 +23,7 @@ int Guarana::collision(Organism& other) {
         other.setStrength(other.getStrength() + 3);
         return 0;
     }
-    return 1;
+    return 0;
 }
 
 

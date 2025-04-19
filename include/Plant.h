@@ -23,6 +23,7 @@ public:
     virtual void die() override;
     virtual void kill(Organism& other) const override;
     virtual bool canKill(Organism& other) override;
+    virtual void shouldReceiveStrength(Organism* plant, Organism* animal) override;
 
     virtual bool hasFreeSpace() const;
     virtual bool canReproduceThisTurn() const;

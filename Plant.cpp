@@ -47,6 +47,10 @@ bool Plant::canKill(Organism& other) {
     return false; // Plants cannot kill other organisms (normally)
 }
 
+void Plant::shouldReceiveStrength(Organism* plant, Organism* animal) {
+    // Plants do not receive strength from other organisms
+}
+
 void Plant::die() {
     world->remove(position);
 }
