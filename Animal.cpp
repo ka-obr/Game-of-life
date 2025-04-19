@@ -4,7 +4,7 @@
 
 #include "include/Animal.h"
 #include "include/Turtle.h"
-#include "include/Plant.h"
+#include "include/Guarana.h"
 
 Animal::Animal(World* world, int strength, int initiative, const Point& position, string symbol)
     : Organism(world, strength, initiative, position, symbol) {
@@ -62,13 +62,17 @@ void Animal::eat(Organism& other) {
     world->remove(other.getPosition());
 }
 
+void Animal::shouldReceiveStrength(Organism* plant, Organism* animal) {
+    if (dynamic_cast<Guarana*>(plant) != nullptr) {
+        plant->collision(*animal);
+    }
+}
+
 bool Animal::canKill(Organism& other) {
     if(typeid(*this) == typeid(other)) {
         return false;
     }
-    if(dynamic_cast<Plant*>(&other) != nullptr) {
-        other.collision(*this);
-    }
+    shouldReceiveStrength(&other, this);
 
     return strength >= other.getStrength();
 }

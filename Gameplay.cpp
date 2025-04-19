@@ -167,9 +167,9 @@ void Gameplay::spawnOrganisms() {
     Point playerPosition = Point(0, 0);
     world->spawnOrganism(new Human(world, 5, 4, playerPosition, "🧍", 1), playerPosition);
     spawnWolves(2);
-    // spawnSheep(2);
-    // spawnFoxes(2);
-    // spawnTurtles(2);
+    spawnSheep(2);
+    spawnFoxes(2);
+    spawnTurtles(2);
     spawnGrass(2);
     spawnDandelions(2);
     spawnGuarana(2);
