@@ -114,74 +114,51 @@ void Gameplay::stats() {
     cout << "-----------------" << endl;
 }
 
-
-void Gameplay::spawnWolves(int number) {
+void Gameplay::spawn(int number, OrganismType type) {
     for (int i = 0; i < number; i++) {
-        Point wolfPosition = world->getRandomFreeSpace();
-        world->spawnOrganism(new Wolf(world, wolfPosition, 1), wolfPosition);
-    }
-}
-
-void Gameplay::spawnSheep(int number) {
-    for (int i = 0; i < number; i++) {
-        Point sheepPosition = world->getRandomFreeSpace();
-        world->spawnOrganism(new Sheep(world, sheepPosition, 1), sheepPosition);
-    }
-}
-
-void Gameplay::spawnFoxes(int number) {
-    for (int i = 0; i < number; i++) {
-        Point foxPosition = world->getRandomFreeSpace();
-        world->spawnOrganism(new Fox(world, foxPosition, 1), foxPosition);
-    }
-}
-
-void Gameplay::spawnTurtles(int number) {
-    for (int i = 0; i < number; i++) {
-        Point turtlePosition = world->getRandomFreeSpace();
-        world->spawnOrganism(new Turtle(world, turtlePosition, 1), turtlePosition);
-    }
-}
-
-void Gameplay::spawnGrass(int number) {
-    for (int i = 0; i < number; i++) {
-        Point grassPosition = world->getRandomFreeSpace();
-        world->spawnOrganism(new Grass(world, grassPosition, 1), grassPosition);
-    }
-}
-
-void Gameplay::spawnDandelions(int number) {
-    for (int i = 0; i < number; i++) {
-        Point dandelionPosition = world->getRandomFreeSpace();
-        world->spawnOrganism(new Dandelion(world, dandelionPosition, 1), dandelionPosition);
-    }
-}
-
-void Gameplay::spawnGuarana(int number) {
-    for (int i = 0; i < number; i++) {
-        Point guaranaPosition = world->getRandomFreeSpace();
-        world->spawnOrganism(new Guarana(world, guaranaPosition, 1), guaranaPosition);
-    }
-}
-
-void Gameplay::spawnNightshade(int number) {
-    for (int i = 0; i < number; i++) {
-        Point nightshadePosition = world->getRandomFreeSpace();
-        world->spawnOrganism(new Nightshade(world, nightshadePosition, 1), nightshadePosition);
+        Point position = world->getRandomFreeSpace();
+        switch (type) {
+            case OrganismType::Wolf:
+                world->spawnOrganism(new Wolf(world, position, 1), position);
+                break;
+            case OrganismType::Sheep:
+                world->spawnOrganism(new Sheep(world, position, 1), position);
+                break;
+            case OrganismType::Fox:
+                world->spawnOrganism(new Fox(world, position, 1), position);
+                break;
+            case OrganismType::Turtle:
+                world->spawnOrganism(new Turtle(world, position, 1), position);
+                break;
+            case OrganismType::Grass:
+                world->spawnOrganism(new Grass(world, position, 1), position);
+                break;
+            case OrganismType::Dandelion:
+                world->spawnOrganism(new Dandelion(world, position, 1), position);
+                break;
+            case OrganismType::Guarana:
+                world->spawnOrganism(new Guarana(world, position, 1), position);
+                break;
+            case OrganismType::Nightshade:
+                world->spawnOrganism(new Nightshade(world, position, 1), position);
+                break;
+            default:
+                throw std::invalid_argument("Unknown organism type");
+        }
     }
 }
 
 void Gameplay::spawnOrganisms() {
     Point playerPosition = Point(0, 0);
     world->spawnOrganism(new Human(world, 5, 4, playerPosition, "🧍", 1), playerPosition);
-    spawnWolves(2);
-    spawnSheep(2);
-    spawnFoxes(2);
-    spawnTurtles(2);
-    spawnGrass(2);
-    spawnDandelions(2);
-    spawnGuarana(2);
-    spawnNightshade(2);
+    spawn(2, OrganismType::Wolf);
+    spawn(2, OrganismType::Sheep);
+    spawn(2, OrganismType::Fox);
+    spawn(2, OrganismType::Turtle);
+    spawn(2, OrganismType::Grass);
+    spawn(2, OrganismType::Dandelion);
+    spawn(2, OrganismType::Guarana);
+    spawn(2, OrganismType::Nightshade);
 }
 
 void Gameplay::getInput() {

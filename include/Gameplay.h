@@ -7,6 +7,17 @@
 
 #include "World.h"
 
+enum class OrganismType {
+    Wolf,
+    Sheep,
+    Fox,
+    Turtle,
+    Grass,
+    Dandelion,
+    Guarana,
+    Nightshade
+};
+
 class Gameplay {
 private:
     World* world;
@@ -29,6 +40,7 @@ public:
     void spawnDandelions(int number);
     void spawnGuarana(int number);
     void spawnNightshade(int number);
+    void spawn(int number, OrganismType type);
     void spawnOrganisms();
 
     void getInput();
