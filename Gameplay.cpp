@@ -10,6 +10,7 @@
 #include "include/Turtle.h"
 #include "include/Grass.h"
 #include "include/Dandelion.h"
+#include "include/Guarana.h"
 #include <conio.h>
 
 using namespace std;
@@ -155,15 +156,23 @@ void Gameplay::spawnDandelions(int number) {
     }
 }
 
+void Gameplay::spawnGuarana(int number) {
+    for (int i = 0; i < number; i++) {
+        Point guaranaPosition = world->getRandomFreeSpace();
+        world->spawnOrganism(new Guarana(world, guaranaPosition), guaranaPosition);
+    }
+}
+
 void Gameplay::spawnOrganisms() {
     Point playerPosition = Point(0, 0);
     world->spawnOrganism(new Human(world, 5, 4, playerPosition, "🧍", 1), playerPosition);
     spawnWolves(2);
-    spawnSheep(2);
-    spawnFoxes(2);
-    spawnTurtles(2);
+    // spawnSheep(2);
+    // spawnFoxes(2);
+    // spawnTurtles(2);
     spawnGrass(2);
     spawnDandelions(2);
+    spawnGuarana(2);
 }
 
 void Gameplay::getInput() {
@@ -196,13 +205,3 @@ void Gameplay::endGame() {
 
     input = _getch();
 }
-
-
-
-
-
-
-
-
-
-

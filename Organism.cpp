@@ -21,6 +21,10 @@ Organism::~Organism() {
     // Destructor implementation
 }
 
+void Organism::kill(Organism& other) const {
+    world->remove(other.getPosition());
+}
+
 int Organism::getStrength() const {
     return strength;
 }
@@ -55,4 +59,8 @@ void Organism::setPosition(Point pos) {
 
 void Organism::setAge(int age) {
     this->age = age;
+}
+
+void Organism::setStrength(int strength) {
+    this->strength = strength;
 }

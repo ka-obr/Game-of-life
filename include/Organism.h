@@ -32,8 +32,8 @@ public:
     virtual int collision(Organism& other) = 0;
     virtual void die();
     virtual void reproduce(Point& position) = 0;
-    virtual bool canKill(const Organism& other) const = 0;
-    virtual void kill(Organism& other) const = 0;
+    virtual bool canKill(Organism& other) = 0;
+    virtual void kill(Organism& other) const;
 
     int getStrength() const;
     int getInitiative() const;
@@ -42,6 +42,7 @@ public:
     Point& getPosition();
     void setPosition(Point pos);
     void setAge(int age);
+    void setStrength(int strenght);
 };
 
 

@@ -27,6 +27,7 @@ public:
     void spawnTurtles(int number);
     void spawnGrass(int number);
     void spawnDandelions(int number);
+    void spawnGuarana(int number);
     void spawnOrganisms();
 
     void getInput();

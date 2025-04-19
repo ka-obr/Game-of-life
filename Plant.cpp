@@ -43,7 +43,7 @@ void Plant::kill(Organism& other) const {
     //cout << "Zabito " << other.getSymbol() << " na pozycji " << other.getPosition() << endl;
 }
 
-bool Plant::canKill(const Organism& other) const {
+bool Plant::canKill(Organism& other) {
     return false; // Plants cannot kill other organisms (normally)
 }
 

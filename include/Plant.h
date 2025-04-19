@@ -22,7 +22,7 @@ public:
     virtual int collision(Organism& other) override;
     virtual void die() override;
     virtual void kill(Organism& other) const override;
-    virtual bool canKill(const Organism& other) const override;
+    virtual bool canKill(Organism& other) override;
 
     virtual bool hasFreeSpace() const;
     virtual bool canReproduceThisTurn() const;

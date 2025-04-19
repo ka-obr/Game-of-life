@@ -21,8 +21,7 @@ protected:
     virtual void reproduce(Point& position);
     void die();
 
-    virtual bool canKill(const Organism& other) const override;
-    virtual void kill(Organism& other) const override;
+    virtual bool canKill(Organism& other) override;
     virtual bool canReproduce(const Organism& other, const Point& position) const;
     virtual bool haveSavedAttack(const Organism& other) const;
 
