@@ -8,9 +8,6 @@ public:
     Grass(World* world, Point& position);
     Grass(World* world, Point& position, int age);
     ~Grass();
-
-protected:
-    void reproduce(Point& position) override;
 };
 
 

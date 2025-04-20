@@ -3,6 +3,11 @@
 //
 
 #include "include/Plant.h"
+#include "include/Grass.h"
+#include "include/Dandelion.h"
+#include "include/Guarana.h"
+#include "include/Nightshade.h"
+#include "include/World.h"
 
 
 Plant::Plant(World* world, const Point& position, string symbol)
@@ -26,8 +31,7 @@ Plant::~Plant() {
 
 void Plant::action() {
     if (canReproduceThisTurn() && hasFreeSpace() && age != 0) {
-       Point position = world->getRandomFreeSpaceAround(this->position);
-       reproduce(position);
+       reproduce(this->position);
     }
     age++;
 }
@@ -51,6 +55,20 @@ void Plant::shouldReceiveStrength(Organism* plant, Organism* animal) {
     // Plants do not receive strength from other organisms
 }
 
+Plant* Plant::createPlantByType(const Organism* parent, World* world, Point& position) {
+    if (typeid(*parent) == typeid(Grass)) {
+        return new Grass(world, position);
+    } else if (typeid(*parent) == typeid(Dandelion)) {
+        return new Dandelion(world, position);
+    } else if (typeid(*parent) == typeid(Guarana)) {
+        return new Guarana(world, position);
+    } else if (typeid(*parent) == typeid(Nightshade)) {
+        return new Nightshade(world, position);
+    } else {
+        return nullptr;
+    }
+}
+
 void Plant::die() {
     world->remove(position);
 }
@@ -64,5 +82,12 @@ bool Plant::canReproduceThisTurn() const {
 }
 
 void Plant::reproduce(Point& position) {
-    
+    Point newPosition = world->getRandomFreeSpaceAround(position);
+    Organism* parent = world->getAtCoordinates(position);
+
+    Plant* newPlant = createPlantByType(parent, world, newPosition);
+    world->spawnOrganism(newPlant, newPosition);
+
+    std::string message = "Organism " + symbol + " reproduced";
+    world->addShoutSummaryMessage(message);
 }

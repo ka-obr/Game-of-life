@@ -24,11 +24,3 @@ int Nightshade::collision(Organism& other) {
     }
     return 0;
 }
-
-void Nightshade::reproduce(Point& position) {
-    Nightshade* newOrganism = new Nightshade(world, position);
-    world->spawnOrganism(newOrganism, position);
-    
-    std::string message = "Organism " + symbol + " reproduced";
-    world->addShoutSummaryMessage(message);
-}

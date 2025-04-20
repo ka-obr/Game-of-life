@@ -13,16 +13,3 @@ Wolf::Wolf(World* world, Point& position, int age)
 Wolf::~Wolf() {
     // Destructor implementation
 }
-
-void Wolf::reproduce(Point& position) {
-    Point freeSpace = world->getRandomFreeSpaceAround(position);
-
-    Wolf* newOrganism = new Wolf(world, freeSpace);
-    world->spawnOrganism(newOrganism, freeSpace);
-
-
-    std::string message = "Organism " + symbol + " reproduced";
-    world->addShoutSummaryMessage(message);
-}
-
-

@@ -151,11 +151,11 @@ void Gameplay::spawn(int number, OrganismType type) {
 void Gameplay::spawnOrganisms() {
     Point playerPosition = Point(0, 0);
     world->spawnOrganism(new Human(world, 5, 4, playerPosition, "🧍", 1), playerPosition);
-    spawn(2, OrganismType::Wolf);
+    // spawn(2, OrganismType::Wolf);
     // spawn(2, OrganismType::Sheep);
     // spawn(2, OrganismType::Fox);
     // spawn(2, OrganismType::Turtle);
-    // spawn(2, OrganismType::Grass);
+    spawn(2, OrganismType::Grass);
     // spawn(2, OrganismType::Dandelion);
     // spawn(2, OrganismType::Guarana);
     // spawn(2, OrganismType::Nightshade);

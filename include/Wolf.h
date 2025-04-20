@@ -9,10 +9,7 @@ class Wolf : public Animal {
 public:
     Wolf(World* world, Point& position);
     Wolf(World* world, Point& position, int age);
-    ~Wolf();
-protected:
-    void reproduce(Point& position) override;
-    
+    ~Wolf();    
 };
 
 #endif

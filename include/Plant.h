@@ -29,6 +29,7 @@ public:
     virtual bool canReproduceThisTurn() const;
 
 protected:
+    Plant* createPlantByType(const Organism* parent, World* world, Point& position);
     virtual void reproduce(Point& position) override;
 
 };

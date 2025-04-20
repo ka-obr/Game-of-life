@@ -14,17 +14,6 @@ Fox::~Fox() {
     // Destructor implementation
 }
 
-void Fox::reproduce(Point& position) {
-    Point freeSpace = world->getRandomFreeSpaceAround(position);
-
-    Fox* newOrganism = new Fox(world, freeSpace);
-    world->spawnOrganism(newOrganism, freeSpace);
-
-
-    std::string message = "Organism " + symbol + " reproduced";
-    world->addShoutSummaryMessage(message);
-}
-
 void Fox::action() {
     Point destination = world->findSafeSpaceAround(position);
     if(world->isWithinBounds(destination) && age != 0) {

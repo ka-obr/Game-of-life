@@ -27,11 +27,6 @@ void Dandelion::action() {
     age++;
 }
 
-void Dandelion::reproduce(Point& position) {
-    Dandelion* newOrganism = new Dandelion(world, position);
-    world->spawnOrganism(newOrganism, position);
-}
-
 bool Dandelion::canReproduceThisTurn() const {
     return (rand() % 32 == 0);
 }

@@ -13,8 +13,3 @@ Grass::Grass(World* world, Point& position, int age)
 Grass::~Grass() {
     // Destructor implementation
 }
-
-void Grass::reproduce(Point& position) {
-    Grass* newOrganism = new Grass(world, position);
-    world->spawnOrganism(newOrganism, position);
-}

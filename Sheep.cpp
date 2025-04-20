@@ -13,14 +13,3 @@ Sheep::Sheep(World* world, Point& position, int age)
 Sheep::~Sheep() {
     // Destructor implementation
 }
-
-void Sheep::reproduce(Point& position) {
-    Point freeSpace = world->getRandomFreeSpaceAround(position);
-
-    Sheep* newOrganism = new Sheep(world, freeSpace);
-    world->spawnOrganism(newOrganism, freeSpace);
-
-
-    std::string message = "Organism " + symbol + " reproduced";
-    world->addShoutSummaryMessage(message);
-}

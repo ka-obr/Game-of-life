@@ -5,6 +5,9 @@
 #include "include/Animal.h"
 #include "include/Turtle.h"
 #include "include/Guarana.h"
+#include "include/Wolf.h"
+#include "include/Fox.h"
+#include "include/Sheep.h"
 
 Animal::Animal(World* world, int strength, int initiative, const Point& position, string symbol)
     : Organism(world, strength, initiative, position, symbol) {
@@ -88,6 +91,19 @@ bool Animal::haveSavedAttack(const Organism& other) const {
     return false;
 }
 
+Animal* Animal::createAnimalByType(const Organism* parent, World* world, Point& position) {
+    if (typeid(*parent) == typeid(Wolf)) {
+        return new Wolf(world, position);
+    } else if (typeid(*parent) == typeid(Sheep)) {
+        return new Sheep(world, position);
+    } else if (typeid(*parent) == typeid(Fox)) {
+        return new Fox(world, position);
+    } else if (typeid(*parent) == typeid(Turtle)) {
+        return new Turtle(world, position);
+    }
+    return nullptr;
+}
+
 bool Animal::canReproduce(const Organism& other, const Point& position) const {
     if(typeid(*this) == typeid(other) && world->hasFreeSpaceAround(position)) {
         return true;
@@ -95,7 +111,19 @@ bool Animal::canReproduce(const Organism& other, const Point& position) const {
     return false;
 }
 
+// void Animal::reproduce(Point& position) {
+//     std::string message = "Organism " + symbol + " reproduced";
+//     world->addShoutSummaryMessage(message);
+// }
+
 void Animal::reproduce(Point& position) {
+    Point freeSpace = world->getRandomFreeSpaceAround(position);
+
+    Organism* parent = world->getAtCoordinates(position);
+
+    Animal* newAnimal = createAnimalByType(parent, world, freeSpace);
+    world->spawnOrganism(newAnimal, freeSpace);
+
     std::string message = "Organism " + symbol + " reproduced";
     world->addShoutSummaryMessage(message);
 }

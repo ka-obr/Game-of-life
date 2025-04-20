@@ -10,8 +10,6 @@ public:
     Dandelion(World* world, Point& position, int age);
     ~Dandelion();
     bool canReproduceThisTurn() const override;
-protected:
-    void reproduce(Point& position) override;
 };
 
 #endif

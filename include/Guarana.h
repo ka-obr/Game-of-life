@@ -10,7 +10,6 @@ public:
     ~Guarana();
 protected:
     int collision(Organism& other) override;
-    void reproduce(Point& position) override;
 };
 
 #endif

@@ -44,14 +44,3 @@ int Turtle::collision(Organism& other, int randomValue) {
     other.collision(*this);
     return 0;
 }
-
-void Turtle::reproduce(Point& position) {
-    Point freeSpace = world->getRandomFreeSpaceAround(position);
-
-    Turtle* newOrganism = new Turtle(world, freeSpace);
-    world->spawnOrganism(newOrganism, freeSpace);
-
-
-    std::string message = "Organism " + symbol + " reproduced";
-    world->addShoutSummaryMessage(message);
-}
