@@ -18,8 +18,7 @@ void Dandelion::action() {
     int i = 0;
     while(i < 3) {
         if (canReproduceThisTurn() && hasFreeSpace() && age != 0) {
-            Point position = world->getRandomFreeSpaceAround(this->position);
-            reproduce(position);
+            reproduce(this->position);
             break;
         }
         i++;
