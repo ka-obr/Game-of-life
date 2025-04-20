@@ -209,11 +209,25 @@ void World::spawnOrganism(Organism* organism, const Point& position) {
     organism->setPosition(position);
 }
 
+void World::addShoutSummaryMessage(const std::string& message) {
+    shoutSummaryMessages.push_back(message);
+}
+
+void World::printShoutSummaryMessages() {
+    int messageCount = shoutSummaryMessages.size() > 10 ? 10 : shoutSummaryMessages.size();
+
+    for(int i = 0; i < messageCount; i++) {
+        std::cout << shoutSummaryMessages[i] << std::endl;
+    }
+    shoutSummaryMessages.clear();
+}
+
 void World::printShoutSummary() {
     std::cout << std::endl;
     std::cout << "Shout actions summary:" << std::endl;
     std::cout << "----------------" << std::endl;
-    std::cout << std::endl;
+    
+    printShoutSummaryMessages();
 }
 
 void World::printHumanInfo() {
@@ -222,15 +236,6 @@ void World::printHumanInfo() {
         ", " << human->getPosition().y <<
         ") strength: " << human->getStrength() <<  std::endl;
     }
-}
-
-void World::printStatistics() {
-    // TODO
-
-    std::cout << std::endl;
-    std::cout << "World statistics:" << std::endl;
-    std::cout << "----------------" << std::endl;
-    std::cout << std::endl;
 }
 
 Point World::getPlayerPosition() const {

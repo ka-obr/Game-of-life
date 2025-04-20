@@ -21,8 +21,8 @@ void Wolf::reproduce(Point& position) {
     world->spawnOrganism(newOrganism, freeSpace);
 
 
-    //dodac message o rozmnozeniu do jakiegos info gry
-    //std::cout << "Wolf reproduced at position: (" << freeSpace.x << ", " << freeSpace.y << ")" << std::endl;
+    std::string message = "Organism " + symbol + " reproduced";
+    world->addShoutSummaryMessage(message);
 }
 
 

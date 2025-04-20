@@ -8,6 +8,7 @@
 #include <vector>
 #include <algorithm>
 #include <random>
+#include <string>
 
 #include "Organism.h"
 #include "Point.h"
@@ -20,6 +21,7 @@ private:
     int width;
     int i;
     std::vector<Organism*> organisms;
+    std::vector<std::string> shoutSummaryMessages;
     Organism* human;
 public:
     World(int width, int height);
@@ -44,10 +46,10 @@ public:
     Point findSafeSpaceAround(Point& position) const;
     bool hasFreeSpaceAround(Point position);
 
-
+    void addShoutSummaryMessage(const std::string& message);
     void printHumanInfo();
     void printShoutSummary();
-    void printStatistics();
+    void printShoutSummaryMessages();
 
     Point getPlayerPosition() const;
 

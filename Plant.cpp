@@ -39,8 +39,8 @@ int Plant::collision(Organism& other) {
 void Plant::kill(Organism& other) const {
     other.die();
 
-    //message o zabiciu
-    //cout << "Zabito " << other.getSymbol() << " na pozycji " << other.getPosition() << endl;
+    std::string message = "Organism " + other.getSymbol() + " was killed by " + symbol;
+    world->addShoutSummaryMessage(message);
 }
 
 bool Plant::canKill(Organism& other) {

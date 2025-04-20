@@ -79,9 +79,6 @@ bool Animal::canKill(Organism& other) {
 
 void Animal::die() {
     world->remove(position);
-
-    //add message to event log
-    //std::cout << "Organism died at position: (" << position.x << ", " << position.y << ")" << std::endl;
 }
 
 bool Animal::haveSavedAttack(const Organism& other) const {
@@ -99,8 +96,8 @@ bool Animal::canReproduce(const Organism& other, const Point& position) const {
 }
 
 void Animal::reproduce(Point& position) {
-    // message about reproduction
-    //std::cout << "Animal reproduced at position: (" << position.x << ", " << position.y << ")" << std::endl;
+    std::string message = "Organism " + symbol + " reproduced";
+    world->addShoutSummaryMessage(message);
 }
 
 bool Animal::canEat(const Organism& other) const {

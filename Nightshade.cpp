@@ -18,6 +18,8 @@ int Nightshade::collision(Organism& other) {
     if(this->getStrength() > other.getStrength()) {
         world->remove(other.getPosition());
         world->remove(this->getPosition());
+        std::string message = "Nightshade was eaten by " + other.getSymbol();
+        world->addShoutSummaryMessage(message);
         return 0;
     }
     return 0;
@@ -26,5 +28,7 @@ int Nightshade::collision(Organism& other) {
 void Nightshade::reproduce(Point& position) {
     Nightshade* newOrganism = new Nightshade(world, position);
     world->spawnOrganism(newOrganism, position);
-    //std::cout << "Nightshade reproduced at position: (" << freeSpace.x << ", " << freeSpace.y << ")" << std::endl;
+    
+    std::string message = "Organism " + symbol + " reproduced";
+    world->addShoutSummaryMessage(message);
 }

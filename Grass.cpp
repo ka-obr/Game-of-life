@@ -17,5 +17,4 @@ Grass::~Grass() {
 void Grass::reproduce(Point& position) {
     Grass* newOrganism = new Grass(world, position);
     world->spawnOrganism(newOrganism, position);
-    //std::cout << "Grass reproduced at position: (" << freeSpace.x << ", " << freeSpace.y << ")" << std::endl;
 }

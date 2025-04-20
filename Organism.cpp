@@ -23,6 +23,8 @@ Organism::~Organism() {
 
 void Organism::kill(Organism& other) const {
     world->remove(other.getPosition());
+    std::string message = "Organism " + other.getSymbol() + " was killed by " + symbol;
+    world->addShoutSummaryMessage(message);
 }
 
 int Organism::getStrength() const {
