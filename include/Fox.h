@@ -14,5 +14,4 @@ protected:
     void action() override;
 };
 
-
 #endif

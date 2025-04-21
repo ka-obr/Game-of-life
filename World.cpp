@@ -3,6 +3,7 @@
 //
 
 #include "include/World.h"
+#include "include/Animal.h"
 
 using namespace std;
 
@@ -115,6 +116,27 @@ Point World::getRandomFreeSpace() const {
 
 }
 
+void World::killNeighbors(Point& position, int type) {
+    // type = 1 - animals, type = 0 - everything
+    const int dx[] = {-1, -1, -1, 0, 0, 1, 1, 1};
+    const int dy[] = {-1, 0, 1, -1, 1, -1, 0, 1};
+
+    for (int i = 0; i < 8; i++) {
+        Point neighbor(position.x + dx[i], position.y + dy[i]);
+        Organism* killer = getAtCoordinates(position);
+
+        if (isWithinBounds(neighbor)) {
+            Organism* other = getAtCoordinates(neighbor);
+            if (other != nullptr) {
+                if (type == 1 && dynamic_cast<Animal*>(other) != nullptr) {
+                    killer->kill(*other);
+                } else if (type == 0) {
+                    killer->kill(*other);
+                }
+            }
+        }
+    }
+}
 
 Point World::getRandomFreeSpaceAround(const Point& position) const {
     std::vector<int> dx = {0, 1, -1};

@@ -15,7 +15,8 @@ enum class OrganismType {
     Grass,
     Dandelion,
     Guarana,
-    Nightshade
+    Nightshade,
+    PineBorscht
 };
 
 class Gameplay {

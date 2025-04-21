@@ -1,0 +1,2 @@
+Arrows - human movement
+q - quit game

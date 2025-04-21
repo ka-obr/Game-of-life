@@ -12,6 +12,7 @@
 #include "include/Dandelion.h"
 #include "include/Guarana.h"
 #include "include/Nightshade.h"
+#include "include/PineBorscht.h"
 #include <conio.h>
 
 using namespace std;
@@ -142,6 +143,9 @@ void Gameplay::spawn(int number, OrganismType type) {
             case OrganismType::Nightshade:
                 world->spawnOrganism(new Nightshade(world, position, 1), position);
                 break;
+            case OrganismType::PineBorscht:
+                world->spawnOrganism(new PineBorscht(world, position, 0), position);
+                break;
             default:
                 throw std::invalid_argument("Unknown organism type");
         }
@@ -159,6 +163,7 @@ void Gameplay::spawnOrganisms() {
     spawn(2, OrganismType::Dandelion);
     spawn(2, OrganismType::Guarana);
     spawn(2, OrganismType::Nightshade);
+    spawn(2, OrganismType::PineBorscht);
 }
 
 void Gameplay::getInput() {

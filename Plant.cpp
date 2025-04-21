@@ -7,6 +7,7 @@
 #include "include/Dandelion.h"
 #include "include/Guarana.h"
 #include "include/Nightshade.h"
+#include "include/PineBorscht.h"
 #include "include/World.h"
 
 
@@ -40,13 +41,6 @@ int Plant::collision(Organism& other) {
     return 0;
 }
 
-void Plant::kill(Organism& other) const {
-    other.die();
-
-    std::string message = "Organism " + other.getSymbol() + " was killed by " + symbol;
-    world->addShoutSummaryMessage(message);
-}
-
 bool Plant::canKill(Organism& other) {
     return false; // Plants cannot kill other organisms (normally)
 }
@@ -64,6 +58,8 @@ Plant* Plant::createPlantByType(const Organism* parent, World* world, Point& pos
         return new Guarana(world, position);
     } else if (typeid(*parent) == typeid(Nightshade)) {
         return new Nightshade(world, position);
+    } else if (typeid(*parent) == typeid(PineBorscht)) {
+        return new PineBorscht(world, position);
     } else {
         return nullptr;
     }
