@@ -167,11 +167,14 @@ void Gameplay::spawnOrganisms() {
 }
 
 void Gameplay::getInput() {
-    int key = _getch();
-
-    if (key == 0 || key == 224) { 
+    int key;
+    do {
         key = _getch();
-    }
+
+        if (key == 0 || key == 224) { 
+            key = _getch();
+        }
+    } while(allowedKeys.find(key) == allowedKeys.end());
 
     input = key;
 }

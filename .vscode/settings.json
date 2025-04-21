@@ -52,7 +52,8 @@
         "algorithm": "cpp",
         "optional": "cpp",
         "random": "cpp",
-        "string": "cpp"
+        "string": "cpp",
+        "set": "cpp"
     },
     "github.copilot.enable": {
         "*": true,

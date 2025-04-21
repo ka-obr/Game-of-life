@@ -1,2 +1,4 @@
 Arrows - human movement
-q - quit game
+Q - quit game
+R - Human special ability
+T - make Shout

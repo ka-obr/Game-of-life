@@ -6,6 +6,7 @@
 #define GAMESTART_H
 
 #include "World.h"
+#include <set>
 
 enum class OrganismType {
     Wolf,
@@ -26,6 +27,7 @@ private:
     char input;
     int shout;
     int width, height;
+    const std::set<int> allowedKeys{'q', 'r', 72, 80, 75, 77, 't', 13};
 
     void getInput();
     void handleInput();
