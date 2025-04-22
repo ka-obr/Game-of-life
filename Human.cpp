@@ -6,13 +6,19 @@
 
 Human::Human(const Point& position, World* world)
     : Animal(world, 5, 4, position, "🧍") {
+    specialAbilityActive = false;
+    specialAbilityCooldown = 0;
+    specialAbilityCounter = 6;
     
     world->setHuman(this);
 }
 
 Human::Human(World* world, int strength, int initiative, Point& position, string symbol, int age)
     : Animal(world, strength, initiative, position, symbol, age) {
-    
+    specialAbilityActive = false;
+    specialAbilityCooldown = 0;
+    specialAbilityCounter = 6;
+
     world->setHuman(this);
 }
 
@@ -57,6 +63,23 @@ void Human::action(char input) {
             break;
         default:
             break;
+    }
+
+    if(specialAbilityCooldown > 0) {
+        specialAbilityCooldown--;
+    }
+
+    if(specialAbilityActive && specialAbilityCooldown == 0) {
+        world->killNeighbors(position, 0);
+        specialAbilityCounter--;
+
+        if(specialAbilityCounter == 0) {
+            specialAbilityActive = false;
+            specialAbilityCounter = 5;
+            specialAbilityCooldown = 5;
+            std::string message = "Human special ability deactivated!!!";
+            world->addShoutSummaryMessage(message);
+        }
     }
     age++;
 }

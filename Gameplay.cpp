@@ -24,6 +24,7 @@ Gameplay::Gameplay() {
 }
 
 Gameplay::~Gameplay() {
+    delete human;
     delete world;
 }
 
@@ -39,17 +40,14 @@ void Gameplay::startGame() {
 
     while (running) {
         getInput();
-        handleInput();
-        if (!running) {
-            break;
+        if (handleInput()) {
+            world->update(input);
+            makeShout();
         }
-
-        world->update(input);
 
         world->drawWorld(width, height);
         world->printHumanInfo();
         world->printShoutSummary();
-        makeShout();
     }
 
     endGame();
@@ -154,7 +152,9 @@ void Gameplay::spawn(int number, OrganismType type) {
 
 void Gameplay::spawnOrganisms() {
     Point playerPosition = Point(0, 0);
-    world->spawnOrganism(new Human(world, 5, 4, playerPosition, "🧍", 1), playerPosition);
+    human = new Human(world, 5, 4, playerPosition, "🧍", 1);
+    world->spawnOrganism(human, playerPosition);
+
     spawn(2, OrganismType::Wolf);
     spawn(2, OrganismType::Sheep);
     spawn(2, OrganismType::Fox);
@@ -179,14 +179,32 @@ void Gameplay::getInput() {
     input = key;
 }
 
-void Gameplay::handleInput() {
+bool Gameplay::handleInput() {
     switch (input) {
         case 'q':
             running = false;
-            shout--;
-            break;
+            return false;
+        case 'r':
+            if(human == nullptr) {
+                std::string message = "Human is dead!";
+                world->addShoutSummaryMessage(message);
+            }
+            else if(human->specialAbilityCooldown > 0) {
+                std::string message = "Human special ability is on cooldown for " + std::to_string(human->specialAbilityCooldown) + " turns!";
+                world->addShoutSummaryMessage(message);
+            } 
+            else if(human->specialAbilityActive) {
+                std::string message = "Human special ability is already active!";
+                world->addShoutSummaryMessage(message);
+            } 
+            else if(human != nullptr) {
+                human->specialAbilityActive = true;
+                std::string message = "Human special ability activated!!!";
+                world->addShoutSummaryMessage(message);
+            }
+            return false;
         default:
-            break;
+            return true; // Allow the game to continue
     }
 }
 

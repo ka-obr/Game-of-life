@@ -9,6 +9,10 @@
 
 class Human : public Animal {
 public:
+    bool specialAbilityActive;
+    int specialAbilityCooldown;
+    int specialAbilityCounter;
+
     Human(const Point& position, World* world);
     Human(World* world, int strength, int initiative, Point& position, string symbol, int age);
     ~Human();

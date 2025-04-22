@@ -6,6 +6,7 @@
 #define GAMESTART_H
 
 #include "World.h"
+#include "Human.h"
 #include <set>
 
 enum class OrganismType {
@@ -23,6 +24,7 @@ enum class OrganismType {
 class Gameplay {
 private:
     World* world;
+    Human* human;
     bool running;
     char input;
     int shout;
@@ -30,7 +32,7 @@ private:
     const std::set<int> allowedKeys{'q', 'r', 72, 80, 75, 77, 't', 13};
 
     void getInput();
-    void handleInput();
+    bool handleInput();
 
     void InitialText();
     void gameInfo();
