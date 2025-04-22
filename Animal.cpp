@@ -111,11 +111,6 @@ bool Animal::canReproduce(const Organism& other, const Point& position) const {
     return false;
 }
 
-// void Animal::reproduce(Point& position) {
-//     std::string message = "Organism " + symbol + " reproduced";
-//     world->addShoutSummaryMessage(message);
-// }
-
 void Animal::reproduce(Point& position) {
     Point freeSpace = world->getRandomFreeSpaceAround(position);
 

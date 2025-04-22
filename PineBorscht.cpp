@@ -23,9 +23,9 @@ void PineBorscht::action() {
 }
 
 int PineBorscht::collision(Organism& other) {
-    world->remove(other.getPosition());
-    world->remove(this->getPosition());
     std::string message = "Pine Borscht was eaten by " + other.getSymbol();
     world->addShoutSummaryMessage(message);
+    world->remove(other.getPosition());
+    world->remove(this->getPosition());
     return 0;
 }

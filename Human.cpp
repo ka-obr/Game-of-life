@@ -69,7 +69,7 @@ void Human::action(char input) {
         specialAbilityCooldown--;
     }
 
-    if(specialAbilityActive && specialAbilityCooldown == 0) {
+    if(specialAbilityActive && specialAbilityCooldown == 0 && this != nullptr) {
         world->killNeighbors(position, 0);
         specialAbilityCounter--;
 

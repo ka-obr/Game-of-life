@@ -16,10 +16,10 @@ Nightshade::~Nightshade() {
 
 int Nightshade::collision(Organism& other) {
     if(this->getStrength() > other.getStrength()) {
-        world->remove(other.getPosition());
-        world->remove(this->getPosition());
         std::string message = "Nightshade was eaten by " + other.getSymbol();
         world->addShoutSummaryMessage(message);
+        world->remove(other.getPosition());
+        world->remove(this->getPosition());
         return 0;
     }
     return 0;
