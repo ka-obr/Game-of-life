@@ -37,6 +37,7 @@ private:
     void InitialText();
     void gameInfo();
     void spawn(int number, OrganismType type);
+    void handleHumanSpecialAbility(Human* human);
     void spawnOrganisms();
     void setGame();
     void endGame();

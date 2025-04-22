@@ -179,29 +179,33 @@ void Gameplay::getInput() {
     input = key;
 }
 
+void Gameplay::handleHumanSpecialAbility(Human* human) {
+    if(!world->isHumanAlive()) {
+        std::string message = "Human is dead!";
+        world->addShoutSummaryMessage(message);
+    }
+    else if(human->specialAbilityCooldown > 0) {
+        std::string message = "Human special ability is on cooldown for " + std::to_string(human->specialAbilityCooldown) + " turns!";
+        world->addShoutSummaryMessage(message);
+    } 
+    else if(human->specialAbilityActive) {
+        std::string message = "Human special ability is already active!";
+        world->addShoutSummaryMessage(message);
+    } 
+    else if(human != nullptr) {
+        human->specialAbilityActive = true;
+        std::string message = "Human special ability activated!!!";
+        world->addShoutSummaryMessage(message);
+    }
+}
+
 bool Gameplay::handleInput() {
     switch (input) {
         case 'q':
             running = false;
             return false;
         case 'r':
-            if(human == nullptr) {
-                std::string message = "Human is dead!";
-                world->addShoutSummaryMessage(message);
-            }
-            else if(human->specialAbilityCooldown > 0) {
-                std::string message = "Human special ability is on cooldown for " + std::to_string(human->specialAbilityCooldown) + " turns!";
-                world->addShoutSummaryMessage(message);
-            } 
-            else if(human->specialAbilityActive) {
-                std::string message = "Human special ability is already active!";
-                world->addShoutSummaryMessage(message);
-            } 
-            else if(human != nullptr) {
-                human->specialAbilityActive = true;
-                std::string message = "Human special ability activated!!!";
-                world->addShoutSummaryMessage(message);
-            }
+            handleHumanSpecialAbility(human);
             return false;
         default:
             return true; // Allow the game to continue

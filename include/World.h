@@ -41,6 +41,7 @@ public:
 
     Point getRandomNeighbor(const Point& position) const;
     bool isWithinBounds(const Point& position) const;
+    bool isHumanAlive() const;
     Point getRandomFreeSpace() const;
     Point getRandomFreeSpaceAround(const Point& position) const;
     Point findSafeSpaceAround(Point& position) const;

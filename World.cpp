@@ -55,8 +55,9 @@ void World::drawWorld(int width, int height) {
 }
 
 void World::remove(const Point& position) {
-    if (getAtCoordinates(position) == human)
+    if (getAtCoordinates(position) == human) {
         human = nullptr;
+    }
     
     for (auto it = organisms.begin(); it != organisms.end(); it++) {
         if ((*it)->getPosition() == position) {
@@ -99,6 +100,15 @@ Organism* World::getAtCoordinates(Point cords) const {
 
 bool World::isWithinBounds(const Point& position) const {
     return position.x >= 0 && position.x < width && position.y >= 0 && position.y < height;
+}
+
+bool World::isHumanAlive() const {
+    for (const auto& organism : organisms) {
+        if (organism == human) {
+            return true;
+        }
+    }
+    return false;
 }
 
 Point World::getRandomFreeSpace() const {
