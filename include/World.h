@@ -26,6 +26,7 @@ private:
 public:
     World(int width, int height);
     ~World();
+    
     void drawWorld(int height, int width);
     static void drawHorizontalBorder(int width);
 
@@ -59,6 +60,9 @@ public:
     int getHeight();
 
     void setHuman(Organism* org);
+
+    Organism* getHuman() const;
+    std::vector<Organism*>& getOrganisms();
 };
 
 #endif

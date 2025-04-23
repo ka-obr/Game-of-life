@@ -13,6 +13,7 @@
 #include "include/Guarana.h"
 #include "include/Nightshade.h"
 #include "include/PineBorscht.h"
+#include "include/SaveManager.h"
 #include <conio.h>
 
 using namespace std;
@@ -166,6 +167,27 @@ void Gameplay::spawnOrganisms() {
     spawn(2, OrganismType::PineBorscht);
 }
 
+void Gameplay::saveToFile(const std::string& filename) {
+    SaveManager saveManager;
+    saveManager.saveGame(filename, world, shout);
+
+    std::string message = "Game saved to " + filename;
+    world->addShoutSummaryMessage(message);
+}
+
+
+void Gameplay::loadFromFile(const std::string& filename) {
+    SaveManager saveManager;
+    shout = saveManager.loadGame(filename, world);
+    width = world->getWidth();
+    height = world->getHeight();
+
+    human = dynamic_cast<Human*>(world->getHuman());
+
+    std::string message = "Game loaded from " + filename;
+    world->addShoutSummaryMessage(message);
+}
+
 void Gameplay::getInput() {
     int key;
     do {
@@ -184,16 +206,16 @@ void Gameplay::handleHumanSpecialAbility(Human* human) {
         std::string message = "Human is dead!";
         world->addShoutSummaryMessage(message);
     }
-    else if(human->specialAbilityCooldown > 0) {
-        std::string message = "Human special ability is on cooldown for " + std::to_string(human->specialAbilityCooldown) + " turns!";
+    else if(human->getSpecialAbilityCooldown() > 0) {
+        std::string message = "Human special ability is on cooldown for " + std::to_string(human->getSpecialAbilityCooldown()) + " turns!";
         world->addShoutSummaryMessage(message);
     } 
-    else if(human->specialAbilityActive) {
+    else if(human->getSpecialAbilityActive()) {
         std::string message = "Human special ability is already active!";
         world->addShoutSummaryMessage(message);
     } 
     else if(human != nullptr) {
-        human->specialAbilityActive = true;
+        human->setSpecialAbilityActive(true);
         std::string message = "Human special ability activated!!!";
         world->addShoutSummaryMessage(message);
     }
@@ -206,6 +228,12 @@ bool Gameplay::handleInput() {
             return false;
         case 'r':
             handleHumanSpecialAbility(human);
+            return false;
+        case 's':
+            saveToFile("save.json");
+            return false;
+        case 'l':
+            loadFromFile("save.json");
             return false;
         default:
             return true; // Allow the game to continue

@@ -2,3 +2,5 @@ Arrows - human movement
 Q - quit game
 R - Human special ability
 T - make Shout
+S - save file
+L - load file

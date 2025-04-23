@@ -22,6 +22,12 @@ Human::Human(World* world, int strength, int initiative, Point& position, string
     world->setHuman(this);
 }
 
+Human::Human(World* world, int strength, int initiative, Point& position, string symbol, int age, int specialAbilityActive, int specialAbilityCooldown, int specialAbilityCounter)
+    : Animal(world, strength, initiative, position, symbol, age), specialAbilityActive(specialAbilityActive), specialAbilityCooldown(specialAbilityCooldown), specialAbilityCounter(specialAbilityCounter) {
+
+    world->setHuman(this);
+}
+
 Human::~Human() {
     // Destructor implementation
 }
@@ -82,4 +88,18 @@ void Human::action(char input) {
         }
     }
     age++;
+}
+
+bool Human::getSpecialAbilityActive() const {
+    return specialAbilityActive;
+}
+void Human::setSpecialAbilityActive(bool specialAbilityActive) {
+    this->specialAbilityActive = specialAbilityActive;
+}
+
+int Human::getSpecialAbilityCooldown() const {
+    return specialAbilityCooldown;
+}
+int Human::getSpecialAbilityCounter() const {
+    return specialAbilityCounter;
 }

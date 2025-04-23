@@ -54,7 +54,8 @@
         "random": "cpp",
         "string": "cpp",
         "set": "cpp",
-        "xtree": "cpp"
+        "xtree": "cpp",
+        "fstream": "cpp"
     },
     "github.copilot.enable": {
         "*": true,

@@ -1,0 +1,1 @@
+Robiac antylope pamietaj zeby dodac ja do SaveManager.cpp jako else if (to powinno wystarczyc)

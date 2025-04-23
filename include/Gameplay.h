@@ -29,7 +29,7 @@ private:
     char input;
     int shout;
     int width, height;
-    const std::set<int> allowedKeys{'q', 'r', 72, 80, 75, 77, 't', 13};
+    const std::set<int> allowedKeys{'q', 'r', 72, 80, 75, 77, 't', 13, 's', 'l'};
 
     void getInput();
     bool handleInput();
@@ -38,6 +38,8 @@ private:
     void gameInfo();
     void spawn(int number, OrganismType type);
     void handleHumanSpecialAbility(Human* human);
+    void saveToFile(const std::string& filename);
+    void loadFromFile(const std::string& filename);
     void spawnOrganisms();
     void setGame();
     void endGame();
@@ -50,4 +52,4 @@ public:
     void makeShout();
 };
 
-#endif //GAMESTART_H
+#endif 

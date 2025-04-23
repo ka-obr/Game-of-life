@@ -285,3 +285,10 @@ int World::getWidth() {
 void World::setHuman(Organism* org) {
     human = org;
 }
+
+Organism* World::getHuman() const {
+    return human;
+}
+std::vector<Organism*>& World::getOrganisms() {
+    return organisms;
+}
