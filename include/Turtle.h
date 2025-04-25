@@ -13,6 +13,7 @@ public:
 protected:
     int collision(Organism& other, int randomValue);
     void action() override;
+    bool haveSavedAttack(Organism& other) override;
 };
 
 

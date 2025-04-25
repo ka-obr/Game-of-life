@@ -47,6 +47,10 @@ void Organism::die() {
     //TODO
 }
 
+int Organism::escapeCollision(Organism& other) {
+    return 0; // Default implementation, can be overridden in derived classes
+}
+
 void Organism::action(char input) {
     action();
 }
@@ -65,4 +69,12 @@ void Organism::setAge(int age) {
 
 void Organism::setStrength(int strength) {
     this->strength = strength;
+}
+
+void Organism::setHasActed(bool acted) {
+    hasActed = acted;
+}
+
+bool Organism::getHasActed() const {
+    return hasActed;
 }

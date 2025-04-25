@@ -9,6 +9,7 @@
 #include "include/Dandelion.h"
 #include "include/Guarana.h"
 #include "include/Nightshade.h"
+#include "include/Antelope.h"
 #include "include/PineBorscht.h"
 #include <fstream>
 #include <typeinfo>
@@ -129,8 +130,9 @@ Organism* SaveManager::createOrganismFromData(const nlohmann::json& organismData
         return new Nightshade(world, position, age);
     } else if (type == typeid(PineBorscht).name()) {
         return new PineBorscht(world, position, age);
+    } else if (type == typeid(Antelope).name()) {
+        return new Antelope(world, position, age);
     }
-    //TODO Antylopa
 
     throw std::invalid_argument("Unknown organism type: " + type);
 }

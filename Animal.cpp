@@ -8,6 +8,7 @@
 #include "include/Wolf.h"
 #include "include/Fox.h"
 #include "include/Sheep.h"
+#include "include/Antelope.h"
 
 Animal::Animal(World* world, int strength, int initiative, const Point& position, string symbol)
     : Organism(world, strength, initiative, position, symbol) {
@@ -31,6 +32,7 @@ void Animal::action() {
         if(haveSavedAttack(*other)) {
             return;
         }
+        other = world->getAtCoordinates(destination);
         int status = -1;
         if(other != nullptr) {
             status = collision(*other);
@@ -84,9 +86,18 @@ void Animal::die() {
     world->remove(position);
 }
 
-bool Animal::haveSavedAttack(const Organism& other) const {
+int Animal::escapeCollision(Organism& other) {
+    //normally Animals don't escape, but Antelope can escape from collision with other animals
+    return 0;
+}
+
+bool Animal::haveSavedAttack(Organism& other) {
     if (dynamic_cast<const Turtle*>(&other) != nullptr && this->getStrength() < 5) {
         return true;
+    }
+    else if(dynamic_cast<const Antelope*>(&other) != nullptr) {
+        other.escapeCollision(*this);
+        return false;
     }
     return false;
 }
@@ -100,6 +111,8 @@ Animal* Animal::createAnimalByType(const Organism* parent, World* world, Point& 
         return new Fox(world, position);
     } else if (typeid(*parent) == typeid(Turtle)) {
         return new Turtle(world, position);
+    } else if (typeid(*parent) == typeid(Antelope)) {
+        return new Antelope(world, position);
     }
     return nullptr;
 }

@@ -18,6 +18,7 @@ protected:
     int strength;
     int initiative;
     Point position;
+    bool hasActed;
     int age;
     string symbol;
     World* world;
@@ -35,12 +36,15 @@ public:
     virtual bool canKill(Organism& other) = 0;
     virtual void kill(Organism& other) const;
     virtual void shouldReceiveStrength(Organism* plant, Organism* animal) = 0;
+    virtual int escapeCollision(Organism& other);
 
     int getStrength() const;
     int getInitiative() const;
     int getAge() const;
     string getSymbol() const;
     Point& getPosition();
+    void setHasActed(bool acted);
+    bool getHasActed() const;
     void setPosition(Point pos);
     void setAge(int age);
     void setStrength(int strenght);

@@ -22,6 +22,7 @@ void Fox::action() {
         if(haveSavedAttack(*other)) {
             return;
         }
+        other = world->getAtCoordinates(destination);
         int status = -1;
         if(other != nullptr) {
             status = collision(*other);

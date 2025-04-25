@@ -27,6 +27,10 @@ void World::update(char input) {
         return a->getInitiative() > b->getInitiative();
     });
 
+    for (Organism* organism : organisms) {
+        organism->setHasActed(false);
+    }
+
     for (i = 0; i < organisms.size(); i++) {
         organisms[i]->action(input);
     }
@@ -214,6 +218,30 @@ bool World::hasFreeSpaceAround(Point position) {
     }
 
     return false;
+}
+
+Point World::getRandomSpaceDoubleMove(const Point& position) const {
+    std::vector<std::pair<int, int>> displacements = {
+        {0, 1}, {0, -1}, {1, 0}, {-1, 0}, // Single moves
+        {0, 2}, {0, -2}, {2, 0}, {-2, 0}  // Double moves
+    };
+
+    // Tworzenie generatora liczb losowych
+    std::random_device rd;
+    std::default_random_engine rng(rd());
+
+    // Przetasowanie indeksów
+    std::shuffle(displacements.begin(), displacements.end(), rng);
+
+    for (const auto& displacement : displacements) {
+        Point neighbor(position.x + displacement.first, position.y + displacement.second);
+
+        if (isWithinBounds(neighbor)) {
+            return neighbor;
+        }
+    }
+
+    return position;
 }
 
 void World::move(const Point& position, const Point &destination) {

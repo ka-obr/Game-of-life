@@ -13,6 +13,7 @@
 #include "include/Guarana.h"
 #include "include/Nightshade.h"
 #include "include/PineBorscht.h"
+#include "include/Antelope.h"
 #include "include/SaveManager.h"
 #include <conio.h>
 
@@ -145,6 +146,9 @@ void Gameplay::spawn(int number, OrganismType type) {
             case OrganismType::PineBorscht:
                 world->spawnOrganism(new PineBorscht(world, position, 0), position);
                 break;
+            case OrganismType::Antelope:
+                world->spawnOrganism(new Antelope(world, position, 1), position);
+                break;
             default:
                 throw std::invalid_argument("Unknown organism type");
         }
@@ -156,15 +160,16 @@ void Gameplay::spawnOrganisms() {
     human = new Human(world, 5, 4, playerPosition, "🧍", 1);
     world->spawnOrganism(human, playerPosition);
 
-    spawn(2, OrganismType::Wolf);
-    spawn(2, OrganismType::Sheep);
-    spawn(2, OrganismType::Fox);
-    spawn(2, OrganismType::Turtle);
-    spawn(2, OrganismType::Grass);
-    spawn(2, OrganismType::Dandelion);
-    spawn(2, OrganismType::Guarana);
-    spawn(2, OrganismType::Nightshade);
-    spawn(2, OrganismType::PineBorscht);
+    // spawn(2, OrganismType::Wolf);
+    // spawn(1, OrganismType::Sheep);
+    // spawn(2, OrganismType::Fox);
+    // spawn(2, OrganismType::Turtle);
+    // spawn(2, OrganismType::Grass);
+    // spawn(2, OrganismType::Dandelion);
+    // spawn(2, OrganismType::Guarana);
+    // spawn(2, OrganismType::Nightshade);
+    // spawn(2, OrganismType::PineBorscht);
+    spawn(1, OrganismType::Antelope);
 }
 
 void Gameplay::saveToFile(const std::string& filename) {

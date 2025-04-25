@@ -46,6 +46,7 @@ public:
     Point getRandomFreeSpace() const;
     Point getRandomFreeSpaceAround(const Point& position) const;
     Point findSafeSpaceAround(Point& position) const;
+    Point getRandomSpaceDoubleMove(const Point& position) const;
     void killNeighbors(Point& position, int type);
     bool hasFreeSpaceAround(Point position);
 
