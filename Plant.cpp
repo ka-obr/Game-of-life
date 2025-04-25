@@ -13,21 +13,18 @@
 
 Plant::Plant(World* world, const Point& position, string symbol)
     : Organism(world, strength, 0, position, symbol) {
-    // Constructor implementation
 }
 
 Plant::Plant(World* world, int strength, const Point& position, string symbol, int age)
     : Organism(world, strength, 0, position, symbol, age) {
-    // Constructor implementation
 }
 
 Plant::Plant(World* world, int strength, string symbol)
     : Organism(world, strength, 0, Point(0, 0), symbol) {
-    // Constructor implementation
 }
 
 Plant::~Plant() {
-    // Destructor implementation
+
 }
 
 void Plant::action() {

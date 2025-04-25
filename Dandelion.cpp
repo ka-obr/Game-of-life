@@ -2,12 +2,10 @@
 
 Dandelion::Dandelion(World* world, Point& position)
     : Plant(world, 0, position, "🌽", 0) {
-
 }
 
 Dandelion::Dandelion(World* world, Point& position, int age)
     : Plant(world, 0, position, "🌽", age) {
-
 }
 
 Dandelion::~Dandelion() {

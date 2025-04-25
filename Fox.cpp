@@ -2,16 +2,14 @@
 
 Fox::Fox(World* world, Point& position)
     : Animal(world, 3, 7, position, "🦊") {
-    // Constructor implementation
 }
 
 Fox::Fox(World* world, Point& position, int age)
     : Animal(world, 3, 7, position, "🦊", age) {
-    // Constructor implementation
 }
 
 Fox::~Fox() {
-    // Destructor implementation
+    
 }
 
 void Fox::action() {

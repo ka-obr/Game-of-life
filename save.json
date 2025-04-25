@@ -1,226 +1,21 @@
 {
-    "human": {
-        "specialAbilityActive": false,
-        "specialAbilityCooldown": 0,
-        "specialAbilityCounter": 6
-    },
     "organisms": [
-        {
-            "age": 48,
-            "initiative": 7,
-            "position": [
-                21,
-                2
-            ],
-            "strength": 3,
-            "type": "3Fox"
-        },
-        {
-            "age": 48,
-            "initiative": 7,
-            "position": [
-                20,
-                3
-            ],
-            "strength": 3,
-            "type": "3Fox"
-        },
-        {
-            "age": 48,
-            "initiative": 5,
-            "position": [
-                20,
-                6
-            ],
-            "strength": 9,
-            "type": "4Wolf"
-        },
-        {
-            "age": 48,
-            "initiative": 5,
-            "position": [
-                16,
-                9
-            ],
-            "strength": 9,
-            "type": "4Wolf"
-        },
         {
             "age": 48,
             "initiative": 4,
             "position": [
-                18,
-                15
+                7,
+                1
             ],
-            "strength": 5,
-            "type": "5Human"
+            "strength": 13,
+            "type": "8Antelope"
         },
         {
             "age": 48,
-            "initiative": 1,
+            "initiative": 0,
             "position": [
-                28,
+                4,
                 4
-            ],
-            "strength": 2,
-            "type": "6Turtle"
-        },
-        {
-            "age": 48,
-            "initiative": 0,
-            "position": [
-                10,
-                16
-            ],
-            "strength": 99,
-            "type": "10Nightshade"
-        },
-        {
-            "age": 48,
-            "initiative": 0,
-            "position": [
-                4,
-                6
-            ],
-            "strength": 99,
-            "type": "10Nightshade"
-        },
-        {
-            "age": 48,
-            "initiative": 0,
-            "position": [
-                28,
-                10
-            ],
-            "strength": 0,
-            "type": "5Grass"
-        },
-        {
-            "age": 48,
-            "initiative": 0,
-            "position": [
-                24,
-                15
-            ],
-            "strength": 0,
-            "type": "7Guarana"
-        },
-        {
-            "age": 48,
-            "initiative": 0,
-            "position": [
-                4,
-                18
-            ],
-            "strength": 0,
-            "type": "9Dandelion"
-        },
-        {
-            "age": 48,
-            "initiative": 0,
-            "position": [
-                1,
-                19
-            ],
-            "strength": 0,
-            "type": "7Guarana"
-        },
-        {
-            "age": 47,
-            "initiative": 0,
-            "position": [
-                7,
-                15
-            ],
-            "strength": 10,
-            "type": "11PineBorscht"
-        },
-        {
-            "age": 47,
-            "initiative": 0,
-            "position": [
-                28,
-                12
-            ],
-            "strength": 10,
-            "type": "11PineBorscht"
-        },
-        {
-            "age": 42,
-            "initiative": 0,
-            "position": [
-                25,
-                15
-            ],
-            "strength": 0,
-            "type": "7Guarana"
-        },
-        {
-            "age": 41,
-            "initiative": 0,
-            "position": [
-                19,
-                8
-            ],
-            "strength": 0,
-            "type": "9Dandelion"
-        },
-        {
-            "age": 40,
-            "initiative": 0,
-            "position": [
-                7,
-                16
-            ],
-            "strength": 10,
-            "type": "11PineBorscht"
-        },
-        {
-            "age": 39,
-            "initiative": 0,
-            "position": [
-                2,
-                19
-            ],
-            "strength": 0,
-            "type": "7Guarana"
-        },
-        {
-            "age": 34,
-            "initiative": 0,
-            "position": [
-                26,
-                15
-            ],
-            "strength": 0,
-            "type": "7Guarana"
-        },
-        {
-            "age": 34,
-            "initiative": 0,
-            "position": [
-                18,
-                6
-            ],
-            "strength": 0,
-            "type": "9Dandelion"
-        },
-        {
-            "age": 31,
-            "initiative": 0,
-            "position": [
-                4,
-                19
-            ],
-            "strength": 0,
-            "type": "9Dandelion"
-        },
-        {
-            "age": 31,
-            "initiative": 0,
-            "position": [
-                24,
-                14
             ],
             "strength": 0,
             "type": "7Guarana"
@@ -229,438 +24,38 @@
             "age": 29,
             "initiative": 0,
             "position": [
-                4,
-                17
-            ],
-            "strength": 0,
-            "type": "9Dandelion"
-        },
-        {
-            "age": 28,
-            "initiative": 0,
-            "position": [
-                3,
-                17
-            ],
-            "strength": 0,
-            "type": "9Dandelion"
-        },
-        {
-            "age": 28,
-            "initiative": 0,
-            "position": [
-                4,
-                7
-            ],
-            "strength": 99,
-            "type": "10Nightshade"
-        },
-        {
-            "age": 28,
-            "initiative": 0,
-            "position": [
                 5,
-                19
-            ],
-            "strength": 0,
-            "type": "9Dandelion"
-        },
-        {
-            "age": 27,
-            "initiative": 0,
-            "position": [
-                5,
-                18
-            ],
-            "strength": 0,
-            "type": "9Dandelion"
-        },
-        {
-            "age": 27,
-            "initiative": 0,
-            "position": [
-                25,
-                14
+                3
             ],
             "strength": 0,
             "type": "7Guarana"
         },
         {
-            "age": 26,
-            "initiative": 0,
-            "position": [
-                29,
-                13
-            ],
-            "strength": 10,
-            "type": "11PineBorscht"
-        },
-        {
-            "age": 25,
-            "initiative": 0,
-            "position": [
-                25,
-                13
-            ],
-            "strength": 0,
-            "type": "7Guarana"
-        },
-        {
-            "age": 24,
-            "initiative": 0,
-            "position": [
-                17,
-                9
-            ],
-            "strength": 0,
-            "type": "9Dandelion"
-        },
-        {
-            "age": 22,
-            "initiative": 0,
-            "position": [
-                29,
-                10
-            ],
-            "strength": 0,
-            "type": "5Grass"
-        },
-        {
-            "age": 22,
-            "initiative": 0,
-            "position": [
-                19,
-                9
-            ],
-            "strength": 0,
-            "type": "9Dandelion"
-        },
-        {
-            "age": 21,
+            "age": 20,
             "initiative": 0,
             "position": [
                 3,
-                19
+                3
             ],
             "strength": 0,
-            "type": "9Dandelion"
-        },
-        {
-            "age": 21,
-            "initiative": 0,
-            "position": [
-                29,
-                11
-            ],
-            "strength": 0,
-            "type": "5Grass"
-        },
-        {
-            "age": 21,
-            "initiative": 0,
-            "position": [
-                29,
-                9
-            ],
-            "strength": 0,
-            "type": "5Grass"
-        },
-        {
-            "age": 19,
-            "initiative": 0,
-            "position": [
-                18,
-                7
-            ],
-            "strength": 0,
-            "type": "9Dandelion"
-        },
-        {
-            "age": 19,
-            "initiative": 0,
-            "position": [
-                20,
-                10
-            ],
-            "strength": 0,
-            "type": "9Dandelion"
-        },
-        {
-            "age": 19,
-            "initiative": 0,
-            "position": [
-                11,
-                16
-            ],
-            "strength": 99,
-            "type": "10Nightshade"
-        },
-        {
-            "age": 19,
-            "initiative": 0,
-            "position": [
-                19,
-                7
-            ],
-            "strength": 0,
-            "type": "9Dandelion"
+            "type": "7Guarana"
         },
         {
             "age": 18,
             "initiative": 0,
             "position": [
-                9,
-                17
-            ],
-            "strength": 99,
-            "type": "10Nightshade"
-        },
-        {
-            "age": 18,
-            "initiative": 0,
-            "position": [
-                29,
-                14
-            ],
-            "strength": 10,
-            "type": "11PineBorscht"
-        },
-        {
-            "age": 17,
-            "initiative": 0,
-            "position": [
-                3,
-                18
+                4,
+                3
             ],
             "strength": 0,
-            "type": "9Dandelion"
+            "type": "7Guarana"
         },
         {
             "age": 17,
-            "initiative": 0,
-            "position": [
-                27,
-                12
-            ],
-            "strength": 10,
-            "type": "11PineBorscht"
-        },
-        {
-            "age": 17,
-            "initiative": 0,
-            "position": [
-                20,
-                8
-            ],
-            "strength": 0,
-            "type": "9Dandelion"
-        },
-        {
-            "age": 16,
             "initiative": 0,
             "position": [
                 2,
-                18
-            ],
-            "strength": 0,
-            "type": "9Dandelion"
-        },
-        {
-            "age": 16,
-            "initiative": 0,
-            "position": [
-                10,
-                15
-            ],
-            "strength": 99,
-            "type": "10Nightshade"
-        },
-        {
-            "age": 15,
-            "initiative": 0,
-            "position": [
-                24,
-                16
-            ],
-            "strength": 0,
-            "type": "7Guarana"
-        },
-        {
-            "age": 15,
-            "initiative": 0,
-            "position": [
-                28,
-                11
-            ],
-            "strength": 0,
-            "type": "5Grass"
-        },
-        {
-            "age": 14,
-            "initiative": 0,
-            "position": [
-                4,
-                16
-            ],
-            "strength": 0,
-            "type": "9Dandelion"
-        },
-        {
-            "age": 13,
-            "initiative": 0,
-            "position": [
-                28,
-                9
-            ],
-            "strength": 0,
-            "type": "5Grass"
-        },
-        {
-            "age": 13,
-            "initiative": 0,
-            "position": [
-                1,
-                17
-            ],
-            "strength": 0,
-            "type": "9Dandelion"
-        },
-        {
-            "age": 13,
-            "initiative": 0,
-            "position": [
-                25,
-                12
-            ],
-            "strength": 0,
-            "type": "7Guarana"
-        },
-        {
-            "age": 13,
-            "initiative": 0,
-            "position": [
-                5,
-                17
-            ],
-            "strength": 0,
-            "type": "9Dandelion"
-        },
-        {
-            "age": 13,
-            "initiative": 0,
-            "position": [
-                27,
-                11
-            ],
-            "strength": 0,
-            "type": "5Grass"
-        },
-        {
-            "age": 12,
-            "initiative": 0,
-            "position": [
-                21,
-                8
-            ],
-            "strength": 0,
-            "type": "9Dandelion"
-        },
-        {
-            "age": 12,
-            "initiative": 0,
-            "position": [
-                28,
-                14
-            ],
-            "strength": 10,
-            "type": "11PineBorscht"
-        },
-        {
-            "age": 10,
-            "initiative": 0,
-            "position": [
-                25,
-                16
-            ],
-            "strength": 0,
-            "type": "7Guarana"
-        },
-        {
-            "age": 10,
-            "initiative": 0,
-            "position": [
-                26,
-                14
-            ],
-            "strength": 0,
-            "type": "7Guarana"
-        },
-        {
-            "age": 10,
-            "initiative": 0,
-            "position": [
-                21,
-                9
-            ],
-            "strength": 0,
-            "type": "9Dandelion"
-        },
-        {
-            "age": 9,
-            "initiative": 0,
-            "position": [
-                8,
-                16
-            ],
-            "strength": 99,
-            "type": "10Nightshade"
-        },
-        {
-            "age": 9,
-            "initiative": 0,
-            "position": [
-                6,
-                17
-            ],
-            "strength": 0,
-            "type": "9Dandelion"
-        },
-        {
-            "age": 8,
-            "initiative": 0,
-            "position": [
-                6,
-                18
-            ],
-            "strength": 0,
-            "type": "9Dandelion"
-        },
-        {
-            "age": 8,
-            "initiative": 0,
-            "position": [
-                1,
-                16
-            ],
-            "strength": 0,
-            "type": "9Dandelion"
-        },
-        {
-            "age": 8,
-            "initiative": 0,
-            "position": [
-                22,
-                10
-            ],
-            "strength": 0,
-            "type": "9Dandelion"
-        },
-        {
-            "age": 8,
-            "initiative": 0,
-            "position": [
-                24,
-                17
+                3
             ],
             "strength": 0,
             "type": "7Guarana"
@@ -669,296 +64,46 @@
             "age": 8,
             "initiative": 0,
             "position": [
-                4,
-                8
+                3,
+                4
             ],
-            "strength": 99,
-            "type": "10Nightshade"
+            "strength": 0,
+            "type": "7Guarana"
         },
         {
             "age": 7,
             "initiative": 0,
             "position": [
-                8,
-                15
-            ],
-            "strength": 10,
-            "type": "11PineBorscht"
-        },
-        {
-            "age": 7,
-            "initiative": 0,
-            "position": [
-                2,
-                17
-            ],
-            "strength": 0,
-            "type": "9Dandelion"
-        },
-        {
-            "age": 6,
-            "initiative": 0,
-            "position": [
-                24,
-                13
+                3,
+                2
             ],
             "strength": 0,
             "type": "7Guarana"
         },
         {
             "age": 6,
-            "initiative": 0,
-            "position": [
-                6,
-                16
-            ],
-            "strength": 0,
-            "type": "9Dandelion"
-        },
-        {
-            "age": 6,
-            "initiative": 0,
-            "position": [
-                21,
-                11
-            ],
-            "strength": 0,
-            "type": "9Dandelion"
-        },
-        {
-            "age": 6,
-            "initiative": 0,
-            "position": [
-                18,
-                8
-            ],
-            "strength": 0,
-            "type": "9Dandelion"
-        },
-        {
-            "age": 6,
-            "initiative": 0,
-            "position": [
-                3,
-                16
-            ],
-            "strength": 0,
-            "type": "9Dandelion"
-        },
-        {
-            "age": 5,
-            "initiative": 0,
-            "position": [
-                3,
-                6
-            ],
-            "strength": 99,
-            "type": "10Nightshade"
-        },
-        {
-            "age": 5,
-            "initiative": 0,
-            "position": [
-                6,
-                19
-            ],
-            "strength": 0,
-            "type": "9Dandelion"
-        },
-        {
-            "age": 5,
             "initiative": 0,
             "position": [
                 5,
-                16
-            ],
-            "strength": 0,
-            "type": "9Dandelion"
-        },
-        {
-            "age": 5,
-            "initiative": 0,
-            "position": [
-                16,
-                8
-            ],
-            "strength": 0,
-            "type": "9Dandelion"
-        },
-        {
-            "age": 4,
-            "initiative": 0,
-            "position": [
-                23,
-                15
+                5
             ],
             "strength": 0,
             "type": "7Guarana"
         },
         {
-            "age": 4,
-            "initiative": 0,
-            "position": [
-                26,
-                11
-            ],
-            "strength": 10,
-            "type": "11PineBorscht"
-        },
-        {
-            "age": 4,
-            "initiative": 0,
-            "position": [
-                22,
-                9
-            ],
-            "strength": 0,
-            "type": "9Dandelion"
-        },
-        {
-            "age": 4,
-            "initiative": 0,
-            "position": [
-                8,
-                17
-            ],
-            "strength": 99,
-            "type": "10Nightshade"
-        },
-        {
-            "age": 4,
-            "initiative": 0,
-            "position": [
-                7,
-                19
-            ],
-            "strength": 0,
-            "type": "9Dandelion"
-        },
-        {
-            "age": 4,
-            "initiative": 0,
-            "position": [
-                2,
-                16
-            ],
-            "strength": 0,
-            "type": "9Dandelion"
-        },
-        {
-            "age": 3,
+            "age": 1,
             "initiative": 0,
             "position": [
                 3,
-                8
-            ],
-            "strength": 99,
-            "type": "10Nightshade"
-        },
-        {
-            "age": 3,
-            "initiative": 0,
-            "position": [
-                28,
-                15
-            ],
-            "strength": 10,
-            "type": "11PineBorscht"
-        },
-        {
-            "age": 2,
-            "initiative": 0,
-            "position": [
-                28,
-                8
-            ],
-            "strength": 0,
-            "type": "5Grass"
-        },
-        {
-            "age": 2,
-            "initiative": 0,
-            "position": [
-                5,
-                15
-            ],
-            "strength": 0,
-            "type": "9Dandelion"
-        },
-        {
-            "age": 2,
-            "initiative": 0,
-            "position": [
-                8,
-                14
-            ],
-            "strength": 10,
-            "type": "11PineBorscht"
-        },
-        {
-            "age": 2,
-            "initiative": 0,
-            "position": [
-                22,
-                14
+                5
             ],
             "strength": 0,
             "type": "7Guarana"
-        },
-        {
-            "age": 1,
-            "initiative": 0,
-            "position": [
-                1,
-                18
-            ],
-            "strength": 0,
-            "type": "7Guarana"
-        },
-        {
-            "age": 1,
-            "initiative": 0,
-            "position": [
-                17,
-                8
-            ],
-            "strength": 0,
-            "type": "9Dandelion"
-        },
-        {
-            "age": 1,
-            "initiative": 0,
-            "position": [
-                7,
-                18
-            ],
-            "strength": 0,
-            "type": "9Dandelion"
-        },
-        {
-            "age": 1,
-            "initiative": 0,
-            "position": [
-                9,
-                16
-            ],
-            "strength": 10,
-            "type": "11PineBorscht"
-        },
-        {
-            "age": 1,
-            "initiative": 0,
-            "position": [
-                29,
-                7
-            ],
-            "strength": 0,
-            "type": "5Grass"
         }
     ],
     "world": {
-        "height": 20,
+        "height": 10,
         "shout": 47,
-        "width": 30
+        "width": 10
     }
 }

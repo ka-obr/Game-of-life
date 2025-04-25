@@ -6,19 +6,19 @@
 #include "include/World.h"
 
 Organism::Organism(World* world) : world(world), strength(0), initiative(0), position(Point(0,0)), age(0) {
-    // Constructor implementation
+
 }
 
 Organism::Organism(World* world, int strength, int initiative, Point position, string symbol) : world(world), strength(strength), initiative(initiative), position(position), age(0), symbol(symbol) {
-    // Constructor implementation
+
 }
 
 Organism::Organism(World* world, int strength, int initiative, Point position, string symbol, int age) : world(world), strength(strength), initiative(initiative), position(position), age(age), symbol(symbol) {
-    // Constructor implementation
+
 }
 
 Organism::~Organism() {
-    // Destructor implementation
+
 }
 
 void Organism::kill(Organism& other) const {
@@ -44,7 +44,7 @@ string Organism::getSymbol() const {
 }
 
 void Organism::die() {
-    //TODO
+
 }
 
 int Organism::escapeCollision(Organism& other) {

@@ -44,7 +44,7 @@ bool Antelope::haveSavedAttack(Organism& other) {
 
 int Antelope::escapeCollision(Organism& other) {
     int randomNumber = rand() % 2 + 1;
-    if((randomNumber != 0) && (typeid(other) != typeid(*this)) && (dynamic_cast<Plant*>(&other) == nullptr)) {
+    if((randomNumber == 1) && (typeid(other) != typeid(*this)) && (dynamic_cast<Plant*>(&other) == nullptr)) {
         Point destination = world->getRandomFreeSpaceAround(position);
         if(world->isWithinBounds(destination)) {
             move(destination);

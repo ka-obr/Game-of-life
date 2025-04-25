@@ -2,12 +2,10 @@
 
 Nightshade::Nightshade(World* world, const Point& position)
     : Plant(world, 99, position, "🫐", 0) {
-    
 }
 
 Nightshade::Nightshade(World* world, const Point& position, int age)
     : Plant(world, 99, position, "🫐", age) {
-    
 }
 
 Nightshade::~Nightshade() {

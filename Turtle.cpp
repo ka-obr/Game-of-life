@@ -3,16 +3,14 @@
 
 Turtle::Turtle(World* world, Point& position)
     : Animal(world, 2, 1, position, "🐢") {
-    // Constructor implementation
 }
 
 Turtle::Turtle(World* world, Point& position, int age)
     : Animal(world, 2, 1, position, "🐢", age) {
-    // Constructor implementation
 }
 
 Turtle::~Turtle() {
-    // Destructor implementation
+    
 }
 
 bool Turtle::haveSavedAttack(Organism& other) {

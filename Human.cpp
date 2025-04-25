@@ -29,7 +29,7 @@ Human::Human(World* world, int strength, int initiative, Point& position, string
 }
 
 Human::~Human() {
-    // Destructor implementation
+
 }
 
 void Human::tryCollisionAndMove(Point destination) {

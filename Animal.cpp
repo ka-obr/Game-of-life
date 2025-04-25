@@ -12,12 +12,10 @@
 
 Animal::Animal(World* world, int strength, int initiative, const Point& position, string symbol)
     : Organism(world, strength, initiative, position, symbol) {
-    // Constructor implementation
 }
 
 Animal::Animal(World* world, int strength, int initiative, const Point& position, string symbol, int age)
     : Organism(world, strength, initiative, position, symbol, age) {
-    // Constructor implementation
 }
 
 Animal::~Animal() {

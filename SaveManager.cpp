@@ -19,23 +19,20 @@ using json = nlohmann::json;
 void SaveManager::saveGame(const std::string& filename, World* world, int shout) {
     json saveData;
 
-    // Zapisz wymiary świata
     saveData["world"]["width"] = world->getWidth();
     saveData["world"]["height"] = world->getHeight();
     saveData["world"]["shout"] = shout;
 
-    // Zapisz organizmy
     saveData["organisms"] = json::array();
     for (const auto& organism : world->getOrganisms()) {
         json organismData;
-        organismData["type"] = typeid(*organism).name(); // Zapisz typ organizmu
+        organismData["type"] = typeid(*organism).name();
         organismData["position"] = {organism->getPosition().x, organism->getPosition().y};
         organismData["strength"] = organism->getStrength();
         organismData["initiative"] = organism->getInitiative();
         organismData["age"] = organism->getAge();
         saveData["organisms"].push_back(organismData);
 
-        // Jeśli organizm to Human, zapisz dodatkowe dane
         Human* human = dynamic_cast<Human*>(organism);
         if (human != nullptr) {
             saveData["human"]["specialAbilityActive"] = human->getSpecialAbilityActive();
@@ -44,17 +41,15 @@ void SaveManager::saveGame(const std::string& filename, World* world, int shout)
         }
     }
 
-    // Zapisz dane do pliku
     std::ofstream file(filename);
     if (!file.is_open()) {
         throw std::ios_base::failure("Failed to open file for saving.");
     }
-    file << saveData.dump(4); // Zapisz dane w formacie JSON z wcięciami
+    file << saveData.dump(4);
     file.close();
 }
 
 int SaveManager::loadGame(const std::string& filename, World* world) {
-    // Wczytaj dane z pliku
     std::ifstream file(filename);
     if (!file.is_open()) {
         throw std::ios_base::failure("Failed to open file for loading.");
@@ -84,7 +79,6 @@ int SaveManager::loadGame(const std::string& filename, World* world) {
             newWorld->setHuman(human);
     }
 
-    // Przepisz nowy świat do podanego świata
     *world = *newWorld;
     delete newWorld;
     return shout;

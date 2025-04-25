@@ -77,11 +77,9 @@ void World::remove(const Point& position) {
 Point World::getRandomNeighbor(const Point& position) const {
     std::vector<vector<int>> displaces = {{0, 1}, {1, 0}, {-1, 0}, {0, -1}};
 
-    // Tworzenie generatora liczb losowych
     std::random_device rd;
     std::default_random_engine rng(rd());
 
-    // Przetasowanie indeksów
     std::shuffle(displaces.begin(), displaces.end(), rng);
 
     for (vector<int> displace : displaces) {
@@ -156,11 +154,9 @@ Point World::getRandomFreeSpaceAround(const Point& position) const {
     std::vector<int> dx = {0, 1, -1};
     std::vector<int> dy = {0, 1, -1};
 
-    // Tworzenie generatora liczb losowych
     std::random_device rd;
     std::default_random_engine rng(rd());
 
-    // Przetasowanie indeksów
     std::shuffle(dx.begin(), dx.end(), rng);
     std::shuffle(dy.begin(), dy.end(), rng);
 
@@ -181,11 +177,9 @@ Point World::getRandomFreeSpaceAround(const Point& position) const {
 Point World::findSafeSpaceAround(Point& position) const {
     std::vector<vector<int>> displaces = {{0, 1}, {1, 0}, {-1, 0}, {0, -1}};
 
-    // Tworzenie generatora liczb losowych
     std::random_device rd;
     std::default_random_engine rng(rd());
 
-    // Przetasowanie indeksów
     std::shuffle(displaces.begin(), displaces.end(), rng);
 
     Organism* org = getAtCoordinates(position);
@@ -213,7 +207,7 @@ bool World::hasFreeSpaceAround(Point position) {
         Point neighbor(position.x + dx[i], position.y + dy[i]);
 
         if (isWithinBounds(neighbor) && getAtCoordinates(neighbor) == nullptr) {
-            return true; // Zwróć pierwsze wolne sąsiednie pole
+            return true;
         }
     }
 
@@ -226,11 +220,9 @@ Point World::getRandomSpaceDoubleMove(const Point& position) const {
         {0, 2}, {0, -2}, {2, 0}, {-2, 0}  // Double moves
     };
 
-    // Tworzenie generatora liczb losowych
     std::random_device rd;
     std::default_random_engine rng(rd());
 
-    // Przetasowanie indeksów
     std::shuffle(displacements.begin(), displacements.end(), rng);
 
     for (const auto& displacement : displacements) {
