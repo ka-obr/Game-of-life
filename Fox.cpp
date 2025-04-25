@@ -30,4 +30,3 @@ void Fox::action() {
 
     age++;
 }
-

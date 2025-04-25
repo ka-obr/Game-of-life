@@ -38,6 +38,8 @@ void Gameplay::startGame() {
     setGame();
     spawnOrganisms();
     world->drawWorld(width, height);
+    world->printHumanInfo();
+    world->printShoutSummary();
 
     while (running) {
         getInput();
@@ -64,9 +66,19 @@ void Gameplay::InitialText() {
 void Gameplay::setGame() {
     system("cls");
     cout << "Enter board width: ";
-    cin >> width;
+    while (!(cin >> width) || width <= 0) {
+        cin.clear();
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+        cout << "Invalid input. Please enter a positive number for width: ";
+    }
+
     cout << "Enter board height: ";
-    cin >> height;
+    while (!(cin >> height) || height <= 0) {
+        cin.clear();
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+        cout << "Invalid input. Please enter a positive number for height: ";
+    }
+
     world = new World(width, height);
 }
 
@@ -79,12 +91,12 @@ void Gameplay::makeShout() {
 void Gameplay::gameInfo() {
     system("cls");
     cout << R"(
- __        __   _                            _         _
- \ \      / /__| | ___ ___  _ __ ___   ___  | |_ ___  (_)_ __   __ _
-  \ \ /\ / / _ \ |/ __/ _ \| '_ ` _ \ / _ \ | __/ _ \ | | '_ \ / _` |
-   \ V  V /  __/ | (_| (_) | | | | | |  __/ | ||  __/_| | | | | (_| |
-    \_/\_/ \___|_|\___\___/|_| |_| |_|\___|  \__\___(_)_|_| |_|\__, |
-                                                              |___/
+__        __   _                          
+\ \      / /__| | ___ ___  _ __ ___   ___ 
+ \ \ /\ / / _ \ |/ __/ _ \| '_ ` _ \ / _ \
+  \ V  V /  __/ | (_| (_) | | | | | |  __/
+   \_/\_/ \___|_|\___\___/|_| |_| |_|\___|
+  
     )" << "\n";
 
     cout << "\nWelcome to the Turn-Based World Simulator!\n\n";
@@ -102,7 +114,15 @@ void Gameplay::gameInfo() {
     cout << "The world is populated with various animals and plants.\n";
     cout << "Check the event log for battles, feeding, and more.\n\n";
 
-    cout << "Good luck out there, pioneer of virtual evolution!\n";
+    cout << "Good luck out there, pioneer of virtual evolution!\n\n";
+
+    cout << "Controls:\n";
+    cout << " - Arrows: Human movement.\n";
+    cout << " - Q: Quit game.\n";
+    cout << " - R: Human special ability.\n";
+    cout << " - T: Make Shout.\n";
+    cout << " - S: Save file.\n";
+    cout << " - L: Load file.\n\n";
 
     cout << "Press any key to start the game..." << endl;
 }
