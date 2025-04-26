@@ -65,8 +65,10 @@ int SaveManager::loadGame(const std::string& filename, World* world) {
 
     World* newWorld = new World(width, height);
 
+    json humanData = loadData.contains("human") ? loadData["human"] : json::object();
+
     for (const auto& organismData : loadData["organisms"]) {
-        Organism* organism = createOrganismFromData(organismData, world);
+        Organism* organism = createOrganismFromData(organismData, humanData, world);
         if (organism == nullptr) {
             continue;
         }
@@ -84,7 +86,7 @@ int SaveManager::loadGame(const std::string& filename, World* world) {
     return shout;
 }
 
-Organism* SaveManager::createOrganismFromData(const nlohmann::json& organismData, World* world) {
+Organism* SaveManager::createOrganismFromData(const nlohmann::json& organismData, const nlohmann::json& humanData, World* world) {
     std::string type = organismData["type"];
     int x = organismData["position"][0];
     int y = organismData["position"][1];
@@ -94,19 +96,19 @@ Organism* SaveManager::createOrganismFromData(const nlohmann::json& organismData
     Point position(x, y);
 
     if (type == typeid(Human).name()) {
-        int specialAbilityActive = organismData.value("specialAbilityActive", 0);
-        int specialAbilityCooldown = organismData.value("specialAbilityCooldown", 0);
-        int specialAbilityCounter = organismData.value("specialAbilityCounter", 0);
+        int specialAbilityActive = humanData.value("specialAbilityActive", 0);
+        int specialAbilityCooldown = humanData.value("specialAbilityCooldown", 0);
+        int specialAbilityCounter = humanData.value("specialAbilityCounter", 0);
 
-        if (organismData.contains("specialAbilityActive") && 
-            organismData.contains("specialAbilityCooldown") && 
-            organismData.contains("specialAbilityCounter")) {
+        if (humanData.contains("specialAbilityCooldown") && 
+            humanData.contains("specialAbilityCounter")) {
             return new Human(world, strength, initiative, position, "🧍", age, specialAbilityActive, specialAbilityCooldown, specialAbilityCounter);
         } else {
             return new Human(world, strength, initiative, position, "🧍", age);
         }
         return new Human(world, strength, initiative, position, "🧍", age, specialAbilityActive, specialAbilityCooldown, specialAbilityCounter);
-    } else if (type == typeid(Wolf).name()) {
+    } 
+    if (type == typeid(Wolf).name()) {
         return new Wolf(world, position, age);
     } else if (type == typeid(Sheep).name()) {
         return new Sheep(world, position, age);

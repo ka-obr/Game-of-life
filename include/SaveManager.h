@@ -10,7 +10,7 @@ public:
     void saveGame(const std::string& filename, World* world, int shout);
     int loadGame(const std::string& filename, World* world);
 private:
-    Organism* createOrganismFromData(const nlohmann::json& organismData, World* world);
+    Organism* createOrganismFromData(const nlohmann::json& organismData, const nlohmann::json& humanData, World* world);
 };
 
 #endif

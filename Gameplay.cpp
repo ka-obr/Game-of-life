@@ -26,6 +26,7 @@ Gameplay::Gameplay() {
 }
 
 Gameplay::~Gameplay() {
+    delete human;
     delete world;
 }
 
@@ -83,7 +84,6 @@ void Gameplay::setGame() {
 }
 
 void Gameplay::makeShout() {
-    //TODO
     shout++;
 }
 

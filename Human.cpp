@@ -8,7 +8,7 @@ Human::Human(const Point& position, World* world)
     : Animal(world, 5, 4, position, "🧍") {
     specialAbilityActive = false;
     specialAbilityCooldown = 0;
-    specialAbilityCounter = 6;
+    specialAbilityCounter = 5;
     
     world->setHuman(this);
 }
@@ -17,7 +17,7 @@ Human::Human(World* world, int strength, int initiative, Point& position, string
     : Animal(world, strength, initiative, position, symbol, age) {
     specialAbilityActive = false;
     specialAbilityCooldown = 0;
-    specialAbilityCounter = 6;
+    specialAbilityCounter = 5;
 
     world->setHuman(this);
 }
