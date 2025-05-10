@@ -8,10 +8,10 @@
                 "-g",
                 "*.cpp",
                 "-o",
-                "${workspaceFolder}\\build\\game-of-life.exe"
+                "${workspaceFolder}\\game-of-life-cpp\\build\\game-of-life.exe"
             ],
             "options": {
-                "cwd": "${workspaceFolder}"
+                "cwd": "${workspaceFolder}\\game-of-life-cpp"
             },
             "problemMatcher": [
                 "$gcc"
