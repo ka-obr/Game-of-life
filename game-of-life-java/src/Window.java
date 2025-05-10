@@ -1,0 +1,197 @@
+import lib.Size;
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseMotionAdapter;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+public class Window extends JFrame {
+    private World world;
+    private int offsetX = 0, offsetY = 0; // Przesunięcie mapy
+    private Point dragStart = null; // Punkt początkowy przeciągania
+    private JPopupMenu activePopupMenu = null; // Przechowuje aktualnie otwarte menu
+    private DrawingPanel drawingPanel; // Panel rysowania
+
+    public Window(Gameplay gameplay) {
+        this.world = gameplay.getWorld(); // Przypisanie świata
+        setTitle("Game of Life");
+        setSize(800, 600);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setLocationRelativeTo(null);
+
+        drawingPanel = new DrawingPanel();
+        add(drawingPanel);
+
+        addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyPressed(KeyEvent e) {
+                char keyChar = e.getKeyChar();
+                gameplay.handleInput(String.valueOf(keyChar));
+                drawingPanel.repaint(); // Odświeżenie panelu rysowania
+            }
+        });
+
+        addMouseListener(new MouseAdapter() {
+            @Override
+            public void mousePressed(MouseEvent e) {
+                if (SwingUtilities.isRightMouseButton(e)) {
+                    dragStart = e.getPoint(); // Zapisanie punktu początkowego przeciągania
+                } else if (SwingUtilities.isLeftMouseButton(e)) {
+                    handleTileClick(e.getPoint()); // Obsługa kliknięcia lewym przyciskiem myszy
+                }
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+                if (SwingUtilities.isRightMouseButton(e)) {
+                    dragStart = null; // Zakończenie przeciągania
+                }
+            }
+        });
+
+        addMouseMotionListener(new MouseMotionAdapter() {
+            @Override
+            public void mouseDragged(MouseEvent e) {
+                if (dragStart != null && SwingUtilities.isRightMouseButton(e)) {
+                    int dx = e.getX() - dragStart.x;
+                    int dy = e.getY() - dragStart.y;
+                    offsetX += dx;
+                    offsetY += dy;
+                    dragStart = e.getPoint(); // Aktualizacja punktu początkowego
+                    drawingPanel.repaint(); // Odświeżenie panelu rysowania
+                }
+            }
+        });
+
+        setVisible(true);
+    }
+
+    private class DrawingPanel extends JPanel {
+        @Override
+        protected void paintComponent(Graphics g) {
+            super.paintComponent(g);
+
+            // Ustawienie koloru tła na ciemnozielony
+            g.setColor(new Color(46, 90, 46)); // Ciemnozielony
+            g.fillRect(0, 0, getWidth(), getHeight());
+
+            drawWorld(g);
+        }
+
+        private void drawWorld(Graphics g) {
+            Graphics2D g2d = (Graphics2D) g;
+
+            // Obliczanie przesunięcia, aby siatka była wyśrodkowana
+            Size size = world.getSize();
+            int tileWidth = 50; // Stała szerokość kafelka
+            int tileHeight = 50; // Stała wysokość kafelka
+            int gridWidth = size.x * tileWidth;
+            int gridHeight = size.y * tileHeight;
+
+            int centerX = (getWidth() - gridWidth) / 2;
+            int centerY = (getHeight() - gridHeight) / 2;
+
+            g2d.translate(offsetX + centerX, offsetY + centerY); // Przesunięcie mapy i wyśrodkowanie
+
+            // Rysowanie siatki
+            for (int i = 0; i < size.x; i++) {
+                for (int j = 0; j < size.y; j++) {
+                    g2d.setColor(new Color(67, 131, 67)); // Jasnozielony
+                    g2d.fillRect(i * tileWidth, j * tileHeight, tileWidth, tileHeight); // Wypełnienie kafelka
+
+                    g2d.setColor(new Color(46, 90, 46)); // Ciemnozielony kolor dla obramowania
+                    g2d.setStroke(new BasicStroke(3)); // Ustawienie grubości linii na 3 piksele
+                    g2d.drawRect(i * tileWidth, j * tileHeight, tileWidth, tileHeight); // Rysowanie obramowania kafelka
+                }
+            }
+
+            // Rysowanie organizmów
+            for (Organism organism : world.getOrganisms()) {
+                Point position = organism.getPosition();
+                ImageIcon icon = organism.getIcon();
+
+                if (icon != null) {
+                    Image image = icon.getImage();
+                    int imageWidth = (int) (tileWidth * 0.8);
+                    int imageHeight = (int) (tileHeight * 0.8);
+
+                    // Centrowanie obrazu w kafelku z lekkim przesunięciem w dół
+                    int xOffset = (tileWidth - imageWidth) / 2;
+                    int yOffset = (tileHeight - imageHeight) / 2 + 1;
+
+                    g2d.drawImage(image, position.x * tileWidth + xOffset, position.y * tileHeight + yOffset, imageWidth, imageHeight, this);
+                }
+            }
+        }
+    }
+
+    private void handleTileClick(Point clickPoint) {
+        Size size = world.getSize();
+        int tileWidth = 50;
+        int tileHeight = 50;
+
+        // Obliczanie przesunięcia, aby siatka była wyśrodkowana
+        int gridWidth = size.x * tileWidth;
+        int gridHeight = size.y * tileHeight;
+        int centerX = (getWidth() - gridWidth) / 2;
+        int centerY = (getHeight() - gridHeight) / 2;
+
+        int adjustedX = clickPoint.x - offsetX - centerX;
+        int adjustedY = clickPoint.y - offsetY - centerY;
+
+        int tileX = adjustedX / tileWidth;
+        int tileY = adjustedY / tileHeight;
+
+        if (tileX >= 0 && tileX < size.x && tileY >= 0 && tileY < size.y) {
+            showAddMenu(tileX, tileY);
+        }
+    }
+
+    private void showAddMenu(int tileX, int tileY) {
+        Point tilePosition = new Point(tileX, tileY);
+        if (world.isTileOccupied(tilePosition)) {
+            return; // Nie pokazuj menu, jeśli kafelek jest zajęty
+        }
+        
+        // Zamknięcie poprzedniego menu, jeśli istnieje
+        if (activePopupMenu != null) {
+            activePopupMenu.setVisible(false);
+            activePopupMenu = null;
+            drawingPanel.repaint();
+        }
+        
+        JPopupMenu popupMenu = new JPopupMenu();
+        activePopupMenu = popupMenu;
+        
+        // Korzystanie z cache'owanej ikon
+        JMenuItem addSheepItem = new JMenuItem(new ImageIcon(Sheep.scaledSheepIcon));
+        addSheepItem.setOpaque(false);
+        addSheepItem.setBorder(BorderFactory.createEmptyBorder());
+        addSheepItem.addActionListener(e -> {
+            Sheep sheep = new Sheep(tilePosition, world, 1);
+            world.addOrganism(sheep);
+            drawingPanel.repaint();
+        });
+        popupMenu.add(addSheepItem);
+        
+        int tileWidth = 50;
+        int tileHeight = 50;
+        int gridWidth = world.getSize().x * tileWidth;
+        int gridHeight = world.getSize().y * tileHeight;
+        // Używamy wymiarów panelu rysowania do wyśrodkowania siatki
+        int panelCenterX = (drawingPanel.getWidth() - gridWidth) / 2;
+        int panelCenterY = (drawingPanel.getHeight() - gridHeight) / 2;
+        
+        // Obliczamy środek klikniętego kafelka
+        int tileCenterX = offsetX + panelCenterX + tileX * tileWidth + tileWidth / 2;
+        int tileCenterY = offsetY + panelCenterY + tileY * tileHeight + tileHeight / 2;
+        Dimension popupSize = popupMenu.getPreferredSize();
+        int popupX = tileCenterX - popupSize.width / 2;
+        int popupY = tileCenterY - popupSize.height / 2;
+        popupMenu.show(drawingPanel, popupX, popupY);
+    }
+}
