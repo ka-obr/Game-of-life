@@ -56,4 +56,32 @@ public class World {
     public void removeOrganism(Organism organism) {
         organisms.remove(organism);
     }
+
+    public Point generateRandomPosition(Point currentPosition) {
+        int[][] directions = { {0, -1}, {0, 1}, {1, 0}, {-1, 0} };
+        List<Point> validPositions = new ArrayList<>();
+        Size worldSize = getSize();
+
+        for (int[] d : directions) {
+            int newX = currentPosition.x + d[0];
+            int newY = currentPosition.y + d[1];
+            if (newX >= 0 && newX < worldSize.x && newY >= 0 && newY < worldSize.y) {
+                validPositions.add(new Point(newX, newY));
+            }
+        }
+
+        if (!validPositions.isEmpty()) {
+            return validPositions.get((int) (Math.random() * validPositions.size()));
+        }
+        return null; // Brak dostępnych pozycji
+    }
+
+    public Organism getOrganismAtPosition(Point position) {
+        for (Organism organism : organisms) {
+            if (organism.getPosition().equals(position)) {
+                return organism;
+            }
+        }
+        return null; // Brak organizmu na tej pozycji
+    }
 }

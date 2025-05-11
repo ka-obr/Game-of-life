@@ -10,6 +10,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class Window extends JFrame {
+    private static final int TILE_SIZE = 50; // Stały rozmiar kafelka
     private World world;
     private int offsetX = 0, offsetY = 0; // Przesunięcie mapy
     private Point dragStart = null; // Punkt początkowy przeciągania
@@ -18,8 +19,14 @@ public class Window extends JFrame {
 
     public Window(Gameplay gameplay) {
         this.world = gameplay.getWorld(); // Przypisanie świata
+
+        // Obliczanie rozmiaru okna na podstawie rozmiaru siatki
+        Size gridSize = world.getSize();
+        int windowWidth = gridSize.x * TILE_SIZE + 200; // Dodanie marginesu na ramkę
+        int windowHeight = gridSize.y * TILE_SIZE + 200; // Dodanie marginesu na pasek tytułu
+
         setTitle("Game of Life");
-        setSize(800, 600);
+        setSize(windowWidth, windowHeight);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
 
@@ -87,10 +94,8 @@ public class Window extends JFrame {
 
             // Obliczanie przesunięcia, aby siatka była wyśrodkowana
             Size size = world.getSize();
-            int tileWidth = 50; // Stała szerokość kafelka
-            int tileHeight = 50; // Stała wysokość kafelka
-            int gridWidth = size.x * tileWidth;
-            int gridHeight = size.y * tileHeight;
+            int gridWidth = size.x * TILE_SIZE;
+            int gridHeight = size.y * TILE_SIZE;
 
             int centerX = (getWidth() - gridWidth) / 2;
             int centerY = (getHeight() - gridHeight) / 2;
@@ -101,11 +106,11 @@ public class Window extends JFrame {
             for (int i = 0; i < size.x; i++) {
                 for (int j = 0; j < size.y; j++) {
                     g2d.setColor(new Color(67, 131, 67)); // Jasnozielony
-                    g2d.fillRect(i * tileWidth, j * tileHeight, tileWidth, tileHeight); // Wypełnienie kafelka
+                    g2d.fillRect(i * TILE_SIZE, j * TILE_SIZE, TILE_SIZE, TILE_SIZE); // Wypełnienie kafelka
 
                     g2d.setColor(new Color(46, 90, 46)); // Ciemnozielony kolor dla obramowania
                     g2d.setStroke(new BasicStroke(3)); // Ustawienie grubości linii na 3 piksele
-                    g2d.drawRect(i * tileWidth, j * tileHeight, tileWidth, tileHeight); // Rysowanie obramowania kafelka
+                    g2d.drawRect(i * TILE_SIZE, j * TILE_SIZE, TILE_SIZE, TILE_SIZE); // Rysowanie obramowania kafelka
                 }
             }
 
@@ -116,14 +121,14 @@ public class Window extends JFrame {
 
                 if (icon != null) {
                     Image image = icon.getImage();
-                    int imageWidth = (int) (tileWidth * 0.8);
-                    int imageHeight = (int) (tileHeight * 0.8);
+                    int imageWidth = (int) (TILE_SIZE * 0.8);
+                    int imageHeight = (int) (TILE_SIZE * 0.8);
 
                     // Centrowanie obrazu w kafelku z lekkim przesunięciem w dół
-                    int xOffset = (tileWidth - imageWidth) / 2;
-                    int yOffset = (tileHeight - imageHeight) / 2 + 1;
+                    int xOffset = (TILE_SIZE - imageWidth) / 2;
+                    int yOffset = (TILE_SIZE - imageHeight) / 2 + 1;
 
-                    g2d.drawImage(image, position.x * tileWidth + xOffset, position.y * tileHeight + yOffset, imageWidth, imageHeight, this);
+                    g2d.drawImage(image, position.x * TILE_SIZE + xOffset, position.y * TILE_SIZE + yOffset, imageWidth, imageHeight, this);
                 }
             }
         }

@@ -9,34 +9,12 @@ public abstract class Animal extends Organism {
         super(strength, initiative, position, world, age);
     }
 
-    // Losowy ruch: góra, dół, prawo lub lewo
     public void move() {
-        int[][] directions = { {0, -1}, {0, 1}, {1, 0}, {-1, 0} };
-        List<int[]> validDirections = new ArrayList<>();
-        Size worldSize = world.getSize();
-
-        // Filtrujemy kierunki, które są w granicach świata
-        for (int[] d : directions) {
-            int newX = position.x + d[0];
-            int newY = position.y + d[1];
-            if (newX >= 0 && newX < worldSize.x && newY >= 0 && newY < worldSize.y) {
-                validDirections.add(d);
-            }
-        }
-
-        // Jeśli są dostępne kierunki, wybieramy losowy
-        if (!validDirections.isEmpty()) {
-            int[] chosenDirection = validDirections.get((int) (Math.random() * validDirections.size()));
-            Point newPos = new Point(position.x + chosenDirection[0], position.y + chosenDirection[1]);
-
-            if (world.isTileOccupied(newPos)) {
-                // Znajdujemy organizm na nowej pozycji i wywołujemy collision
-                for (Organism other : world.getOrganisms()) {
-                    if (other.getPosition().equals(newPos)) {
-                        collision(other);
-                        break;
-                    }
-                }
+        Point newPos = world.generateRandomPosition(position);
+        if (newPos != null) {
+            Organism other = world.getOrganismAtPosition(newPos);
+            if (other != null) {
+                collision(other);
             } else {
                 position = newPos; // Przesuwamy organizm na nową pozycję
             }
@@ -47,23 +25,16 @@ public abstract class Animal extends Organism {
     public void collision(Organism other) {
         if (this.getClass().equals(other.getClass())) {
             if (other.getAge() == 0) {
-                return;
+                return; // Nie rozmnażaj się z nowo narodzonym organizmem
             }
 
             // Reprodukcja
-            int[][] directions = { {0, -1}, {0, 1}, {1, 0}, {-1, 0} };
-            for (int[] d : directions) {
-                Point newPos = new Point(position.x + d[0], position.y + d[1]);
-                Size worldSize = world.getSize();
-                if (newPos.x >= 0 && newPos.x < worldSize.x && newPos.y >= 0 && newPos.y < worldSize.y) {
-                    if (!world.isTileOccupied(newPos)) {
-                        if (this instanceof Sheep) {
-                            Sheep baby = new Sheep(newPos, world, 0);
-                            world.addOrganism(baby);
-                            System.out.println("Reproduction occurred: new Sheep at " + newPos);
-                        }
-                        break;
-                    }
+            Point newPos = world.generateRandomPosition(position);
+            if (newPos != null && !world.isTileOccupied(newPos)) {
+                if (this instanceof Sheep) {
+                    Sheep baby = new Sheep(newPos, world, 0);
+                    world.addOrganism(baby);
+                    System.out.println("Reproduction occurred: new Sheep at " + newPos);
                 }
             }
         } else {
