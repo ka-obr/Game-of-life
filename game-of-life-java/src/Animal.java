@@ -23,28 +23,30 @@ public abstract class Animal extends Organism {
 
     @Override
     public void collision(Organism other) {
-        if (this.getClass().equals(other.getClass())) {
+        if (this.getClass().equals(other.getClass())) { // ten sam gatunek
             if (other.getAge() == 0) {
-                return; // Nie rozmnażaj się z nowo narodzonym organizmem
+                // Nie reprodukujemy się z noworodkiem, pozostajemy na miejscu (ruch nie jest wykonywany)
+                return;
             }
-
-            // Reprodukcja
+            // Próba reprodukcji - nie zmieniamy pozycji atakującego
             Point newPos = world.generateRandomPosition(position);
             if (newPos != null && !world.isTileOccupied(newPos)) {
                 if (this instanceof Sheep) {
                     Sheep baby = new Sheep(newPos, world, 0);
                     world.addOrganism(baby);
                     System.out.println("Reproduction occurred: new Sheep at " + newPos);
+                } else if (this instanceof Wolf) {
+                    Wolf baby = new Wolf(newPos, world, 0);
+                    world.addOrganism(baby);
+                    System.out.println("Reproduction occurred: new Wolf at " + newPos);
                 }
             }
-        } else {
-            // Walka
+        } else { // różne gatunki - walka
             if (this.getStrength() >= other.getStrength()) {
                 world.removeOrganism(other);
-                System.out.println(this.getClass().getSimpleName() + " wins against " + other.getClass().getSimpleName());
-            } else {
-                world.removeOrganism(this);
-                System.out.println(other.getClass().getSimpleName() + " wins against " + this.getClass().getSimpleName());
+                // Po wygranej walce przechodzimy na pozycję przeciwnika
+                this.position = other.getPosition();
+                System.out.println("Move because win the fight");
             }
         }
     }

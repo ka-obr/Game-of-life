@@ -161,18 +161,18 @@ public class Window extends JFrame {
         if (world.isTileOccupied(tilePosition)) {
             return; // Nie pokazuj menu, jeśli kafelek jest zajęty
         }
-        
+
         // Zamknięcie poprzedniego menu, jeśli istnieje
         if (activePopupMenu != null) {
             activePopupMenu.setVisible(false);
             activePopupMenu = null;
             drawingPanel.repaint();
         }
-        
+
         JPopupMenu popupMenu = new JPopupMenu();
         activePopupMenu = popupMenu;
-        
-        // Korzystanie z cache'owanej ikon
+
+        // Opcja dodania owcy
         JMenuItem addSheepItem = new JMenuItem(new ImageIcon(Sheep.scaledSheepIcon));
         addSheepItem.setOpaque(false);
         addSheepItem.setBorder(BorderFactory.createEmptyBorder());
@@ -182,7 +182,18 @@ public class Window extends JFrame {
             drawingPanel.repaint();
         });
         popupMenu.add(addSheepItem);
-        
+
+        // Opcja dodania wilka
+        JMenuItem addWolfItem = new JMenuItem(new ImageIcon(Wolf.scaledWolfIcon));
+        addWolfItem.setOpaque(false);
+        addWolfItem.setBorder(BorderFactory.createEmptyBorder());
+        addWolfItem.addActionListener(e -> {
+            Wolf wolf = new Wolf(tilePosition, world, 1);
+            world.addOrganism(wolf);
+            drawingPanel.repaint();
+        });
+        popupMenu.add(addWolfItem);
+
         int tileWidth = 50;
         int tileHeight = 50;
         int gridWidth = world.getSize().x * tileWidth;
@@ -190,7 +201,7 @@ public class Window extends JFrame {
         // Używamy wymiarów panelu rysowania do wyśrodkowania siatki
         int panelCenterX = (drawingPanel.getWidth() - gridWidth) / 2;
         int panelCenterY = (drawingPanel.getHeight() - gridHeight) / 2;
-        
+
         // Obliczamy środek klikniętego kafelka
         int tileCenterX = offsetX + panelCenterX + tileX * tileWidth + tileWidth / 2;
         int tileCenterY = offsetY + panelCenterY + tileY * tileHeight + tileHeight / 2;
