@@ -76,6 +76,18 @@ public class World {
         return null; // Brak dostępnych pozycji
     }
 
+    // Nowa metoda generująca losową pozycję w obrębie planszy
+    public Point generateRandomPosition() {
+        java.util.Random random = new java.util.Random();
+        Point position;
+        do {
+            int x = random.nextInt(size.x);
+            int y = random.nextInt(size.y);
+            position = new Point(x, y);
+        } while (isTileOccupied(position)); // Sprawdzanie, czy pole nie jest zajęte
+        return position;
+    }
+
     public Organism getOrganismAtPosition(Point position) {
         for (Organism organism : organisms) {
             if (organism.getPosition().equals(position)) {
@@ -83,5 +95,21 @@ public class World {
             }
         }
         return null; // Brak organizmu na tej pozycji
+    }
+
+    public void addSheep(int count, int age) {
+        Point pos = generateRandomPosition();
+        for (int i = 0; i < count; i++) {
+            Sheep sheep = new Sheep(pos, this, age);
+            addOrganism(sheep);
+        }
+    }
+
+    public void addWolf(int count, int age) {
+        Point pos = generateRandomPosition();
+        for (int i = 0; i < count; i++) {
+            Wolf wolf = new Wolf(pos, this, age);
+            addOrganism(wolf);
+        }
     }
 }

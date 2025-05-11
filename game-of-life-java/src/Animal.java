@@ -9,6 +9,18 @@ public abstract class Animal extends Organism {
         super(strength, initiative, position, world, age);
     }
 
+    public void createAnimalByType(Class<? extends Animal> animalType, Point position) {
+        if (animalType.equals(Sheep.class)) {
+            Sheep baby = new Sheep(position, world, 0);
+            world.addOrganism(baby);
+            System.out.println("Reproduction occurred: new Sheep at " + position);
+        } else if (animalType.equals(Wolf.class)) {
+            Wolf baby = new Wolf(position, world, 0);
+            world.addOrganism(baby);
+            System.out.println("Reproduction occurred: new Wolf at " + position);
+        }
+    }
+
     public void move() {
         Point newPos = world.generateRandomPosition(position);
         if (newPos != null) {
@@ -31,15 +43,7 @@ public abstract class Animal extends Organism {
             // Próba reprodukcji - nie zmieniamy pozycji atakującego
             Point newPos = world.generateRandomPosition(position);
             if (newPos != null && !world.isTileOccupied(newPos)) {
-                if (this instanceof Sheep) {
-                    Sheep baby = new Sheep(newPos, world, 0);
-                    world.addOrganism(baby);
-                    System.out.println("Reproduction occurred: new Sheep at " + newPos);
-                } else if (this instanceof Wolf) {
-                    Wolf baby = new Wolf(newPos, world, 0);
-                    world.addOrganism(baby);
-                    System.out.println("Reproduction occurred: new Wolf at " + newPos);
-                }
+                createAnimalByType(this.getClass(), newPos);
             }
         } else { // różne gatunki - walka
             if (this.getStrength() >= other.getStrength()) {

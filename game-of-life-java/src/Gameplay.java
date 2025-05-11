@@ -11,18 +11,8 @@ public class Gameplay {
         this.world = world;
         window = new Window(this);
 
-        // Dodanie owcy na losowej pozycji
-        Random random = new Random();
-        int randomX = random.nextInt(world.getSize().x);
-        int randomY = random.nextInt(world.getSize().y);
-        Sheep sheep = new Sheep(new Point(randomX, randomY), world, 1);
-        world.addOrganism(sheep);
-
-        // Dodanie wilka na losowej pozycji
-        randomX = random.nextInt(world.getSize().x);
-        randomY = random.nextInt(world.getSize().y);
-        Wolf wolf = new Wolf(new Point(randomX, randomY), world, 1);
-        world.addOrganism(wolf);
+        world.addSheep(1, 1);
+        world.addWolf(1, 1);
 
         window.repaint();
     }

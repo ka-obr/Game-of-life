@@ -156,6 +156,23 @@ public class Window extends JFrame {
         }
     }
 
+    private <T extends Animal> void addAnimalOption(JPopupMenu popupMenu, Class<T> animalClass, ImageIcon icon, Point tilePosition) {
+        JMenuItem menuItem = new JMenuItem(icon);
+        menuItem.setOpaque(false);
+        menuItem.setBorder(BorderFactory.createEmptyBorder());
+        menuItem.addActionListener(e -> {
+            try {
+                T animal = animalClass.getConstructor(Point.class, World.class, int.class)
+                        .newInstance(tilePosition, world, 1);
+                world.addOrganism(animal);
+                drawingPanel.repaint();
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+        });
+        popupMenu.add(menuItem);
+    }
+
     private void showAddMenu(int tileX, int tileY) {
         Point tilePosition = new Point(tileX, tileY);
         if (world.isTileOccupied(tilePosition)) {
@@ -173,26 +190,8 @@ public class Window extends JFrame {
         activePopupMenu = popupMenu;
 
         // Opcja dodania owcy
-        JMenuItem addSheepItem = new JMenuItem(new ImageIcon(Sheep.scaledSheepIcon));
-        addSheepItem.setOpaque(false);
-        addSheepItem.setBorder(BorderFactory.createEmptyBorder());
-        addSheepItem.addActionListener(e -> {
-            Sheep sheep = new Sheep(tilePosition, world, 1);
-            world.addOrganism(sheep);
-            drawingPanel.repaint();
-        });
-        popupMenu.add(addSheepItem);
-
-        // Opcja dodania wilka
-        JMenuItem addWolfItem = new JMenuItem(new ImageIcon(Wolf.scaledWolfIcon));
-        addWolfItem.setOpaque(false);
-        addWolfItem.setBorder(BorderFactory.createEmptyBorder());
-        addWolfItem.addActionListener(e -> {
-            Wolf wolf = new Wolf(tilePosition, world, 1);
-            world.addOrganism(wolf);
-            drawingPanel.repaint();
-        });
-        popupMenu.add(addWolfItem);
+        addAnimalOption(popupMenu, Sheep.class, new ImageIcon(Sheep.scaledSheepIcon), tilePosition);
+        addAnimalOption(popupMenu, Wolf.class, new ImageIcon(Wolf.scaledWolfIcon), tilePosition);
 
         int tileWidth = 50;
         int tileHeight = 50;
