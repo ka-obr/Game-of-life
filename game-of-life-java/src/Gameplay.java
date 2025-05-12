@@ -29,11 +29,12 @@ public class Gameplay {
         this.world = world;
         window = new Window(this);
 
-        // Inicjalizacja człowieka na pozycji (0,0)
+//         Inicjalizacja człowieka na pozycji (0,0)
         human = new Human(new Point(0, 0), world, 1);
         world.addOrganism(human);
         world.addSheep(1, 1);
         world.addWolf(1, 1);
+        world.addFox(1, 1);
 
         window.repaint();
     }

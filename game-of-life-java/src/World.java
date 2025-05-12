@@ -2,6 +2,7 @@ import lib.Size;
 
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Comparator;
 
@@ -88,6 +89,30 @@ public class World {
         return position;
     }
 
+    public Point generateSafePosition(Point position) {
+        List<int[]> displacements = new ArrayList<>(java.util.Arrays.asList(
+                new int[]{0, 1}, new int[]{1, 0}, new int[]{-1, 0}, new int[]{0, -1}
+        ));
+
+        Collections.shuffle(displacements); // Losowe przetasowanie kierunków
+
+        Organism org = getOrganismAtPosition(position);
+
+        for (int[] displacement : displacements) {
+            Point neighbor = new Point(position.x + displacement[0], position.y + displacement[1]);
+
+            if (neighbor.x >= 0 && neighbor.x < size.x && neighbor.y >= 0 && neighbor.y < size.y) { // W granicach świata
+                Organism other = getOrganismAtPosition(neighbor);
+                if (other != null && other.getStrength() > org.getStrength()) {
+                    continue; // Pomijamy, jeśli sąsiad jest silniejszy
+                }
+                return neighbor; // Zwracamy bezpieczną pozycję
+            }
+        }
+
+        return position; // Jeśli brak bezpiecznych pozycji, zwracamy bieżącą pozycję
+    }
+
     public Organism getOrganismAtPosition(Point position) {
         for (Organism organism : organisms) {
             if (organism.getPosition().equals(position)) {
@@ -110,6 +135,14 @@ public class World {
         for (int i = 0; i < count; i++) {
             Wolf wolf = new Wolf(pos, this, age);
             addOrganism(wolf);
+        }
+    }
+
+    public void addFox(int count, int age) {
+        for (int i = 0; i < count; i++) {
+            Point pos = generateRandomPosition();
+            Fox fox = new Fox(pos, this, age);
+            addOrganism(fox);
         }
     }
 

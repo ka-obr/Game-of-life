@@ -18,6 +18,10 @@ public abstract class Animal extends Organism {
             Wolf baby = new Wolf(position, world, 0);
             world.addOrganism(baby);
             System.out.println("Reproduction occurred: new Wolf at " + position);
+        } else if (animalType.equals(Fox.class)) {
+            Fox baby = new Fox(position, world, 0);
+            world.addOrganism(baby);
+            System.out.println("Reproduction occurred: new Fox at " + position);
         }
     }
 
