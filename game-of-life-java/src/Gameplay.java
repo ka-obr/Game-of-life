@@ -35,6 +35,7 @@ public class Gameplay {
         world.addSheep(1, 1);
         world.addWolf(1, 1);
         world.addFox(1, 1);
+        world.addTurtle(1, 1);
 
         window.repaint();
     }

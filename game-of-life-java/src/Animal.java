@@ -22,13 +22,27 @@ public abstract class Animal extends Organism {
             Fox baby = new Fox(position, world, 0);
             world.addOrganism(baby);
             System.out.println("Reproduction occurred: new Fox at " + position);
+        } else if (animalType.equals(Turtle.class)) {
+            Turtle baby = new Turtle(position, world, 0);
+            world.addOrganism(baby);
+            System.out.println("Reproduction occurred: new Fox at " + position);
         }
+    }
+
+    protected boolean haveSavedAttack(Organism other) {
+        if(other instanceof Turtle && this.getStrength() < 5) {
+            return true;
+        }
+        return false;
     }
 
     public void move() {
         Point newPos = world.generateRandomPosition(position);
         if (newPos != null) {
             Organism other = world.getOrganismAtPosition(newPos);
+            if(haveSavedAttack(other)) {
+                return;
+            }
             if (other != null) {
                 collision(other);
             } else {

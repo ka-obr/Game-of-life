@@ -146,6 +146,14 @@ public class World {
         }
     }
 
+    public void addTurtle(int count, int age) {
+        for (int i = 0; i < count; i++) {
+            Point pos = generateRandomPosition();
+            Turtle turtle = new Turtle(pos, this, age);
+            addOrganism(turtle);
+        }
+    }
+
     public void killNeighbors(Point position, int type) {
         // type = 1 - animals, type = 0 - everything
         final int[] dx = {-1, -1, -1, 0, 0, 1, 1, 1};

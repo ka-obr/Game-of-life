@@ -15,14 +15,17 @@ public class Fox extends Animal {
     }
 
     @Override
-    public void action() {
+    public void move() {
         Point newPos = world.generateSafePosition(position);
         if (newPos != null) {
             Organism other = world.getOrganismAtPosition(newPos);
+            if(haveSavedAttack(other)) {
+                return;
+            }
             if (other != null) {
                 collision(other);
             } else {
-                position = newPos; // Przesuwamy organizm na nową pozycję
+                position = newPos;
             }
         }
     }

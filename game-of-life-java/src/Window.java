@@ -212,6 +212,7 @@ public class Window extends JFrame {
         addAnimalOption(popupMenu, Sheep.class, new ImageIcon(Sheep.scaledSheepIcon), tilePosition);
         addAnimalOption(popupMenu, Wolf.class, new ImageIcon(Wolf.scaledWolfIcon), tilePosition);
         addAnimalOption(popupMenu, Fox.class, new ImageIcon(Fox.scaledFoxIcon), tilePosition);
+        addAnimalOption(popupMenu, Turtle.class, new ImageIcon(Turtle.scaledTurtleIcon), tilePosition); // Dodanie żółwia
 
         int tileWidth = 50;
         int tileHeight = 50;
@@ -230,4 +231,3 @@ public class Window extends JFrame {
         popupMenu.show(drawingPanel, popupX, popupY);
     }
 }
-

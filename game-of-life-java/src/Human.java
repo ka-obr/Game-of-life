@@ -45,26 +45,27 @@ public class Human extends Animal {
     public void action(String input) {
         age++; // Inkrementacja wieku
         Point newPos = null;
-        if (input.equalsIgnoreCase("up")) {
-            newPos = new Point(position.x, position.y - 1);
-        } else if (input.equalsIgnoreCase("down")) {
-            newPos = new Point(position.x, position.y + 1);
-        } else if (input.equalsIgnoreCase("left")) {
-            newPos = new Point(position.x - 1, position.y);
-        } else if (input.equalsIgnoreCase("right")) {
-            newPos = new Point(position.x + 1, position.y);
-        }
-        if (newPos != null && 
-            newPos.x >= 0 && newPos.y >= 0 && 
-            newPos.x < world.getSize().x && newPos.y < world.getSize().y) {
-            Organism occupant = world.getOrganismAtPosition(newPos);
-            if (occupant != null) {
-                // Jeśli pole jest zajęte, wywołujemy kolizję (human może zabić przeciwnika)
-                collision(occupant);
-            } else {
-                position = newPos;
+            if (input.equalsIgnoreCase("up")) {
+                newPos = new Point(position.x, position.y - 1);
+            } else if (input.equalsIgnoreCase("down")) {
+                newPos = new Point(position.x, position.y + 1);
+            } else if (input.equalsIgnoreCase("left")) {
+                newPos = new Point(position.x - 1, position.y);
+            } else if (input.equalsIgnoreCase("right")) {
+                newPos = new Point(position.x + 1, position.y);
             }
-        }
+
+            Organism occupant = world.getOrganismAtPosition(newPos);
+            if (newPos != null &&
+                newPos.x >= 0 && newPos.y >= 0 &&
+                newPos.x < world.getSize().x && newPos.y < world.getSize().y && !haveSavedAttack(occupant)) {
+                if (occupant != null) {
+                    // Jeśli pole jest zajęte, wywołujemy kolizję (human może zabić przeciwnika)
+                    collision(occupant);
+                } else {
+                    position = newPos;
+                }
+            }
 
         if(specialAbilityCooldown > 0) {
             specialAbilityCooldown--;
