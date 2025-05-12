@@ -112,4 +112,26 @@ public class World {
             addOrganism(wolf);
         }
     }
+
+    public void killNeighbors(Point position, int type) {
+        // type = 1 - animals, type = 0 - everything
+        final int[] dx = {-1, -1, -1, 0, 0, 1, 1, 1};
+        final int[] dy = {-1, 0, 1, -1, 1, -1, 0, 1};
+
+        for (int i = 0; i < 8; i++) {
+            Point neighbor = new Point(position.x + dx[i], position.y + dy[i]);
+            if (neighbor.x >= 0 && neighbor.x < size.x && neighbor.y >= 0 && neighbor.y < size.y) {
+                Organism other = getOrganismAtPosition(neighbor);
+                if (other != null) {
+                    if (type == 1 && other instanceof Animal) {
+                        removeOrganism(other);
+                        System.out.println("Killed animal at " + neighbor);
+                    } else if (type == 0) {
+                        removeOrganism(other);
+                        System.out.println("Killed organism at " + neighbor);
+                    }
+                }
+            }
+        }
+    }
 }

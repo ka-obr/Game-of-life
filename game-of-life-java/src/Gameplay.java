@@ -5,13 +5,32 @@ import java.util.Random;
 public class Gameplay {
     private boolean running = true;
     private Window window;
-    World world;
+    private World world;
+    private Human human; // Dodana zmienna pola dla człowieka
+
+    private void handleHumanSpecialAbility(Human human) {
+        if (human == null || !world.getOrganisms().contains(human)) {
+            String message = "Human is dead!";
+            System.out.println(message);
+        } else if (human.getSpecialAbilityCooldown() > 0) {
+            String message = "Human special ability is on cooldown for " + human.getSpecialAbilityCooldown() + " turns!";
+            System.out.println(message);
+        } else if (human.getSpecialAbilityActive()) {
+            String message = "Human special ability is already active!";
+            System.out.println(message);
+        } else { // human != null
+            human.setSpecialAbilityActive(true);
+            String message = "Human special ability activated!!!";
+            System.out.println(message);
+        }
+    }
 
     public Gameplay(World world) {
         this.world = world;
         window = new Window(this);
 
-        Human human = new Human(new Point(0, 0), world, 1);
+        // Inicjalizacja człowieka na pozycji (0,0)
+        human = new Human(new Point(0, 0), world, 1);
         world.addOrganism(human);
         world.addSheep(1, 1);
         world.addWolf(1, 1);
@@ -26,6 +45,8 @@ public class Gameplay {
     public void handleInput(String input) {
         if (input.equalsIgnoreCase("q")) {
             window.dispose();
+        } else if (input.equalsIgnoreCase("r")) {
+            handleHumanSpecialAbility(human);
         } else {
             world.update(input);
         }

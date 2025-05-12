@@ -2,6 +2,28 @@ import javax.swing.*;
 import java.awt.*;
 
 public class Human extends Animal {
+    // Dodane zmienne specjalnej umiejętności
+    private boolean specialAbilityActive;
+    private int specialAbilityCooldown;
+    private int specialAbilityCounter;
+
+    // Dodane gettery i setter dla zmiennych specjalnej umiejętności
+    public boolean getSpecialAbilityActive() {
+        return specialAbilityActive;
+    }
+
+    public void setSpecialAbilityActive(boolean specialAbilityActive) {
+        this.specialAbilityActive = specialAbilityActive;
+    }
+
+    public int getSpecialAbilityCooldown() {
+        return specialAbilityCooldown;
+    }
+
+    public int getSpecialAbilityCounter() {
+        return specialAbilityCounter;
+    }
+
     public static final ImageIcon humanIcon = new ImageIcon("images/human.png");
 
     public Human(World world) {
@@ -13,6 +35,9 @@ public class Human extends Animal {
         this.position = location; // Ustawienie pozycji na podaną
         this.world = world; // Ustawienie świata
         this.age = age; // Ustawienie wieku
+        this.specialAbilityActive = false;
+        this.specialAbilityCooldown = 0;
+        this.specialAbilityCounter = 5;
     }
 
     // Zmieniona metoda action(input) umożliwiająca poruszanie się człowieka i podejmowanie walki, jeśli pole jest zajęte
@@ -38,6 +63,22 @@ public class Human extends Animal {
                 collision(occupant);
             } else {
                 position = newPos;
+            }
+        }
+
+        if(specialAbilityCooldown > 0) {
+            specialAbilityCooldown--;
+        }
+
+        if(specialAbilityActive && specialAbilityCooldown == 0 && this != null) {
+            world.killNeighbors(position, 0);
+            specialAbilityCounter--;
+
+            if(specialAbilityCounter == 0) {
+                specialAbilityActive = false;
+                specialAbilityCooldown = 5; // Ustawienie cooldownu na 5 tur
+                specialAbilityCounter = 5; // Resetowanie licznika umiejętności
+                System.out.println("Human special ability deactivated");
             }
         }
     }
