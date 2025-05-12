@@ -22,7 +22,7 @@ public class World {
         return organisms;
     }
 
-    public void update() {
+    public void update(String input) {
         // Sortowanie organizmów według inicjatywy, a następnie wieku
         organisms.sort(Comparator.comparingInt(Organism::getInitiative).reversed()
                                   .thenComparingInt(Organism::getAge));
@@ -30,7 +30,7 @@ public class World {
         // Wywoływanie metody action dla każdego organizmu
         List<Organism> copy = new ArrayList<>(organisms);
         for (Organism organism : copy) {
-            organism.action();
+            organism.action(input);
         }
 
         System.out.println("Number of organisms: " + organisms.size());

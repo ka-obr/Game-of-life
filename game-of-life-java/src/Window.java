@@ -36,8 +36,27 @@ public class Window extends JFrame {
         addKeyListener(new KeyAdapter() {
             @Override
             public void keyPressed(KeyEvent e) {
-                char keyChar = e.getKeyChar();
-                gameplay.handleInput(String.valueOf(keyChar));
+                String input = null;
+                switch (e.getKeyCode()) {
+                    case KeyEvent.VK_UP:
+                        input = "up";
+                        break;
+                    case KeyEvent.VK_DOWN:
+                        input = "down";
+                        break;
+                    case KeyEvent.VK_LEFT:
+                        input = "left";
+                        break;
+                    case KeyEvent.VK_RIGHT:
+                        input = "right";
+                        break;
+                    case KeyEvent.VK_Q:
+                        input = "q";
+                        break;
+                    default:
+                        input = String.valueOf(e.getKeyChar());
+                }
+                gameplay.handleInput(input);
                 drawingPanel.repaint(); // Odświeżenie panelu rysowania
             }
         });

@@ -38,6 +38,10 @@ public abstract class Organism {
 
     }
 
+    public void action(String input) {
+        action();
+    }
+
     public void collision(Organism other) {
 
     }

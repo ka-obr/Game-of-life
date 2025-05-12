@@ -11,6 +11,8 @@ public class Gameplay {
         this.world = world;
         window = new Window(this);
 
+        Human human = new Human(new Point(0, 0), world, 1);
+        world.addOrganism(human);
         world.addSheep(1, 1);
         world.addWolf(1, 1);
 
@@ -22,10 +24,10 @@ public class Gameplay {
     }
 
     public void handleInput(String input) {
-        if (input.equalsIgnoreCase("t")) {
-            world.update();
-        } else if (input.equalsIgnoreCase("q")) {
+        if (input.equalsIgnoreCase("q")) {
             window.dispose();
+        } else {
+            world.update(input);
         }
     }
 }
