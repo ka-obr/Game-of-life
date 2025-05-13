@@ -16,13 +16,14 @@ public class Window extends JFrame {
     private Point dragStart = null; // Punkt początkowy przeciągania
     private JPopupMenu activePopupMenu = null; // Przechowuje aktualnie otwarte menu
     private DrawingPanel drawingPanel; // Panel rysowania
+    private JTextArea messageArea; // Panel wiadomości
 
     public Window(Gameplay gameplay) {
-        this.world = gameplay.getWorld(); // Przypisanie świata
+        this.world = gameplay.getWorld();
 
         // Obliczanie rozmiaru okna na podstawie rozmiaru siatki
         Size gridSize = world.getSize();
-        int windowWidth = gridSize.x * TILE_SIZE + 200; // Dodanie marginesu na ramkę
+        int windowWidth = gridSize.x * TILE_SIZE + 300; // Dodanie miejsca na panel wiadomości
         int windowHeight = gridSize.y * TILE_SIZE + 200; // Dodanie marginesu na pasek tytułu
 
         setTitle("Karol Obrycki 203264");
@@ -30,8 +31,27 @@ public class Window extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
 
+        // Tworzenie głównego układu
+        setLayout(new BorderLayout());
+
+        // Panel rysowania
         drawingPanel = new DrawingPanel();
-        add(drawingPanel);
+        add(drawingPanel, BorderLayout.CENTER);
+
+        // Panel wiadomości
+        messageArea = new JTextArea();
+        messageArea.setEditable(false);
+        messageArea.setLineWrap(true);
+        messageArea.setWrapStyleWord(true);
+        messageArea.setBackground(new Color(46, 90, 46)); // Ciemnozielone tło
+        messageArea.setForeground(Color.WHITE); // Biały tekst
+        JScrollPane scrollPane = new JScrollPane(messageArea);
+        scrollPane.setPreferredSize(new Dimension(300, getHeight()));
+        add(scrollPane, BorderLayout.EAST);
+
+        // Ustawienie okna jako focusable, aby odbierało zdarzenia klawiatury
+        setFocusable(true);
+        requestFocusInWindow();
 
         addKeyListener(new KeyAdapter() {
             @Override
@@ -52,6 +72,7 @@ public class Window extends JFrame {
                         break;
                     case KeyEvent.VK_Q:
                         input = "q";
+                        dispose(); // Zamknięcie głównego okna
                         break;
                     default:
                         input = String.valueOf(e.getKeyChar());
@@ -94,6 +115,11 @@ public class Window extends JFrame {
         });
 
         setVisible(true);
+    }
+
+    public void addMessage(String message) {
+        messageArea.append(message + "\n");
+        messageArea.setCaretPosition(messageArea.getDocument().getLength()); // Automatyczne przewijanie do końca
     }
 
     private class DrawingPanel extends JPanel {
@@ -161,7 +187,7 @@ public class Window extends JFrame {
         // Obliczanie przesunięcia, aby siatka była wyśrodkowana
         int gridWidth = size.x * tileWidth;
         int gridHeight = size.y * tileHeight;
-        int centerX = (getWidth() - gridWidth) / 2;
+        int centerX = (getWidth() - gridWidth) / 2 - 150; //FIX
         int centerY = (getHeight() - gridHeight) / 2;
 
         int adjustedX = clickPoint.x - offsetX - centerX;

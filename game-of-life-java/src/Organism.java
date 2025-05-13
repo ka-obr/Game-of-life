@@ -56,7 +56,7 @@ public abstract class Organism {
     }
 
     public void collision(Organism other) {
-
+        // Domyślna implementacja, jeśli nie zostanie nadpisana w klasie potomnej
     }
 
     public ImageIcon getIcon() {

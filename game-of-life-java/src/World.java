@@ -9,6 +9,11 @@ import java.util.Comparator;
 public class World {
     private List<Organism> organisms;
     private Size size;
+    private Window window;
+
+    public void setWindow(Window window) {
+        this.window = window;
+    }
 
     public World(Size size) {
         this.organisms = new ArrayList<Organism>();
@@ -21,6 +26,10 @@ public class World {
 
     public List<Organism> getOrganisms() {
         return organisms;
+    }
+
+    public Window getWindow() {
+        return window;
     }
 
     public void update(String input) {

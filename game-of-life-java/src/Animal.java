@@ -35,10 +35,9 @@ public abstract class Animal extends Organism {
 
 
     protected boolean haveSavedAttack(Organism other) {
-        if(other instanceof Turtle && this.getStrength() < 5) {
+        if (other instanceof Turtle && this.getStrength() < 5) {
             return true;
-        }
-        else if(other instanceof Antelope) {
+        } else if (other instanceof Antelope) {
             other.escapeCollision(this);
             return false;
         }
