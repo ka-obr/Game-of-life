@@ -25,13 +25,22 @@ public abstract class Animal extends Organism {
         } else if (animalType.equals(Turtle.class)) {
             Turtle baby = new Turtle(position, world, 0);
             world.addOrganism(baby);
-            System.out.println("Reproduction occurred: new Fox at " + position);
+            System.out.println("Reproduction occurred: new Turtle at " + position);
+        } else if (animalType.equals(Antelope.class)) {
+            Antelope baby = new Antelope(position, world, 0);
+            world.addOrganism(baby);
+            System.out.println("Reproduction occurred: new Antelope at " + position);
         }
     }
+
 
     protected boolean haveSavedAttack(Organism other) {
         if(other instanceof Turtle && this.getStrength() < 5) {
             return true;
+        }
+        else if(other instanceof Antelope) {
+            other.escapeCollision(this);
+            return false;
         }
         return false;
     }
@@ -43,6 +52,7 @@ public abstract class Animal extends Organism {
             if(haveSavedAttack(other)) {
                 return;
             }
+            other = world.getOrganismAtPosition(newPos);
             if (other != null) {
                 collision(other);
             } else {
@@ -84,4 +94,5 @@ public abstract class Animal extends Organism {
             move(); // Ruch zwierzęcia
         }
     }
+
 }

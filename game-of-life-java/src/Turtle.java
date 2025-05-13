@@ -16,20 +16,31 @@ public class Turtle extends Animal {
     }
 
     @Override
+    protected boolean haveSavedAttack(Organism other) {
+        if(other instanceof Antelope) {
+            other.escapeCollision(this);
+            return false;
+        }
+        return false;
+    }
+
+    @Override
     public void move() {
         Random random = new Random();
         if (random.nextInt(100) < 25) { // 25% szans na ruch
             Point newPos = world.generateRandomPosition(position);
             if (newPos != null) {
                 Organism other = world.getOrganismAtPosition(newPos);
+                if(haveSavedAttack(other)) {
+                    return;
+                }
+                other = world.getOrganismAtPosition(newPos);
                 if (other != null) {
                     collision(other);
                 } else {
                     position = newPos; // Przesuwamy organizm na nową pozycję
                 }
             }
-        } else {
-            System.out.println("Turtle at " + position + " stays in place.");
         }
     }
 }

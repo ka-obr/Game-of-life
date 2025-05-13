@@ -9,6 +9,7 @@ public abstract class Organism {
     protected Point position;
     protected World world;
     protected int age;
+    private boolean hasActed;
 
     public Organism(int strength, int initiative, Point position, World world, int age) {
         this.strength = strength;
@@ -34,8 +35,20 @@ public abstract class Organism {
         return age;
     }
 
+    public boolean getHasActed() {
+        return hasActed;
+    }
+
+    public void setHasActed(boolean hasActed) {
+        this.hasActed = hasActed;
+    }
+
     public void action() {
 
+    }
+
+    public int escapeCollision(Organism other) {
+        return 0;
     }
 
     public void action(String input) {

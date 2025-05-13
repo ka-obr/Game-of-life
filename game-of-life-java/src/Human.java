@@ -56,9 +56,8 @@ public class Human extends Animal {
             }
 
             Organism occupant = world.getOrganismAtPosition(newPos);
-            if (newPos != null &&
-                newPos.x >= 0 && newPos.y >= 0 &&
-                newPos.x < world.getSize().x && newPos.y < world.getSize().y && !haveSavedAttack(occupant)) {
+            if (newPos != null && world.isWithinBounds(newPos) && !haveSavedAttack(occupant)) {
+                occupant = world.getOrganismAtPosition(newPos);
                 if (occupant != null) {
                     // Jeśli pole jest zajęte, wywołujemy kolizję (human może zabić przeciwnika)
                     collision(occupant);

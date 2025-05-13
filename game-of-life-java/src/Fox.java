@@ -22,6 +22,7 @@ public class Fox extends Animal {
             if(haveSavedAttack(other)) {
                 return;
             }
+            other = world.getOrganismAtPosition(newPos);
             if (other != null) {
                 collision(other);
             } else {

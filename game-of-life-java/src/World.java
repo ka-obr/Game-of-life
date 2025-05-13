@@ -28,7 +28,10 @@ public class World {
         organisms.sort(Comparator.comparingInt(Organism::getInitiative).reversed()
                                   .thenComparingInt(Organism::getAge));
 
-        // Wywoływanie metody action dla każdego organizmu
+        for(Organism organism : organisms) {
+            organism.setHasActed(false);
+        }
+
         List<Organism> copy = new ArrayList<>(organisms);
         for (Organism organism : copy) {
             organism.action(input);
@@ -58,16 +61,18 @@ public class World {
         organisms.remove(organism);
     }
 
+    public boolean isWithinBounds(Point position) {
+        return position.x >= 0 && position.x < size.x && position.y >= 0 && position.y < size.y;
+    }
+
     public Point generateRandomPosition(Point currentPosition) {
         int[][] directions = { {0, -1}, {0, 1}, {1, 0}, {-1, 0} };
         List<Point> validPositions = new ArrayList<>();
-        Size worldSize = getSize();
 
         for (int[] d : directions) {
-            int newX = currentPosition.x + d[0];
-            int newY = currentPosition.y + d[1];
-            if (newX >= 0 && newX < worldSize.x && newY >= 0 && newY < worldSize.y) {
-                validPositions.add(new Point(newX, newY));
+            Point newPos = new Point(currentPosition.x + d[0], currentPosition.y + d[1]);
+            if (isWithinBounds(newPos)) {
+                validPositions.add(newPos);
             }
         }
 
@@ -101,7 +106,7 @@ public class World {
         for (int[] displacement : displacements) {
             Point neighbor = new Point(position.x + displacement[0], position.y + displacement[1]);
 
-            if (neighbor.x >= 0 && neighbor.x < size.x && neighbor.y >= 0 && neighbor.y < size.y) { // W granicach świata
+            if (isWithinBounds(neighbor)) { // Sprawdzanie granic planszy
                 Organism other = getOrganismAtPosition(neighbor);
                 if (other != null && other.getStrength() > org.getStrength()) {
                     continue; // Pomijamy, jeśli sąsiad jest silniejszy
@@ -123,16 +128,16 @@ public class World {
     }
 
     public void addSheep(int count, int age) {
-        Point pos = generateRandomPosition();
         for (int i = 0; i < count; i++) {
+            Point pos = generateRandomPosition();
             Sheep sheep = new Sheep(pos, this, age);
             addOrganism(sheep);
         }
     }
 
     public void addWolf(int count, int age) {
-        Point pos = generateRandomPosition();
         for (int i = 0; i < count; i++) {
+            Point pos = generateRandomPosition();
             Wolf wolf = new Wolf(pos, this, age);
             addOrganism(wolf);
         }
@@ -154,6 +159,14 @@ public class World {
         }
     }
 
+    public void addAntelope(int count, int age) {
+        for (int i = 0; i < count; i++) {
+            Point pos = generateRandomPosition();
+            Antelope antelope = new Antelope(pos, this, age);
+            addOrganism(antelope);
+        }
+    }
+
     public void killNeighbors(Point position, int type) {
         // type = 1 - animals, type = 0 - everything
         final int[] dx = {-1, -1, -1, 0, 0, 1, 1, 1};
@@ -161,7 +174,7 @@ public class World {
 
         for (int i = 0; i < 8; i++) {
             Point neighbor = new Point(position.x + dx[i], position.y + dy[i]);
-            if (neighbor.x >= 0 && neighbor.x < size.x && neighbor.y >= 0 && neighbor.y < size.y) {
+            if (isWithinBounds(neighbor)) { // Sprawdzanie granic planszy
                 Organism other = getOrganismAtPosition(neighbor);
                 if (other != null) {
                     if (type == 1 && other instanceof Animal) {
@@ -175,4 +188,43 @@ public class World {
             }
         }
     }
+
+    public Point getRandomSpaceDoubleMove(Point position) {
+        List<int[]> displacements = new ArrayList<>(java.util.Arrays.asList(
+            new int[]{0, 1}, new int[]{0, -1}, new int[]{1, 0}, new int[]{-1, 0}, // Single moves
+            new int[]{0, 2}, new int[]{0, -2}, new int[]{2, 0}, new int[]{-2, 0}  // Double moves
+        ));
+
+        java.util.Collections.shuffle(displacements); // Losowe przetasowanie kierunków
+
+        for (int[] displacement : displacements) {
+            Point neighbor = new Point(position.x + displacement[0], position.y + displacement[1]);
+
+            if (isWithinBounds(neighbor)) { // Sprawdzanie granic planszy
+                return neighbor; // Zwracamy pierwszą dostępną pozycję
+            }
+        }
+
+        return position; // Jeśli brak dostępnych pozycji, zwracamy bieżącą pozycję
+    }
+
+    public Point getRandomFreeSpaceAround(Point position) {
+        List<int[]> displacements = new ArrayList<>(java.util.Arrays.asList(
+            new int[]{0, 1}, new int[]{0, -1}, new int[]{1, 0}, new int[]{-1, 0}, // Single moves
+            new int[]{1, 1}, new int[]{1, -1}, new int[]{-1, 1}, new int[]{-1, -1} // Diagonal moves
+        ));
+
+        java.util.Collections.shuffle(displacements); // Losowe przetasowanie kierunków
+
+        for (int[] displacement : displacements) {
+            Point neighbor = new Point(position.x + displacement[0], position.y + displacement[1]);
+
+            if (isWithinBounds(neighbor) && getOrganismAtPosition(neighbor) == null) {
+                return neighbor; // Zwracamy pierwsze wolne sąsiednie pole
+            }
+        }
+
+        return new Point(-1, -1); // Jeśli brak wolnych pól, zwracamy nieprawidłową pozycję
+    }
 }
+

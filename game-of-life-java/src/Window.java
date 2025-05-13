@@ -25,7 +25,7 @@ public class Window extends JFrame {
         int windowWidth = gridSize.x * TILE_SIZE + 200; // Dodanie marginesu na ramkę
         int windowHeight = gridSize.y * TILE_SIZE + 200; // Dodanie marginesu na pasek tytułu
 
-        setTitle("Game of Life");
+        setTitle("Karol Obrycki 203264");
         setSize(windowWidth, windowHeight);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
@@ -208,11 +208,12 @@ public class Window extends JFrame {
         JPopupMenu popupMenu = new JPopupMenu();
         activePopupMenu = popupMenu;
 
-        // Opcja dodania owcy
+        // Opcja dodania organizmów
         addAnimalOption(popupMenu, Sheep.class, new ImageIcon(Sheep.scaledSheepIcon), tilePosition);
         addAnimalOption(popupMenu, Wolf.class, new ImageIcon(Wolf.scaledWolfIcon), tilePosition);
         addAnimalOption(popupMenu, Fox.class, new ImageIcon(Fox.scaledFoxIcon), tilePosition);
-        addAnimalOption(popupMenu, Turtle.class, new ImageIcon(Turtle.scaledTurtleIcon), tilePosition); // Dodanie żółwia
+        addAnimalOption(popupMenu, Turtle.class, new ImageIcon(Turtle.scaledTurtleIcon), tilePosition);
+        addAnimalOption(popupMenu, Antelope.class, new ImageIcon(Antelope.scaledAntelopeIcon), tilePosition); // Dodanie antylopy
 
         int tileWidth = 50;
         int tileHeight = 50;
