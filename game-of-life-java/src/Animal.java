@@ -13,27 +13,27 @@ public abstract class Animal extends Organism {
         if (animalType.equals(Sheep.class)) {
             Sheep baby = new Sheep(position, world, 0);
             world.addOrganism(baby);
-            String message = "Reproduction occurred: new Sheep";
+            String message = "Organism Sheep reproduced";
             world.getWindow().addMessage(message);
         } else if (animalType.equals(Wolf.class)) {
             Wolf baby = new Wolf(position, world, 0);
             world.addOrganism(baby);
-            String message = "Reproduction occurred: new Wolf";
+            String message = "Organism Wolf reproduced";
             world.getWindow().addMessage(message);
         } else if (animalType.equals(Fox.class)) {
             Fox baby = new Fox(position, world, 0);
             world.addOrganism(baby);
-            String message = "Reproduction occurred: new Fox";
+            String message = "Organism Fox reproduced";
             world.getWindow().addMessage(message);
         } else if (animalType.equals(Turtle.class)) {
             Turtle baby = new Turtle(position, world, 0);
             world.addOrganism(baby);
-            String message = "Reproduction occurred: new Turtle";
+            String message = "Organism Turtle reproduced";
             world.getWindow().addMessage(message);
         } else if (animalType.equals(Antelope.class)) {
             Antelope baby = new Antelope(position, world, 0);
             world.addOrganism(baby);
-            String message = "Reproduction occurred: new Antelope";
+            String message = "Organism Antelope reproduced";
             world.getWindow().addMessage(message);
         }
     }
@@ -82,7 +82,7 @@ public abstract class Animal extends Organism {
                 world.removeOrganism(other);
                 // Po wygranej walce przechodzimy na pozycję przeciwnika
                 this.position = other.getPosition();
-                String message = this.getClass().getSimpleName() + " won with " + other.getClass().getSimpleName();
+                String message = "Organism " + other.getClass().getSimpleName() + " was killed by " + this.getClass().getSimpleName();
                 world.getWindow().addMessage(message);
             } else {
                 world.removeOrganism(this);

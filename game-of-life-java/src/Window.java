@@ -220,6 +220,23 @@ public class Window extends JFrame {
         popupMenu.add(menuItem);
     }
 
+    private <T extends Plant> void addPlantOption(JPopupMenu popupMenu, Class<T> plantClass, ImageIcon icon, Point tilePosition) {
+        JMenuItem menuItem = new JMenuItem(icon);
+        menuItem.setOpaque(false);
+        menuItem.setBorder(BorderFactory.createEmptyBorder());
+        menuItem.addActionListener(e -> {
+            try {
+                T plant = plantClass.getConstructor(Point.class, World.class, int.class)
+                        .newInstance(tilePosition, world, 0);
+                world.addOrganism(plant);
+                drawingPanel.repaint();
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+        });
+        popupMenu.add(menuItem);
+    }
+
     private void showAddMenu(int tileX, int tileY) {
         Point tilePosition = new Point(tileX, tileY);
         if (world.isTileOccupied(tilePosition)) {
@@ -246,7 +263,7 @@ public class Window extends JFrame {
         JMenuItem plantOption = new JMenuItem("Plant");
         plantOption.addActionListener(e -> {
             categoryMenu.setVisible(false);
-            JOptionPane.showMessageDialog(Window.this, "Opcja Plant nie jest jeszcze zaimplementowana!");
+            showPlantAddMenu(tileX, tileY);
         });
         categoryMenu.add(plantOption);
 
@@ -257,6 +274,12 @@ public class Window extends JFrame {
         Point tilePosition = new Point(tileX, tileY);
         JPopupMenu animalMenu = createAnimalMenu(tilePosition);
         showPopupMenu(animalMenu, tileX, tileY);
+    }
+
+    private void showPlantAddMenu(int tileX, int tileY) {
+        Point tilePosition = new Point(tileX, tileY);
+        JPopupMenu plantMenu = createPlantMenu(tilePosition);
+        showPopupMenu(plantMenu, tileX, tileY);
     }
 
     private JPopupMenu createAnimalMenu(Point tilePosition) {
@@ -270,6 +293,15 @@ public class Window extends JFrame {
         addAnimalOption(animalMenu, Antelope.class, new ImageIcon(Antelope.scaledAntelopeIcon), tilePosition);
 
         return animalMenu;
+    }
+
+    private JPopupMenu createPlantMenu(Point tilePosition) {
+        JPopupMenu plantMenu = new JPopupMenu();
+        activePopupMenu = plantMenu;
+
+        addPlantOption(plantMenu, Grass.class, new ImageIcon(Grass.scaledGrassIcon), tilePosition);
+
+        return plantMenu;
     }
 
     private void showPopupMenu(JPopupMenu menu, int tileX, int tileY) {

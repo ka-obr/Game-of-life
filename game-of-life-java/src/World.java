@@ -191,7 +191,7 @@ public class World {
                         System.out.println("Killed animal at " + neighbor);
                     } else if (type == 0) {
                         removeOrganism(other);
-                        String message = "Human killed " + other.getClass().getSimpleName();
+                        String message = "Organism " + other.getClass().getSimpleName() + " was killed by Human";
                         window.addMessage(message);
                     }
                 }
