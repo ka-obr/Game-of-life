@@ -78,7 +78,8 @@ public class Human extends Animal {
                 specialAbilityActive = false;
                 specialAbilityCooldown = 5; // Ustawienie cooldownu na 5 tur
                 specialAbilityCounter = 5; // Resetowanie licznika umiejętności
-                System.out.println("Human special ability deactivated");
+                String message = "Human special ability deactivated!";
+                world.getWindow().addMessage(message);
             }
         }
     }

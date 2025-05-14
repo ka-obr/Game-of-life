@@ -45,8 +45,10 @@ public class Window extends JFrame {
         messageArea.setWrapStyleWord(true);
         messageArea.setBackground(new Color(46, 90, 46)); // Ciemnozielone tło
         messageArea.setForeground(Color.WHITE); // Biały tekst
+        messageArea.setFont(new Font("Arial", Font.BOLD, 20)); // Zwiększona czcionka
+
         JScrollPane scrollPane = new JScrollPane(messageArea);
-        scrollPane.setPreferredSize(new Dimension(300, getHeight()));
+        scrollPane.setPreferredSize(new Dimension(400, getHeight())); // Zwiększona szerokość panelu wiadomości
         add(scrollPane, BorderLayout.EAST);
 
         // Ustawienie okna jako focusable, aby odbierało zdarzenia klawiatury
@@ -187,7 +189,7 @@ public class Window extends JFrame {
         // Obliczanie przesunięcia, aby siatka była wyśrodkowana
         int gridWidth = size.x * tileWidth;
         int gridHeight = size.y * tileHeight;
-        int centerX = (getWidth() - gridWidth) / 2 - 150; //FIX
+        int centerX = (getWidth() - gridWidth) / 2 - 200; //FIX
         int centerY = (getHeight() - gridHeight) / 2;
 
         int adjustedX = clickPoint.x - offsetX - centerX;
@@ -224,37 +226,71 @@ public class Window extends JFrame {
             return; // Nie pokazuj menu, jeśli kafelek jest zajęty
         }
 
-        // Zamknięcie poprzedniego menu, jeśli istnieje
+        closeActivePopupMenu();
+
+        JPopupMenu categoryMenu = createCategoryMenu(tileX, tileY);
+        showPopupMenu(categoryMenu, tileX, tileY);
+    }
+
+    private JPopupMenu createCategoryMenu(int tileX, int tileY) {
+        JPopupMenu categoryMenu = new JPopupMenu();
+        activePopupMenu = categoryMenu;
+
+        JMenuItem animalOption = new JMenuItem("Animal");
+        animalOption.addActionListener(e -> {
+            categoryMenu.setVisible(false);
+            showAnimalAddMenu(tileX, tileY);
+        });
+        categoryMenu.add(animalOption);
+
+        JMenuItem plantOption = new JMenuItem("Plant");
+        plantOption.addActionListener(e -> {
+            categoryMenu.setVisible(false);
+            JOptionPane.showMessageDialog(Window.this, "Opcja Plant nie jest jeszcze zaimplementowana!");
+        });
+        categoryMenu.add(plantOption);
+
+        return categoryMenu;
+    }
+
+    private void showAnimalAddMenu(int tileX, int tileY) {
+        Point tilePosition = new Point(tileX, tileY);
+        JPopupMenu animalMenu = createAnimalMenu(tilePosition);
+        showPopupMenu(animalMenu, tileX, tileY);
+    }
+
+    private JPopupMenu createAnimalMenu(Point tilePosition) {
+        JPopupMenu animalMenu = new JPopupMenu();
+        activePopupMenu = animalMenu;
+
+        addAnimalOption(animalMenu, Sheep.class, new ImageIcon(Sheep.scaledSheepIcon), tilePosition);
+        addAnimalOption(animalMenu, Wolf.class, new ImageIcon(Wolf.scaledWolfIcon), tilePosition);
+        addAnimalOption(animalMenu, Fox.class, new ImageIcon(Fox.scaledFoxIcon), tilePosition);
+        addAnimalOption(animalMenu, Turtle.class, new ImageIcon(Turtle.scaledTurtleIcon), tilePosition);
+        addAnimalOption(animalMenu, Antelope.class, new ImageIcon(Antelope.scaledAntelopeIcon), tilePosition);
+
+        return animalMenu;
+    }
+
+    private void showPopupMenu(JPopupMenu menu, int tileX, int tileY) {
+        int tileWidth = TILE_SIZE, tileHeight = TILE_SIZE;
+        int gridWidth = world.getSize().x * tileWidth;
+        int gridHeight = world.getSize().y * tileHeight;
+        int panelCenterX = (drawingPanel.getWidth() - gridWidth) / 2;
+        int panelCenterY = (drawingPanel.getHeight() - gridHeight) / 2;
+        int tileCenterX = offsetX + panelCenterX + tileX * tileWidth + tileWidth / 2;
+        int tileCenterY = offsetY + panelCenterY + tileY * tileHeight + tileHeight / 2;
+        Dimension popupSize = menu.getPreferredSize();
+        int popupX = tileCenterX - popupSize.width / 2;
+        int popupY = tileCenterY - popupSize.height / 2;
+        menu.show(drawingPanel, popupX, popupY);
+    }
+
+    private void closeActivePopupMenu() {
         if (activePopupMenu != null) {
             activePopupMenu.setVisible(false);
             activePopupMenu = null;
             drawingPanel.repaint();
         }
-
-        JPopupMenu popupMenu = new JPopupMenu();
-        activePopupMenu = popupMenu;
-
-        // Opcja dodania organizmów
-        addAnimalOption(popupMenu, Sheep.class, new ImageIcon(Sheep.scaledSheepIcon), tilePosition);
-        addAnimalOption(popupMenu, Wolf.class, new ImageIcon(Wolf.scaledWolfIcon), tilePosition);
-        addAnimalOption(popupMenu, Fox.class, new ImageIcon(Fox.scaledFoxIcon), tilePosition);
-        addAnimalOption(popupMenu, Turtle.class, new ImageIcon(Turtle.scaledTurtleIcon), tilePosition);
-        addAnimalOption(popupMenu, Antelope.class, new ImageIcon(Antelope.scaledAntelopeIcon), tilePosition); // Dodanie antylopy
-
-        int tileWidth = 50;
-        int tileHeight = 50;
-        int gridWidth = world.getSize().x * tileWidth;
-        int gridHeight = world.getSize().y * tileHeight;
-        // Używamy wymiarów panelu rysowania do wyśrodkowania siatki
-        int panelCenterX = (drawingPanel.getWidth() - gridWidth) / 2;
-        int panelCenterY = (drawingPanel.getHeight() - gridHeight) / 2;
-
-        // Obliczamy środek klikniętego kafelka
-        int tileCenterX = offsetX + panelCenterX + tileX * tileWidth + tileWidth / 2;
-        int tileCenterY = offsetY + panelCenterY + tileY * tileHeight + tileHeight / 2;
-        Dimension popupSize = popupMenu.getPreferredSize();
-        int popupX = tileCenterX - popupSize.width / 2;
-        int popupY = tileCenterY - popupSize.height / 2;
-        popupMenu.show(drawingPanel, popupX, popupY);
     }
 }

@@ -13,23 +13,28 @@ public abstract class Animal extends Organism {
         if (animalType.equals(Sheep.class)) {
             Sheep baby = new Sheep(position, world, 0);
             world.addOrganism(baby);
-            System.out.println("Reproduction occurred: new Sheep at " + position);
+            String message = "Reproduction occurred: new Sheep";
+            world.getWindow().addMessage(message);
         } else if (animalType.equals(Wolf.class)) {
             Wolf baby = new Wolf(position, world, 0);
             world.addOrganism(baby);
-            System.out.println("Reproduction occurred: new Wolf at " + position);
+            String message = "Reproduction occurred: new Wolf";
+            world.getWindow().addMessage(message);
         } else if (animalType.equals(Fox.class)) {
             Fox baby = new Fox(position, world, 0);
             world.addOrganism(baby);
-            System.out.println("Reproduction occurred: new Fox at " + position);
+            String message = "Reproduction occurred: new Fox";
+            world.getWindow().addMessage(message);
         } else if (animalType.equals(Turtle.class)) {
             Turtle baby = new Turtle(position, world, 0);
             world.addOrganism(baby);
-            System.out.println("Reproduction occurred: new Turtle at " + position);
+            String message = "Reproduction occurred: new Turtle";
+            world.getWindow().addMessage(message);
         } else if (animalType.equals(Antelope.class)) {
             Antelope baby = new Antelope(position, world, 0);
             world.addOrganism(baby);
-            System.out.println("Reproduction occurred: new Antelope at " + position);
+            String message = "Reproduction occurred: new Antelope";
+            world.getWindow().addMessage(message);
         }
     }
 
@@ -71,17 +76,16 @@ public abstract class Animal extends Organism {
             Point newPos = world.generateRandomPosition(position);
             if (newPos != null && !world.isTileOccupied(newPos)) {
                 createAnimalByType(this.getClass(), newPos);
-                System.out.println("Reproduction occurred for " + this.getClass().getSimpleName() + " at " + newPos);
             }
         } else { // różne gatunki - walka
             if (this.getStrength() >= other.getStrength()) {
                 world.removeOrganism(other);
                 // Po wygranej walce przechodzimy na pozycję przeciwnika
                 this.position = other.getPosition();
-                System.out.println(this.getClass().getSimpleName() + " wins fight and moves to " + this.position);
+                String message = this.getClass().getSimpleName() + " won with " + other.getClass().getSimpleName();
+                world.getWindow().addMessage(message);
             } else {
                 world.removeOrganism(this);
-                System.out.println(this.getClass().getSimpleName() + " loses fight");
             }
         }
     }
