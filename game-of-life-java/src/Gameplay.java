@@ -4,7 +4,7 @@ public class Gameplay {
     private boolean running = true;
     private Window window;
     private World world;
-    private Human human; // Dodana zmienna pola dla człowieka
+    private Human human;
 
     public Gameplay(World world) {
         this.world = world;
@@ -23,6 +23,7 @@ public class Gameplay {
         world.addDandelion(2, 1);
         world.addGuarana(2, 1);
         world.addNightshade(2, 1);
+        world.addHogweed(2, 1);
 
         window.repaint();
     }

@@ -27,7 +27,7 @@ public abstract class Organism {
         this.strength = strength;
     }
 
-    protected void shouldReceiveStrength(Organism plant, Organism animal) {
+    protected void plantCollision(Organism plant, Organism animal) {
         //
     }
 

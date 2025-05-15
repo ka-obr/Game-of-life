@@ -43,6 +43,7 @@ public class World {
 
         List<Organism> copy = new ArrayList<>(organisms);
         for (Organism organism : copy) {
+            if (!organisms.contains(organism)) continue; // skip if killed this turn
             organism.action(input);
         }
 
@@ -208,6 +209,14 @@ public class World {
         }
     }
 
+    public void addHogweed(int count, int age) {
+        for (int i = 0; i < count; i++) {
+            Point pos = generateRandomPosition();
+            Hogweed hogweed = new Hogweed(pos, this, age);
+            addOrganism(hogweed);
+        }
+    }
+
     public void killNeighbors(Point position, int type) {
         // type = 1 - animals, type = 0 - everything
         final int[] dx = {-1, -1, -1, 0, 0, 1, 1, 1};
@@ -220,7 +229,8 @@ public class World {
                 if (other != null) {
                     if (type == 1 && other instanceof Animal) {
                         removeOrganism(other);
-                        System.out.println("Killed animal at " + neighbor);
+                        String message = "Organism " + other.getClass().getSimpleName() + " was killed by Hogweed";
+                        window.addMessage(message);
                     } else if (type == 0) {
                         removeOrganism(other);
                         String message = "Organism " + other.getClass().getSimpleName() + " was killed by Human";

@@ -46,6 +46,7 @@ public class Window extends JFrame {
         messageArea.setBackground(new Color(46, 90, 46)); // Ciemnozielone tło
         messageArea.setForeground(Color.WHITE); // Biały tekst
         messageArea.setFont(new Font("Arial", Font.BOLD, 20)); // Zwiększona czcionka
+        messageArea.setFocusable(false);
 
         JScrollPane scrollPane = new JScrollPane(messageArea);
         scrollPane.setPreferredSize(new Dimension(400, getHeight())); // Zwiększona szerokość panelu wiadomości
@@ -190,7 +191,7 @@ public class Window extends JFrame {
         int gridWidth = size.x * tileWidth;
         int gridHeight = size.y * tileHeight;
         int centerX = (getWidth() - gridWidth) / 2 - 200; //FIX
-        int centerY = (getHeight() - gridHeight) / 2;
+        int centerY = (getHeight() - gridHeight) / 2 + 17;
 
         int adjustedX = clickPoint.x - offsetX - centerX;
         int adjustedY = clickPoint.y - offsetY - centerY;
@@ -198,7 +199,7 @@ public class Window extends JFrame {
         int tileX = adjustedX / tileWidth;
         int tileY = adjustedY / tileHeight;
 
-        if (tileX >= 0 && tileX < size.x && tileY >= 0 && tileY < size.y) {
+        if (tileX >= 0 && tileX < size.x && tileY >= 0 && tileY < size.y && adjustedX >= 0 && adjustedY >= 0) {
             showAddMenu(tileX, tileY);
         }
     }
@@ -303,6 +304,7 @@ public class Window extends JFrame {
         addPlantOption(plantMenu, Dandelion.class, new ImageIcon(Dandelion.scaledDandelionIcon), tilePosition);
         addPlantOption(plantMenu, Guarana.class, new ImageIcon(Guarana.scaledGuaranaIcon), tilePosition);
         addPlantOption(plantMenu, Nightshade.class, new ImageIcon(Nightshade.scaledNightshadeIcon), tilePosition);
+        addPlantOption(plantMenu, Hogweed.class, new ImageIcon(Hogweed.scaledHogweedIcon), tilePosition);
 
         return plantMenu;
     }

@@ -1,6 +1,7 @@
 import lib.Size;
 
 import javax.swing.*;
+import java.awt.*;
 
 public class game_of_life {
     public static void main(String[] args) {

@@ -66,8 +66,11 @@ public abstract class Animal extends Organism {
     }
 
     @Override
-    protected void shouldReceiveStrength(Organism plant, Organism animal) {
+    protected void plantCollision(Organism plant, Organism animal) {
         if (plant instanceof Guarana) {
+            plant.collision(animal);
+        }
+        else if(plant instanceof Hogweed) {
             plant.collision(animal);
         }
     }
@@ -97,7 +100,7 @@ public abstract class Animal extends Organism {
     }
 
     private void handleFight(Organism other) {
-        shouldReceiveStrength(other, this);
+        plantCollision(other, this);
         if (this.getStrength() >= other.getStrength()) {
             winFight(other);
         } else {
