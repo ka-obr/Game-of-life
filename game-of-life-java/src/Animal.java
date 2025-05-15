@@ -66,28 +66,56 @@ public abstract class Animal extends Organism {
     }
 
     @Override
-    public void collision(Organism other) {
-        if (this.getClass().equals(other.getClass())) { // ten sam gatunek
-            if (this.getAge() == 0 || other.getAge() == 0) {
-                // Nie reprodukujemy się z noworodkiem, pozostajemy na miejscu, bez walki
-                return;
-            }
-            // Próba reprodukcji: tylko organizmy tego samego gatunku mogą się rozmnażać
-            Point newPos = world.generateRandomPosition(position);
-            if (newPos != null && !world.isTileOccupied(newPos)) {
-                createAnimalByType(this.getClass(), newPos);
-            }
-        } else { // różne gatunki - walka
-            if (this.getStrength() >= other.getStrength()) {
-                world.removeOrganism(other);
-                // Po wygranej walce przechodzimy na pozycję przeciwnika
-                this.position = other.getPosition();
-                String message = "Organism " + other.getClass().getSimpleName() + " was killed by " + this.getClass().getSimpleName();
-                world.getWindow().addMessage(message);
-            } else {
-                world.removeOrganism(this);
-            }
+    protected void shouldReceiveStrength(Organism plant, Organism animal) {
+        if (plant instanceof Guarana) {
+            plant.collision(animal);
         }
+    }
+
+    @Override
+    public void collision(Organism other) {
+        if (isSameSpecies(other)) {
+            handleReproduction(other);
+        } else {
+            handleFight(other);
+        }
+    }
+
+    private boolean isSameSpecies(Organism other) {
+        return this.getClass().equals(other.getClass());
+    }
+
+    private void handleReproduction(Organism other) {
+        if (this.getAge() == 0 || other.getAge() == 0) {
+            // Nie reprodukujemy się z noworodkiem
+            return;
+        }
+        Point newPos = world.generateRandomPosition(position);
+        if (newPos != null && !world.isTileOccupied(newPos)) {
+            createAnimalByType(this.getClass(), newPos);
+        }
+    }
+
+    private void handleFight(Organism other) {
+        shouldReceiveStrength(other, this);
+        if (this.getStrength() >= other.getStrength()) {
+            winFight(other);
+        } else {
+            loseFight(other);
+        }
+    }
+
+    private void winFight(Organism other) {
+        world.removeOrganism(other);
+        this.position = other.getPosition(); // Przejście na pozycję przeciwnika
+        String message = "Organism " + other.getClass().getSimpleName() + " was killed by " + this.getClass().getSimpleName();
+        world.getWindow().addMessage(message);
+    }
+
+    private void loseFight(Organism other) {
+        world.removeOrganism(this);
+        String message = "Organism " + this.getClass().getSimpleName() + " was killed by " + other.getClass().getSimpleName();
+        world.getWindow().addMessage(message);
     }
 
     @Override

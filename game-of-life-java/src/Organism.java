@@ -4,7 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 
 public abstract class Organism {
-    protected int strength;
+    private int strength;
     protected int initiative;
     protected Point position;
     protected World world;
@@ -21,6 +21,14 @@ public abstract class Organism {
 
     public int getStrength() {
         return strength;
+    }
+
+    public void setStrength(int strength) {
+        this.strength = strength;
+    }
+
+    protected void shouldReceiveStrength(Organism plant, Organism animal) {
+        //
     }
 
     public int getInitiative() {

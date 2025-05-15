@@ -192,6 +192,14 @@ public class World {
         }
     }
 
+    public void addGuarana(int count, int age) {
+        for (int i = 0; i < count; i++) {
+            Point pos = generateRandomPosition();
+            Guarana guarana = new Guarana(pos, this, age);
+            addOrganism(guarana);
+        }
+    }
+
     public void killNeighbors(Point position, int type) {
         // type = 1 - animals, type = 0 - everything
         final int[] dx = {-1, -1, -1, 0, 0, 1, 1, 1};
