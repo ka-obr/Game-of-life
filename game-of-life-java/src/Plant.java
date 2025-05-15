@@ -13,24 +13,24 @@ public abstract class Plant extends Organism {
             String message = "Organism Grass reproduced";
             world.getWindow().addMessage(message);
         }
-//        else if (plantType.equals(Dandelion.class)) {
-//            Dandelion dandelion = new Dandelion(position, world, 0);
-//            world.addOrganism(dandelion);
-//            String message = "New Dandelion spawned at " + position;
-//            world.getWindow().addMessage(message);
-//        }
+        else if (plantType.equals(Dandelion.class)) {
+            Dandelion dandelion = new Dandelion(position, world, 0);
+            world.addOrganism(dandelion);
+            String message = "Organism Dandelion reproduced";
+            world.getWindow().addMessage(message);
+        }
         // Można dodać więcej typów roślin w przyszłości
     }
 
-    private boolean canReproduceThisTurn() {
+    protected boolean canReproduceThisTurn() {
         return (Math.random() < 0.05); // 5% szans na reprodukcję
     }
 
-    private boolean hasFreeSpace() {
+    protected boolean hasFreeSpace() {
         return world.hasFreeSpaceAround(position);
     }
 
-    private void reproduce(Point position) {
+    protected void reproduce(Point position) {
         Point newPosition = world.getRandomFreeSpaceAround(position);
         createPlantByType(this.getClass(), newPosition);
     }

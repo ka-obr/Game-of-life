@@ -184,6 +184,14 @@ public class World {
         }
     }
 
+    public void addDandelion(int count, int age) {
+        for (int i = 0; i < count; i++) {
+            Point pos = generateRandomPosition();
+            Dandelion dandelion = new Dandelion(pos, this, age);
+            addOrganism(dandelion);
+        }
+    }
+
     public void killNeighbors(Point position, int type) {
         // type = 1 - animals, type = 0 - everything
         final int[] dx = {-1, -1, -1, 0, 0, 1, 1, 1};

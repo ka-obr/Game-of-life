@@ -300,6 +300,7 @@ public class Window extends JFrame {
         activePopupMenu = plantMenu;
 
         addPlantOption(plantMenu, Grass.class, new ImageIcon(Grass.scaledGrassIcon), tilePosition);
+        addPlantOption(plantMenu, Dandelion.class, new ImageIcon(Dandelion.scaledDandelionIcon), tilePosition);
 
         return plantMenu;
     }

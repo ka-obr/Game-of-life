@@ -14,12 +14,13 @@ public class Gameplay {
         // Inicjalizacja człowieka na pozycji (0,0)
         human = new Human(new Point(0, 0), world, 1);
         world.addOrganism(human);
-        world.addSheep(2, 1);
-        world.addWolf(2, 1);
-        world.addFox(2, 1);
-        world.addTurtle(2, 1);
-        world.addAntelope(2, 1);
+//        world.addSheep(2, 1);
+//        world.addWolf(2, 1);
+//        world.addFox(2, 1);
+//        world.addTurtle(2, 1);
+//        world.addAntelope(2, 1);
         world.addGrass(2, 1);
+        world.addDandelion(2, 1);
 
         window.repaint();
     }
