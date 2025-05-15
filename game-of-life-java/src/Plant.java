@@ -25,6 +25,12 @@ public abstract class Plant extends Organism {
             String message = "Organism Guarana reproduced";
             world.getWindow().addMessage(message);
         }
+        else if (plantType.equals(Nightshade.class)) {
+            Nightshade nightshade = new Nightshade(position, world, 0);
+            world.addOrganism(nightshade);
+            String message = "Organism Nightshade reproduced";
+            world.getWindow().addMessage(message);
+        }
         // Można dodać więcej typów roślin w przyszłości
     }
 

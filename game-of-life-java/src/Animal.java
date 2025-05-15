@@ -113,6 +113,10 @@ public abstract class Animal extends Organism {
     }
 
     private void loseFight(Organism other) {
+        if(other instanceof Nightshade) {
+            other.collision(this);
+            return;
+        }
         world.removeOrganism(this);
         String message = "Organism " + this.getClass().getSimpleName() + " was killed by " + other.getClass().getSimpleName();
         world.getWindow().addMessage(message);

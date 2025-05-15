@@ -192,6 +192,14 @@ public class World {
         }
     }
 
+    public void addNightshade(int count, int age) {
+        for (int i = 0; i < count; i++) {
+            Point pos = generateRandomPosition();
+            Nightshade nightshade = new Nightshade(pos, this, age);
+            addOrganism(nightshade);
+        }
+    }
+
     public void addGuarana(int count, int age) {
         for (int i = 0; i < count; i++) {
             Point pos = generateRandomPosition();

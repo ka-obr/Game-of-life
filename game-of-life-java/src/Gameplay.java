@@ -15,13 +15,14 @@ public class Gameplay {
         human = new Human(new Point(0, 0), world, 1);
         world.addOrganism(human);
         world.addSheep(2, 1);
-//        world.addWolf(2, 1);
-//        world.addFox(2, 1);
-//        world.addTurtle(2, 1);
-//        world.addAntelope(2, 1);
-//        world.addGrass(2, 1);
-//        world.addDandelion(2, 1);
+        world.addWolf(2, 1);
+        world.addFox(2, 1);
+        world.addTurtle(2, 1);
+        world.addAntelope(2, 1);
+        world.addGrass(2, 1);
+        world.addDandelion(2, 1);
         world.addGuarana(2, 1);
+        world.addNightshade(2, 1);
 
         window.repaint();
     }

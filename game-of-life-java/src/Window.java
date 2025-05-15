@@ -302,6 +302,7 @@ public class Window extends JFrame {
         addPlantOption(plantMenu, Grass.class, new ImageIcon(Grass.scaledGrassIcon), tilePosition);
         addPlantOption(plantMenu, Dandelion.class, new ImageIcon(Dandelion.scaledDandelionIcon), tilePosition);
         addPlantOption(plantMenu, Guarana.class, new ImageIcon(Guarana.scaledGuaranaIcon), tilePosition);
+        addPlantOption(plantMenu, Nightshade.class, new ImageIcon(Nightshade.scaledNightshadeIcon), tilePosition);
 
         return plantMenu;
     }
