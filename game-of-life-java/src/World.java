@@ -176,6 +176,14 @@ public class World {
         }
     }
 
+    public void addGrass(int count, int age) {
+        for (int i = 0; i < count; i++) {
+            Point pos = generateRandomPosition();
+            Grass grass = new Grass(pos, this, age);
+            addOrganism(grass);
+        }
+    }
+
     public void killNeighbors(Point position, int type) {
         // type = 1 - animals, type = 0 - everything
         final int[] dx = {-1, -1, -1, 0, 0, 1, 1, 1};
@@ -236,5 +244,19 @@ public class World {
 
         return new Point(-1, -1); // Jeśli brak wolnych pól, zwracamy nieprawidłową pozycję
     }
-}
 
+    public boolean hasFreeSpaceAround(Point position) {
+        final int[] dx = {-1, -1, -1, 0, 0, 1, 1, 1};
+        final int[] dy = {-1, 0, 1, -1, 1, -1, 0, 1};
+
+        for (int i = 0; i < 8; i++) {
+            Point neighbor = new Point(position.x + dx[i], position.y + dy[i]);
+
+            if (isWithinBounds(neighbor) && getOrganismAtPosition(neighbor) == null) {
+                return true; // Znaleziono wolne pole
+            }
+        }
+
+        return false; // Brak wolnych pól
+    }
+}

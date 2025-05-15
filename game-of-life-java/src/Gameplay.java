@@ -18,7 +18,8 @@ public class Gameplay {
         world.addWolf(2, 1);
         world.addFox(2, 1);
         world.addTurtle(2, 1);
-        world.addAntelope(2, 1); // Dodanie antylopy
+        world.addAntelope(2, 1);
+        world.addGrass(2, 1);
 
         window.repaint();
     }

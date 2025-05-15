@@ -227,7 +227,7 @@ public class Window extends JFrame {
         menuItem.addActionListener(e -> {
             try {
                 T plant = plantClass.getConstructor(Point.class, World.class, int.class)
-                        .newInstance(tilePosition, world, 0);
+                        .newInstance(tilePosition, world, 1);
                 world.addOrganism(plant);
                 drawingPanel.repaint();
             } catch (Exception ex) {

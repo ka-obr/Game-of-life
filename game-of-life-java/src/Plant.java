@@ -7,12 +7,13 @@ public abstract class Plant extends Organism {
     }
 
     public void createPlantByType(Class<? extends Plant> plantType, Point position) {
-//        if (plantType.equals(Grass.class)) {
-//            Grass grass = new Grass(position, world, 0);
-//            world.addOrganism(grass);
-//            String message = "New Grass spawned at " + position;
-//            world.getWindow().addMessage(message);
-//        } else if (plantType.equals(Dandelion.class)) {
+        if (plantType.equals(Grass.class)) {
+            Grass grass = new Grass(position, world, 0);
+            world.addOrganism(grass);
+            String message = "Organism Grass reproduced";
+            world.getWindow().addMessage(message);
+        }
+//        else if (plantType.equals(Dandelion.class)) {
 //            Dandelion dandelion = new Dandelion(position, world, 0);
 //            world.addOrganism(dandelion);
 //            String message = "New Dandelion spawned at " + position;
@@ -21,13 +22,29 @@ public abstract class Plant extends Organism {
         // Można dodać więcej typów roślin w przyszłości
     }
 
+    private boolean canReproduceThisTurn() {
+        return (Math.random() < 0.05); // 5% szans na reprodukcję
+    }
+
+    private boolean hasFreeSpace() {
+        return world.hasFreeSpaceAround(position);
+    }
+
+    private void reproduce(Point position) {
+        Point newPosition = world.getRandomFreeSpaceAround(position);
+        createPlantByType(this.getClass(), newPosition);
+    }
+
     @Override
     public void action() {
-        // Domyślna implementacja dla roślin (np. brak ruchu)
+        if(canReproduceThisTurn() && hasFreeSpace() && age != 0) {
+            reproduce(position);
+        }
+        age++;
     }
 
     @Override
     public void collision(Organism other) {
-        // Rośliny nie inicjują kolizji
+
     }
 }

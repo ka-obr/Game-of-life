@@ -13,16 +13,4 @@ public class Grass extends Plant {
     public ImageIcon getIcon() {
         return grassIcon;
     }
-
-//    @Override
-//    public void action() {
-//        // Grass może np. rozprzestrzeniać się na sąsiednie pola
-//        Point newPos = world.getRandomFreeSpaceAround(position);
-//        if (newPos.x != -1 && newPos.y != -1) {
-//            Grass newGrass = new Grass(newPos, world, 0);
-//            world.addOrganism(newGrass);
-//            String message = "Grass spread to " + newPos;
-//            world.getWindow().addMessage(message);
-//        }
-//    }
 }
