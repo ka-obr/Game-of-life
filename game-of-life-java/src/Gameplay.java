@@ -49,12 +49,33 @@ public class Gameplay {
         return world;
     }
 
+    private void loadWorld() {
+        World loaded = WorldFileManager.loadWorldFromFile();
+        if (loaded != null) {
+            this.world = loaded;
+            world.setWindow(window);
+            world.setWorldReferenceForAll(); // Ustawienie referencji do świata dla wszystkich organizmów
+            this.human = (Human) world.getOrganisms().stream()
+                    .filter(o -> o instanceof Human)
+                    .findFirst()
+                    .orElse(null); // Przypisanie obiektu Human
+            window.addMessage("World loaded from file.");
+            window.setWorld(loaded);
+            window.repaint();
+        }
+    }
+
     public void handleInput(String input) {
         if (input.equalsIgnoreCase("q")) {
             window.dispose();
         } else if (input.equalsIgnoreCase("r")) {
             handleHumanSpecialAbility(human);
-        } else {
+        } else if (input.equalsIgnoreCase("s")) {
+            WorldFileManager.saveWorldToFile(world);
+        } else if (input.equalsIgnoreCase("l")) {
+            loadWorld();
+        }
+        else {
             world.update(input);
         }
     }

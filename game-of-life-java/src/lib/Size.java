@@ -1,6 +1,8 @@
 package lib;
+import java.io.Serializable;
 
-public class Size {
+public class Size implements Serializable {
+    private static final long serialVersionUID = 1L;
     public final int x;
     public final int y;
 

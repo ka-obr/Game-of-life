@@ -8,6 +8,10 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
+import javax.imageio.ImageIO;
+import java.io.IOException;
 
 public class Window extends JFrame {
     private static final int TILE_SIZE = 50; // Stały rozmiar kafelka
@@ -15,8 +19,9 @@ public class Window extends JFrame {
     private int offsetX = 0, offsetY = 0; // Przesunięcie mapy
     private Point dragStart = null; // Punkt początkowy przeciągania
     private JPopupMenu activePopupMenu = null; // Przechowuje aktualnie otwarte menu
-    private DrawingPanel drawingPanel; // Panel rysowania
-    private JTextArea messageArea; // Panel wiadomości
+    private final DrawingPanel drawingPanel; // Panel rysowania
+    private final JTextArea messageArea; // Panel wiadomości
+    private final JPanel floatingButtonPanel;
 
     public Window(Gameplay gameplay) {
         this.world = gameplay.getWorld();
@@ -52,36 +57,125 @@ public class Window extends JFrame {
         scrollPane.setPreferredSize(new Dimension(400, getHeight())); // Zwiększona szerokość panelu wiadomości
         add(scrollPane, BorderLayout.EAST);
 
+        // Panel przycisków (przezroczysty, pływający na glassPane)
+        floatingButtonPanel = new JPanel();
+        floatingButtonPanel.setFocusable(false);
+        floatingButtonPanel.setOpaque(false);
+        floatingButtonPanel.setLayout(new BoxLayout(floatingButtonPanel, BoxLayout.Y_AXIS));
+
+        // Ikony przycisków
+        JButton nextTurnButton = createIconButton("images/nextTurn.png", "Next Turn");
+        JButton saveButton = createIconButton("images/save.png", "Save");
+        JButton loadButton = createIconButton("images/load.png", "Load");
+        JButton exitButton = createIconButton("images/exit.png", "Exit");
+
+        floatingButtonPanel.add(nextTurnButton);
+        floatingButtonPanel.add(Box.createVerticalStrut(10)); // Odstęp 10 pikseli
+        floatingButtonPanel.add(saveButton);
+        floatingButtonPanel.add(Box.createVerticalStrut(10)); // Odstęp 10 pikseli
+        floatingButtonPanel.add(loadButton);
+        floatingButtonPanel.add(Box.createVerticalStrut(10)); // Odstęp 10 pikseli
+        floatingButtonPanel.add(exitButton);
+
+        // Dodanie panelu na glassPane
+        JRootPane root = getRootPane();
+        root.setFocusable(false);
+        JComponent glass = (JComponent) root.getGlassPane();
+        glass.setLayout(null);
+        glass.setVisible(true);
+        glass.setFocusable(false); // NIE przechwytuje focusu
+        glass.add(floatingButtonPanel);
+
+        // Pozycjonowanie panelu na środku dołu okna z większym paddingiem od dołu
+        addComponentListener(new ComponentAdapter() {
+            @Override
+            public void componentResized(ComponentEvent e) {
+                positionFloatingPanel();
+            }
+            @Override
+            public void componentShown(ComponentEvent e) {
+                positionFloatingPanel();
+            }
+        });
+        positionFloatingPanel();
+
+        // Obsługa przycisków
+        nextTurnButton.addActionListener(e -> {
+            gameplay.handleInput(""); // Pusta akcja = następna tura
+            drawingPanel.repaint();
+        });
+        saveButton.addActionListener(e -> gameplay.handleInput("s"));
+        loadButton.addActionListener(e -> {
+            gameplay.handleInput("l");
+        });
+        exitButton.addActionListener(e -> dispose());
+
         // Ustawienie okna jako focusable, aby odbierało zdarzenia klawiatury
         setFocusable(true);
         requestFocusInWindow();
 
-        addKeyListener(new KeyAdapter() {
-            @Override
-            public void keyPressed(KeyEvent e) {
-                String input = null;
-                switch (e.getKeyCode()) {
-                    case KeyEvent.VK_UP:
-                        input = "up";
-                        break;
-                    case KeyEvent.VK_DOWN:
-                        input = "down";
-                        break;
-                    case KeyEvent.VK_LEFT:
-                        input = "left";
-                        break;
-                    case KeyEvent.VK_RIGHT:
-                        input = "right";
-                        break;
-                    case KeyEvent.VK_Q:
-                        input = "q";
-                        dispose(); // Zamknięcie głównego okna
-                        break;
-                    default:
-                        input = String.valueOf(e.getKeyChar());
-                }
-                gameplay.handleInput(input);
-                drawingPanel.repaint(); // Odświeżenie panelu rysowania
+        // Key Bindings
+        InputMap inputMap = root.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW);
+        ActionMap actionMap = root.getActionMap();
+
+        inputMap.put(KeyStroke.getKeyStroke("UP"), "moveUp");
+        inputMap.put(KeyStroke.getKeyStroke("DOWN"), "moveDown");
+        inputMap.put(KeyStroke.getKeyStroke("LEFT"), "moveLeft");
+        inputMap.put(KeyStroke.getKeyStroke("RIGHT"), "moveRight");
+        inputMap.put(KeyStroke.getKeyStroke('q'), "quit");
+        inputMap.put(KeyStroke.getKeyStroke('s'), "save");
+        inputMap.put(KeyStroke.getKeyStroke('l'), "load");
+        inputMap.put(KeyStroke.getKeyStroke('r'), "special");
+        inputMap.put(KeyStroke.getKeyStroke('t'), "nextTurn"); // Dodano obsługę "t" jako next turn
+
+        actionMap.put("moveUp", new AbstractAction() {
+            public void actionPerformed(ActionEvent e) {
+                gameplay.handleInput("up");
+                drawingPanel.repaint();
+            }
+        });
+        actionMap.put("moveDown", new AbstractAction() {
+            public void actionPerformed(ActionEvent e) {
+                gameplay.handleInput("down");
+                drawingPanel.repaint();
+            }
+        });
+        actionMap.put("moveLeft", new AbstractAction() {
+            public void actionPerformed(ActionEvent e) {
+                gameplay.handleInput("left");
+                drawingPanel.repaint();
+            }
+        });
+        actionMap.put("moveRight", new AbstractAction() {
+            public void actionPerformed(ActionEvent e) {
+                gameplay.handleInput("right");
+                drawingPanel.repaint();
+            }
+        });
+        actionMap.put("quit", new AbstractAction() {
+            public void actionPerformed(ActionEvent e) {
+                gameplay.handleInput("q");
+            }
+        });
+        actionMap.put("save", new AbstractAction() {
+            public void actionPerformed(ActionEvent e) {
+                gameplay.handleInput("s");
+            }
+        });
+        actionMap.put("load", new AbstractAction() {
+            public void actionPerformed(ActionEvent e) {
+                gameplay.handleInput("l");
+            }
+        });
+        actionMap.put("special", new AbstractAction() {
+            public void actionPerformed(ActionEvent e) {
+                gameplay.handleInput("r");
+            }
+        });
+        actionMap.put("nextTurn", new AbstractAction() {
+            public void actionPerformed(ActionEvent e) {
+                gameplay.handleInput(""); // Pusta akcja = następna tura
+                drawingPanel.repaint();
             }
         });
 
@@ -118,6 +212,35 @@ public class Window extends JFrame {
         });
 
         setVisible(true);
+    }
+
+    private JButton createIconButton(String iconPath, String tooltip) {
+        JButton button = new JButton();
+        try {
+            Image img = ImageIO.read(new java.io.File(iconPath));
+            int size = 64; // Duża ikona
+            ImageIcon icon = new ImageIcon(img.getScaledInstance(size, size, Image.SCALE_SMOOTH));
+            button.setIcon(icon);
+            button.setContentAreaFilled(false); // Przezroczyste tło
+            button.setBorder(BorderFactory.createEmptyBorder());
+            button.setBorderPainted(false);     // Brak obramowania
+            button.setFocusPainted(false);      // Brak efektu focus
+            button.setOpaque(false);            // Przezroczystość
+            button.setPreferredSize(new Dimension(64, 64));
+        } catch (IOException e) {
+            button.setText(tooltip); // Fallback na tekst, jeśli brak pliku
+        }
+        button.setToolTipText(tooltip);
+        return button;
+    }
+
+    private void positionFloatingPanel() {
+        int panelWidth = floatingButtonPanel.getPreferredSize().width;
+        int panelHeight = floatingButtonPanel.getPreferredSize().height;
+        int x = 20;
+        int y = (getHeight() - panelHeight) / 2; // Większy padding od dołu
+        floatingButtonPanel.setBounds(x, y, panelWidth, panelHeight);
+        getRootPane().getGlassPane().repaint();
     }
 
     public void addMessage(String message) {
@@ -329,5 +452,12 @@ public class Window extends JFrame {
             activePopupMenu = null;
             drawingPanel.repaint();
         }
+    }
+
+    public void setWorld(World loaded) {
+        this.world = loaded;
+        loaded.setWindow(this);
+        drawingPanel.repaint(); // Odświeżenie planszy gry
+        addMessage("World loaded from file.");
     }
 }

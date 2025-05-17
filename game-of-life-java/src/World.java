@@ -5,14 +5,23 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Comparator;
+import java.io.Serializable;
 
-public class World {
+public class World implements Serializable {
+    private static final long serialVersionUID = 1L;
+
     private List<Organism> organisms;
     private Size size;
-    private Window window;
+    private transient Window window;
 
     public void setWindow(Window window) {
         this.window = window;
+    }
+
+    public void setWorldReferenceForAll() {
+        for (Organism org : organisms) {
+            org.setWorld(this);
+        }
     }
 
     public World(Size size) {
@@ -262,8 +271,8 @@ public class World {
 
     public Point getRandomFreeSpaceAround(Point position) {
         List<int[]> displacements = new ArrayList<>(java.util.Arrays.asList(
-            new int[]{0, 1}, new int[]{0, -1}, new int[]{1, 0}, new int[]{-1, 0}, // Single moves
-            new int[]{1, 1}, new int[]{1, -1}, new int[]{-1, 1}, new int[]{-1, -1} // Diagonal moves
+                new int[]{0, 1}, new int[]{0, -1}, new int[]{1, 0}, new int[]{-1, 0}, // Single moves
+                new int[]{1, 1}, new int[]{1, -1}, new int[]{-1, 1}, new int[]{-1, -1} // Diagonal moves
         ));
 
         java.util.Collections.shuffle(displacements); // Losowe przetasowanie kierunków
@@ -290,7 +299,6 @@ public class World {
                 return true; // Znaleziono wolne pole
             }
         }
-
         return false; // Brak wolnych pól
     }
 }

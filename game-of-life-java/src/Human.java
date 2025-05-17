@@ -1,7 +1,9 @@
 import javax.swing.*;
 import java.awt.*;
+import java.io.Serializable;
 
-public class Human extends Animal {
+public class Human extends Animal implements Serializable {
+    private static final long serialVersionUID = 1L;
     // Dodane zmienne specjalnej umiejętności
     private boolean specialAbilityActive;
     private int specialAbilityCooldown;

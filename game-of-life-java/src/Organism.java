@@ -2,12 +2,15 @@ import lib.Size;
 
 import javax.swing.*;
 import java.awt.*;
+import java.io.Serializable;
 
-public abstract class Organism {
+public abstract class Organism implements Serializable {
+    private static final long serialVersionUID = 1L;
+
     private int strength;
     protected int initiative;
     protected Point position;
-    protected World world;
+    protected transient World world;
     protected int age;
     private boolean hasActed;
 
@@ -17,6 +20,10 @@ public abstract class Organism {
         this.position = position;
         this.world = world;
         this.age = age;
+    }
+
+    public void setWorld(World world) {
+        this.world = world;
     }
 
     public int getStrength() {
