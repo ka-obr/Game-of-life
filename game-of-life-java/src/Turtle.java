@@ -3,7 +3,7 @@ import java.awt.*;
 import java.util.Random;
 
 public class Turtle extends Animal {
-    public static final ImageIcon turtleIcon = new ImageIcon("images/turtle.png");
+    private static final ImageIcon turtleIcon = new ImageIcon("images/turtle.png");
     public static final Image scaledTurtleIcon = turtleIcon.getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH);
 
     public Turtle(Point position, World world, int age) {

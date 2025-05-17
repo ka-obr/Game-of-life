@@ -2,7 +2,7 @@ import javax.swing.*;
 import java.awt.*;
 
 public class Hogweed extends Plant {
-    public static final ImageIcon hogweedIcon = new ImageIcon("images/hogweed.png");
+    private static final ImageIcon hogweedIcon = new ImageIcon("images/hogweed.png");
     public static final Image scaledHogweedIcon = hogweedIcon.getImage()
             .getScaledInstance(30, 30, Image.SCALE_SMOOTH);
 

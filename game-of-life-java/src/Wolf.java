@@ -2,7 +2,7 @@ import javax.swing.*;
 import java.awt.*;
 
 public class Wolf extends Animal {
-    public static final ImageIcon wolfIcon = new ImageIcon("images/wolf.png");
+    private static final ImageIcon wolfIcon = new ImageIcon("images/wolf.png");
     public static final Image scaledWolfIcon = wolfIcon.getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH);
 
     public Wolf(Point position, World world, int age) {

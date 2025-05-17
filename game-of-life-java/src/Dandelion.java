@@ -2,7 +2,7 @@ import javax.swing.*;
 import java.awt.*;
 
 public class Dandelion extends Plant {
-    public static final ImageIcon dandelionIcon = new ImageIcon("images/dandelion.png");
+    private static final ImageIcon dandelionIcon = new ImageIcon("images/dandelion.png");
     public static final Image scaledDandelionIcon = dandelionIcon.getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH);
 
     public Dandelion(Point position, World world, int age) {

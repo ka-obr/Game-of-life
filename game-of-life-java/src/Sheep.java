@@ -2,7 +2,7 @@ import javax.swing.*;
 import java.awt.*;
   
 public class Sheep extends Animal {
-    public static final ImageIcon sheepIcon = new ImageIcon("images/sheep.png");
+    private static final ImageIcon sheepIcon = new ImageIcon("images/sheep.png");
     public static final Image scaledSheepIcon = sheepIcon.getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH);
 
     public Sheep(Point position, World world, int age) {

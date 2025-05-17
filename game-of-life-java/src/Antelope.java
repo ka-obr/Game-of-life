@@ -2,7 +2,7 @@ import javax.swing.*;
 import java.awt.*;
 
 public class Antelope extends Animal {
-    public static final ImageIcon antelopeIcon = new ImageIcon("images/antelope.png");
+    private static final ImageIcon antelopeIcon = new ImageIcon("images/antelope.png");
     public static final Image scaledAntelopeIcon = antelopeIcon.getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH);
 
     public Antelope(Point position, World world, int age) {

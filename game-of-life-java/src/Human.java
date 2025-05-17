@@ -3,6 +3,7 @@ import java.awt.*;
 import java.io.Serializable;
 
 public class Human extends Animal implements Serializable {
+    private static final ImageIcon humanIcon = new ImageIcon("images/human.png");
     private static final long serialVersionUID = 1L;
     // Dodane zmienne specjalnej umiejętności
     private boolean specialAbilityActive;
@@ -25,8 +26,6 @@ public class Human extends Animal implements Serializable {
     public int getSpecialAbilityCounter() {
         return specialAbilityCounter;
     }
-
-    public static final ImageIcon humanIcon = new ImageIcon("images/human.png");
 
     public Human(World world) {
         super(5, 4, new Point(0, 0), world, 0); // Siła = 5, Inicjatywa = 4, pozycja (0,0)

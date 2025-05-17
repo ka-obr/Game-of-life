@@ -2,7 +2,7 @@ import javax.swing.*;
 import java.awt.*;
 
 public class Guarana extends Plant {
-    public static final ImageIcon guaranaIcon = new ImageIcon("images/guarana.png");
+    private static final ImageIcon guaranaIcon = new ImageIcon("images/guarana.png");
     public static final Image scaledGuaranaIcon = guaranaIcon.getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH);
 
     public Guarana(Point position, World world, int age) {

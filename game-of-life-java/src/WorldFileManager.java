@@ -5,7 +5,7 @@ public class WorldFileManager {
 
     private static final String DEFAULT_SAVE_PATH = "save/world.sav";
 
-    public static void saveWorldToFile(World world) {
+    public void saveWorldToFile(World world) {
         try {
             new File("save").mkdirs();
             File file = new File(DEFAULT_SAVE_PATH);
@@ -18,7 +18,7 @@ public class WorldFileManager {
         }
     }
 
-    public static World loadWorldFromFile() {
+    public World loadWorldFromFile() {
         File file = new File(DEFAULT_SAVE_PATH);
 
         if (!file.exists()) {

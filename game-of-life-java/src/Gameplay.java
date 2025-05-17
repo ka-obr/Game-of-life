@@ -5,9 +5,11 @@ public class Gameplay {
     private Window window;
     private World world;
     private Human human;
+    private WorldFileManager fileManager;
 
     public Gameplay(World world) {
         this.world = world;
+        this.fileManager = new WorldFileManager();
         window = new Window(this);
         world.setWindow(window);
 
@@ -50,7 +52,7 @@ public class Gameplay {
     }
 
     private void loadWorld() {
-        World loaded = WorldFileManager.loadWorldFromFile();
+        World loaded = fileManager.loadWorldFromFile();
         if (loaded != null) {
             this.world = loaded;
             world.setWindow(window);
@@ -71,7 +73,7 @@ public class Gameplay {
         } else if (input.equalsIgnoreCase("r")) {
             handleHumanSpecialAbility(human);
         } else if (input.equalsIgnoreCase("s")) {
-            WorldFileManager.saveWorldToFile(world);
+            fileManager.saveWorldToFile(world);
         } else if (input.equalsIgnoreCase("l")) {
             loadWorld();
         }

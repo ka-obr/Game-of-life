@@ -2,7 +2,7 @@ import javax.swing.*;
 import java.awt.*;
 
 public class Fox extends Animal {
-    public static final ImageIcon foxIcon = new ImageIcon("images/fox.png");
+    private static final ImageIcon foxIcon = new ImageIcon("images/fox.png");
     public static final Image scaledFoxIcon = foxIcon.getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH);
 
     public Fox(Point position, World world, int age) {
