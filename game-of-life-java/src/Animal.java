@@ -10,32 +10,9 @@ public abstract class Animal extends Organism {
     }
 
     protected void createAnimalByType(Class<? extends Animal> animalType, Point position) {
-        if (animalType.equals(Sheep.class)) {
-            Sheep baby = new Sheep(position, world, 0);
-            world.addOrganism(baby);
-            String message = "Organism Sheep reproduced";
-            world.getWindow().addMessage(message);
-        } else if (animalType.equals(Wolf.class)) {
-            Wolf baby = new Wolf(position, world, 0);
-            world.addOrganism(baby);
-            String message = "Organism Wolf reproduced";
-            world.getWindow().addMessage(message);
-        } else if (animalType.equals(Fox.class)) {
-            Fox baby = new Fox(position, world, 0);
-            world.addOrganism(baby);
-            String message = "Organism Fox reproduced";
-            world.getWindow().addMessage(message);
-        } else if (animalType.equals(Turtle.class)) {
-            Turtle baby = new Turtle(position, world, 0);
-            world.addOrganism(baby);
-            String message = "Organism Turtle reproduced";
-            world.getWindow().addMessage(message);
-        } else if (animalType.equals(Antelope.class)) {
-            Antelope baby = new Antelope(position, world, 0);
-            world.addOrganism(baby);
-            String message = "Organism Antelope reproduced";
-            world.getWindow().addMessage(message);
-        }
+        world.createOrganismAtPosition(animalType, position, 0);
+        String message = "Organism " + animalType.getSimpleName() + " reproduced";
+        world.getWindow().addMessage(message);
     }
 
 

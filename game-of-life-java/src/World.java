@@ -1,6 +1,7 @@
 import lib.Size;
 
 import java.awt.*;
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -146,84 +147,29 @@ public class World implements Serializable {
         return null; // Brak organizmu na tej pozycji
     }
 
-    public void addSheep(int count, int age) {
+    public void createOrganism(Class<? extends Organism> organismClass, int count, int age) {
         for (int i = 0; i < count; i++) {
-            Point pos = generateRandomPosition();
-            Sheep sheep = new Sheep(pos, this, age);
-            addOrganism(sheep);
+            Point position = generateRandomPosition();
+            Organism organism = null;
+            try {
+                organism = organismClass.getConstructor(Point.class, World.class, int.class)
+                        .newInstance(position, this, age);
+            } catch (InvocationTargetException | NoSuchMethodException | InstantiationException | IllegalAccessException e) {
+                throw new RuntimeException(e);
+            }
+            addOrganism(organism);
         }
     }
 
-    public void addWolf(int count, int age) {
-        for (int i = 0; i < count; i++) {
-            Point pos = generateRandomPosition();
-            Wolf wolf = new Wolf(pos, this, age);
-            addOrganism(wolf);
+    public void createOrganismAtPosition(Class<? extends Organism> organismClass, Point position, int age) {
+        Organism organism = null;
+        try {
+            organism = organismClass.getConstructor(Point.class, World.class, int.class)
+                    .newInstance(position, this, age);
+        } catch (InstantiationException | NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
+            throw new RuntimeException(e);
         }
-    }
-
-    public void addFox(int count, int age) {
-        for (int i = 0; i < count; i++) {
-            Point pos = generateRandomPosition();
-            Fox fox = new Fox(pos, this, age);
-            addOrganism(fox);
-        }
-    }
-
-    public void addTurtle(int count, int age) {
-        for (int i = 0; i < count; i++) {
-            Point pos = generateRandomPosition();
-            Turtle turtle = new Turtle(pos, this, age);
-            addOrganism(turtle);
-        }
-    }
-
-    public void addAntelope(int count, int age) {
-        for (int i = 0; i < count; i++) {
-            Point pos = generateRandomPosition();
-            Antelope antelope = new Antelope(pos, this, age);
-            addOrganism(antelope);
-        }
-    }
-
-    public void addGrass(int count, int age) {
-        for (int i = 0; i < count; i++) {
-            Point pos = generateRandomPosition();
-            Grass grass = new Grass(pos, this, age);
-            addOrganism(grass);
-        }
-    }
-
-    public void addDandelion(int count, int age) {
-        for (int i = 0; i < count; i++) {
-            Point pos = generateRandomPosition();
-            Dandelion dandelion = new Dandelion(pos, this, age);
-            addOrganism(dandelion);
-        }
-    }
-
-    public void addNightshade(int count, int age) {
-        for (int i = 0; i < count; i++) {
-            Point pos = generateRandomPosition();
-            Nightshade nightshade = new Nightshade(pos, this, age);
-            addOrganism(nightshade);
-        }
-    }
-
-    public void addGuarana(int count, int age) {
-        for (int i = 0; i < count; i++) {
-            Point pos = generateRandomPosition();
-            Guarana guarana = new Guarana(pos, this, age);
-            addOrganism(guarana);
-        }
-    }
-
-    public void addHogweed(int count, int age) {
-        for (int i = 0; i < count; i++) {
-            Point pos = generateRandomPosition();
-            Hogweed hogweed = new Hogweed(pos, this, age);
-            addOrganism(hogweed);
-        }
+        addOrganism(organism);
     }
 
     public void killNeighbors(Point position, int type) {

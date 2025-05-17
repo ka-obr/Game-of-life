@@ -1,4 +1,5 @@
 import java.awt.*;
+import java.lang.reflect.InvocationTargetException;
 
 public class Gameplay {
     private boolean running = true;
@@ -16,16 +17,16 @@ public class Gameplay {
         // Inicjalizacja człowieka na pozycji (0,0)
         human = new Human(new Point(0, 0), world, 1);
         world.addOrganism(human);
-        world.addSheep(2, 1);
-        world.addWolf(2, 1);
-        world.addFox(2, 1);
-        world.addTurtle(2, 1);
-        world.addAntelope(2, 1);
-        world.addGrass(2, 1);
-        world.addDandelion(2, 1);
-        world.addGuarana(2, 1);
-        world.addNightshade(2, 1);
-        world.addHogweed(2, 1);
+        world.createOrganism(Sheep.class, 2, 1);
+        world.createOrganism(Wolf.class, 2, 1);
+        world.createOrganism(Fox.class, 2, 1);
+        world.createOrganism(Turtle.class, 2, 1);
+        world.createOrganism(Antelope.class, 2, 1);
+        world.createOrganism(Grass.class, 2, 1);
+        world.createOrganism(Dandelion.class, 2, 1);
+        world.createOrganism(Guarana.class, 2, 1);
+        world.createOrganism(Nightshade.class, 2, 1);
+        world.createOrganism(Hogweed.class, 2, 1);
 
         window.repaint();
     }

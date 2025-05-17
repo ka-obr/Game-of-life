@@ -7,37 +7,9 @@ public abstract class Plant extends Organism {
     }
 
     protected void createPlantByType(Class<? extends Plant> plantType, Point position) {
-        if (plantType.equals(Grass.class)) {
-            Grass grass = new Grass(position, world, 0);
-            world.addOrganism(grass);
-            String message = "Organism Grass reproduced";
-            world.getWindow().addMessage(message);
-        }
-        else if (plantType.equals(Dandelion.class)) {
-            Dandelion dandelion = new Dandelion(position, world, 0);
-            world.addOrganism(dandelion);
-            String message = "Organism Dandelion reproduced";
-            world.getWindow().addMessage(message);
-        }
-        else if (plantType.equals(Guarana.class)) {
-            Guarana guarana = new Guarana(position, world, 0);
-            world.addOrganism(guarana);
-            String message = "Organism Guarana reproduced";
-            world.getWindow().addMessage(message);
-        }
-        else if (plantType.equals(Nightshade.class)) {
-            Nightshade nightshade = new Nightshade(position, world, 0);
-            world.addOrganism(nightshade);
-            String message = "Organism Nightshade reproduced";
-            world.getWindow().addMessage(message);
-        }
-        else if(plantType.equals(Hogweed.class)) {
-            Hogweed hogweed = new Hogweed(position, world, 0);
-            world.addOrganism(hogweed);
-            String message = "Organism Hogweed reproduced";
-            world.getWindow().addMessage(message);
-        }
-        // Można dodać więcej typów roślin w przyszłości
+        world.createOrganismAtPosition(plantType, position, 0);
+        String message = "Organism " + plantType.getSimpleName() + " reproduced";
+        world.getWindow().addMessage(message);
     }
 
     protected boolean canReproduceThisTurn() {
