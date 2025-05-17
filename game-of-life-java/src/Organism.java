@@ -62,7 +62,7 @@ public abstract class Organism implements Serializable {
 
     }
 
-    public int escapeCollision(Organism other) {
+    protected int escapeCollision(Organism other) {
         return 0;
     }
 

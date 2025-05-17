@@ -6,7 +6,7 @@ public abstract class Plant extends Organism {
         super(strength, 0, position, world, age);
     }
 
-    public void createPlantByType(Class<? extends Plant> plantType, Point position) {
+    protected void createPlantByType(Class<? extends Plant> plantType, Point position) {
         if (plantType.equals(Grass.class)) {
             Grass grass = new Grass(position, world, 0);
             world.addOrganism(grass);

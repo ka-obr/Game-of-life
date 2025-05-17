@@ -9,7 +9,7 @@ public abstract class Animal extends Organism {
         super(strength, initiative, position, world, age);
     }
 
-    public void createAnimalByType(Class<? extends Animal> animalType, Point position) {
+    protected void createAnimalByType(Class<? extends Animal> animalType, Point position) {
         if (animalType.equals(Sheep.class)) {
             Sheep baby = new Sheep(position, world, 0);
             world.addOrganism(baby);

@@ -16,7 +16,7 @@ public class Antelope extends Animal {
 
 
     @Override
-    public int escapeCollision(Organism other) {
+    protected int escapeCollision(Organism other) {
         int randomNumber = (int) (Math.random() * 2 + 1);
         if (randomNumber == 1 && !other.getClass().equals(this.getClass()) && !(other instanceof Plant)) {
             Point destination = world.getRandomFreeSpaceAround(position);

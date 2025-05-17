@@ -19,79 +19,87 @@ public class Window extends JFrame {
     private int offsetX = 0, offsetY = 0; // Przesunięcie mapy
     private Point dragStart = null; // Punkt początkowy przeciągania
     private JPopupMenu activePopupMenu = null; // Przechowuje aktualnie otwarte menu
-    private final DrawingPanel drawingPanel; // Panel rysowania
-    private final JTextArea messageArea; // Panel wiadomości
-    private final JPanel floatingButtonPanel;
+    private DrawingPanel drawingPanel; // Panel rysowania
+    private JTextArea messageArea; // Panel wiadomości
+    private JPanel floatingButtonPanel;
 
     public Window(Gameplay gameplay) {
         this.world = gameplay.getWorld();
 
-        // Obliczanie rozmiaru okna na podstawie rozmiaru siatki
+        initializeWindow();
+        initializeDrawingPanel();
+        initializeMessagePanel();
+        initializeFloatingButtonPanel(gameplay);
+        initializeKeyBindings(gameplay);
+        initializeMouseListeners();
+
+        setVisible(true);
+    }
+
+    private void initializeWindow() {
         Size gridSize = world.getSize();
-        int windowWidth = gridSize.x * TILE_SIZE + 300; // Dodanie miejsca na panel wiadomości
-        int windowHeight = gridSize.y * TILE_SIZE + 200; // Dodanie marginesu na pasek tytułu
+        int windowWidth = gridSize.x * TILE_SIZE + 300;
+        int windowHeight = gridSize.y * TILE_SIZE + 200;
 
         setTitle("Karol Obrycki 203264");
         setSize(windowWidth, windowHeight);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
-
-        // Tworzenie głównego układu
         setLayout(new BorderLayout());
+    }
 
-        // Panel rysowania
+    private void initializeDrawingPanel() {
         drawingPanel = new DrawingPanel();
         add(drawingPanel, BorderLayout.CENTER);
+    }
 
-        // Panel wiadomości
+    private void initializeMessagePanel() {
         messageArea = new JTextArea();
         messageArea.setEditable(false);
         messageArea.setLineWrap(true);
         messageArea.setWrapStyleWord(true);
-        messageArea.setBackground(new Color(46, 90, 46)); // Ciemnozielone tło
-        messageArea.setForeground(Color.WHITE); // Biały tekst
-        messageArea.setFont(new Font("Arial", Font.BOLD, 20)); // Zwiększona czcionka
+        messageArea.setBackground(new Color(46, 90, 46));
+        messageArea.setForeground(Color.WHITE);
+        messageArea.setFont(new Font("Arial", Font.BOLD, 20));
         messageArea.setFocusable(false);
 
         JScrollPane scrollPane = new JScrollPane(messageArea);
-        scrollPane.setPreferredSize(new Dimension(400, getHeight())); // Zwiększona szerokość panelu wiadomości
+        scrollPane.setPreferredSize(new Dimension(400, getHeight()));
         add(scrollPane, BorderLayout.EAST);
+    }
 
-        // Panel przycisków (przezroczysty, pływający na glassPane)
+    private void initializeFloatingButtonPanel(Gameplay gameplay) {
         floatingButtonPanel = new JPanel();
         floatingButtonPanel.setFocusable(false);
         floatingButtonPanel.setOpaque(false);
         floatingButtonPanel.setLayout(new BoxLayout(floatingButtonPanel, BoxLayout.Y_AXIS));
 
-        // Ikony przycisków
         JButton nextTurnButton = createIconButton("images/nextTurn.png", "Next Turn");
         JButton saveButton = createIconButton("images/save.png", "Save");
         JButton loadButton = createIconButton("images/load.png", "Load");
         JButton exitButton = createIconButton("images/exit.png", "Exit");
 
         floatingButtonPanel.add(nextTurnButton);
-        floatingButtonPanel.add(Box.createVerticalStrut(10)); // Odstęp 10 pikseli
+        floatingButtonPanel.add(Box.createVerticalStrut(10));
         floatingButtonPanel.add(saveButton);
-        floatingButtonPanel.add(Box.createVerticalStrut(10)); // Odstęp 10 pikseli
+        floatingButtonPanel.add(Box.createVerticalStrut(10));
         floatingButtonPanel.add(loadButton);
-        floatingButtonPanel.add(Box.createVerticalStrut(10)); // Odstęp 10 pikseli
+        floatingButtonPanel.add(Box.createVerticalStrut(10));
         floatingButtonPanel.add(exitButton);
 
-        // Dodanie panelu na glassPane
         JRootPane root = getRootPane();
-        root.setFocusable(false);
         JComponent glass = (JComponent) root.getGlassPane();
         glass.setLayout(null);
         glass.setVisible(true);
-        glass.setFocusable(false); // NIE przechwytuje focusu
+        glass.setFocusable(false);
         glass.add(floatingButtonPanel);
 
-        // Pozycjonowanie panelu na środku dołu okna z większym paddingiem od dołu
         addComponentListener(new ComponentAdapter() {
             @Override
             public void componentResized(ComponentEvent e) {
                 positionFloatingPanel();
             }
+
             @Override
             public void componentShown(ComponentEvent e) {
                 positionFloatingPanel();
@@ -99,22 +107,17 @@ public class Window extends JFrame {
         });
         positionFloatingPanel();
 
-        // Obsługa przycisków
         nextTurnButton.addActionListener(e -> {
-            gameplay.handleInput(""); // Pusta akcja = następna tura
+            gameplay.handleInput("");
             drawingPanel.repaint();
         });
         saveButton.addActionListener(e -> gameplay.handleInput("s"));
-        loadButton.addActionListener(e -> {
-            gameplay.handleInput("l");
-        });
+        loadButton.addActionListener(e -> gameplay.handleInput("l"));
         exitButton.addActionListener(e -> dispose());
+    }
 
-        // Ustawienie okna jako focusable, aby odbierało zdarzenia klawiatury
-        setFocusable(true);
-        requestFocusInWindow();
-
-        // Key Bindings
+    private void initializeKeyBindings(Gameplay gameplay) {
+        JRootPane root = getRootPane();
         InputMap inputMap = root.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW);
         ActionMap actionMap = root.getActionMap();
 
@@ -126,7 +129,7 @@ public class Window extends JFrame {
         inputMap.put(KeyStroke.getKeyStroke('s'), "save");
         inputMap.put(KeyStroke.getKeyStroke('l'), "load");
         inputMap.put(KeyStroke.getKeyStroke('r'), "special");
-        inputMap.put(KeyStroke.getKeyStroke('t'), "nextTurn"); // Dodano obsługę "t" jako next turn
+        inputMap.put(KeyStroke.getKeyStroke('t'), "nextTurn");
 
         actionMap.put("moveUp", new AbstractAction() {
             public void actionPerformed(ActionEvent e) {
@@ -174,25 +177,27 @@ public class Window extends JFrame {
         });
         actionMap.put("nextTurn", new AbstractAction() {
             public void actionPerformed(ActionEvent e) {
-                gameplay.handleInput(""); // Pusta akcja = następna tura
+                gameplay.handleInput("");
                 drawingPanel.repaint();
             }
         });
+    }
 
+    private void initializeMouseListeners() {
         addMouseListener(new MouseAdapter() {
             @Override
             public void mousePressed(MouseEvent e) {
                 if (SwingUtilities.isRightMouseButton(e)) {
-                    dragStart = e.getPoint(); // Zapisanie punktu początkowego przeciągania
+                    dragStart = e.getPoint();
                 } else if (SwingUtilities.isLeftMouseButton(e)) {
-                    handleTileClick(e.getPoint()); // Obsługa kliknięcia lewym przyciskiem myszy
+                    handleTileClick(e.getPoint());
                 }
             }
 
             @Override
             public void mouseReleased(MouseEvent e) {
                 if (SwingUtilities.isRightMouseButton(e)) {
-                    dragStart = null; // Zakończenie przeciągania
+                    dragStart = null;
                 }
             }
         });
@@ -205,13 +210,11 @@ public class Window extends JFrame {
                     int dy = e.getY() - dragStart.y;
                     offsetX += dx;
                     offsetY += dy;
-                    dragStart = e.getPoint(); // Aktualizacja punktu początkowego
-                    drawingPanel.repaint(); // Odświeżenie panelu rysowania
+                    dragStart = e.getPoint();
+                    drawingPanel.repaint();
                 }
             }
         });
-
-        setVisible(true);
     }
 
     private JButton createIconButton(String iconPath, String tooltip) {
