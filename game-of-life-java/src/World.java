@@ -10,9 +10,8 @@ import java.io.Serializable;
 
 public class World implements Serializable {
     private static final long serialVersionUID = 1L;
-
-    private List<Organism> organisms;
-    private Size size;
+    private final List<Organism> organisms;
+    private final Size size;
     private transient Window window;
 
     public void setWindow(Window window) {

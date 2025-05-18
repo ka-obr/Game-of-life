@@ -7,12 +7,12 @@ public class Turtle extends Animal {
     public static final Image scaledTurtleIcon = turtleIcon.getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH);
 
     public Turtle(Point position, World world, int age) {
-        super(2, 1, position, world, age); // Strength = 2, Initiative = 1
+        super(2, 1, position, world, age);
     }
 
     @Override
     public ImageIcon getIcon() {
-        return turtleIcon; // Zwracanie zcache'owanej ikony
+        return turtleIcon;
     }
 
     @Override
@@ -38,7 +38,7 @@ public class Turtle extends Animal {
                 if (other != null) {
                     collision(other);
                 } else {
-                    position = newPos; // Przesuwamy organizm na nową pozycję
+                    position = newPos;
                 }
             }
         }

@@ -37,7 +37,7 @@ public abstract class Animal extends Organism {
             if (other != null) {
                 collision(other);
             } else {
-                position = newPos; // Przesuwamy organizm na nową pozycję
+                position = newPos;
             }
         }
     }

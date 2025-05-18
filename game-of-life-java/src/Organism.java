@@ -75,6 +75,6 @@ public abstract class Organism implements Serializable {
     }
 
     public ImageIcon getIcon() {
-        return null; // Domyślnie brak ikony
+        return null;
     }
 }

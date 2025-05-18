@@ -6,12 +6,12 @@ public class Antelope extends Animal {
     public static final Image scaledAntelopeIcon = antelopeIcon.getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH);
 
     public Antelope(Point position, World world, int age) {
-        super(4, 4, position, world, age); // Strength = 4, Initiative = 4
+        super(4, 4, position, world, age);
     }
 
     @Override
     public ImageIcon getIcon() {
-        return antelopeIcon; // Zwracanie zcache'owanej ikony
+        return antelopeIcon;
     }
 
 
@@ -21,12 +21,12 @@ public class Antelope extends Animal {
         if (randomNumber == 1 && !other.getClass().equals(this.getClass()) && !(other instanceof Plant)) {
             Point destination = world.getRandomFreeSpaceAround(position);
             if (world.isWithinBounds(destination)) {
-                position = destination; // Przesunięcie na nową pozycję
+                position = destination;
                 setHasActed(true);
-                return 1; // Ucieczka zakończona sukcesem
+                return 1;
             }
         }
-        return 0; // Ucieczka nie powiodła się
+        return 0;
     }
 
     @Override

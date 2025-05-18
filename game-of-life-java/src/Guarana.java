@@ -6,7 +6,7 @@ public class Guarana extends Plant {
     public static final Image scaledGuaranaIcon = guaranaIcon.getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH);
 
     public Guarana(Point position, World world, int age) {
-        super(0, position, world, age); // Siła = 0, Inicjatywa = 0
+        super(0, position, world, age);
     }
 
     @Override

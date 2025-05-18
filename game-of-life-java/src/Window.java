@@ -14,14 +14,14 @@ import javax.imageio.ImageIO;
 import java.io.IOException;
 
 public class Window extends JFrame {
-    private static final int TILE_SIZE = 50; // Stały rozmiar kafelka
+    private final int TILE_SIZE = 50;
     private World world;
     private final Gameplay gameplay;
-    private int offsetX = 0, offsetY = 0; // Przesunięcie mapy
-    private Point dragStart = null; // Punkt początkowy przeciągania
-    private JPopupMenu activePopupMenu = null; // Przechowuje aktualnie otwarte menu
-    private DrawingPanel drawingPanel; // Panel rysowania
-    private JTextArea messageArea; // Panel wiadomości
+    private int offsetX = 0, offsetY = 0;
+    private Point dragStart = null;
+    private JPopupMenu activePopupMenu = null;
+    private DrawingPanel drawingPanel;
+    private JTextArea messageArea;
     private JPanel floatingButtonPanel;
 
     public Window(Gameplay gameplay) {
@@ -223,17 +223,17 @@ public class Window extends JFrame {
         JButton button = new JButton();
         try {
             Image img = ImageIO.read(new java.io.File(iconPath));
-            int size = 64; // Duża ikona
+            int size = 64;
             ImageIcon icon = new ImageIcon(img.getScaledInstance(size, size, Image.SCALE_SMOOTH));
             button.setIcon(icon);
-            button.setContentAreaFilled(false); // Przezroczyste tło
+            button.setContentAreaFilled(false);
             button.setBorder(BorderFactory.createEmptyBorder());
-            button.setBorderPainted(false);     // Brak obramowania
-            button.setFocusPainted(false);      // Brak efektu focus
-            button.setOpaque(false);            // Przezroczystość
+            button.setBorderPainted(false);
+            button.setFocusPainted(false);
+            button.setOpaque(false);
             button.setPreferredSize(new Dimension(64, 64));
         } catch (IOException e) {
-            button.setText(tooltip); // Fallback na tekst, jeśli brak pliku
+            button.setText(tooltip);
         }
         button.setToolTipText(tooltip);
         return button;
@@ -243,14 +243,14 @@ public class Window extends JFrame {
         int panelWidth = floatingButtonPanel.getPreferredSize().width;
         int panelHeight = floatingButtonPanel.getPreferredSize().height;
         int x = 20;
-        int y = (getHeight() - panelHeight) / 2; // Większy padding od dołu
+        int y = (getHeight() - panelHeight) / 2;
         floatingButtonPanel.setBounds(x, y, panelWidth, panelHeight);
         getRootPane().getGlassPane().repaint();
     }
 
     public void addMessage(String message) {
         messageArea.append(message + "\n");
-        messageArea.setCaretPosition(messageArea.getDocument().getLength()); // Automatyczne przewijanie do końca
+        messageArea.setCaretPosition(messageArea.getDocument().getLength());
     }
 
     public void clearMessages() {
@@ -262,8 +262,8 @@ public class Window extends JFrame {
         protected void paintComponent(Graphics g) {
             super.paintComponent(g);
 
-            // Ustawienie koloru tła na ciemnozielony
-            g.setColor(new Color(46, 90, 46)); // Ciemnozielony
+
+            g.setColor(new Color(46, 90, 46));
             g.fillRect(0, 0, getWidth(), getHeight());
 
             drawWorld(g);
@@ -272,7 +272,6 @@ public class Window extends JFrame {
         private void drawWorld(Graphics g) {
             Graphics2D g2d = (Graphics2D) g;
 
-            // Obliczanie przesunięcia, aby siatka była wyśrodkowana
             Size size = world.getSize();
             int gridWidth = size.x * TILE_SIZE;
             int gridHeight = size.y * TILE_SIZE;
@@ -280,21 +279,19 @@ public class Window extends JFrame {
             int centerX = (getWidth() - gridWidth) / 2;
             int centerY = (getHeight() - gridHeight) / 2;
 
-            g2d.translate(offsetX + centerX, offsetY + centerY); // Przesunięcie mapy i wyśrodkowanie
+            g2d.translate(offsetX + centerX, offsetY + centerY);
 
-            // Rysowanie siatki
             for (int i = 0; i < size.x; i++) {
                 for (int j = 0; j < size.y; j++) {
-                    g2d.setColor(new Color(67, 131, 67)); // Jasnozielony
-                    g2d.fillRect(i * TILE_SIZE, j * TILE_SIZE, TILE_SIZE, TILE_SIZE); // Wypełnienie kafelka
+                    g2d.setColor(new Color(67, 131, 67));
+                    g2d.fillRect(i * TILE_SIZE, j * TILE_SIZE, TILE_SIZE, TILE_SIZE);
 
-                    g2d.setColor(new Color(46, 90, 46)); // Ciemnozielony kolor dla obramowania
-                    g2d.setStroke(new BasicStroke(3)); // Ustawienie grubości linii na 3 piksele
-                    g2d.drawRect(i * TILE_SIZE, j * TILE_SIZE, TILE_SIZE, TILE_SIZE); // Rysowanie obramowania kafelka
+                    g2d.setColor(new Color(46, 90, 46));
+                    g2d.setStroke(new BasicStroke(3));
+                    g2d.drawRect(i * TILE_SIZE, j * TILE_SIZE, TILE_SIZE, TILE_SIZE);
                 }
             }
 
-            // Rysowanie organizmów
             for (Organism organism : world.getOrganisms()) {
                 Point position = organism.getPosition();
                 ImageIcon icon = organism.getIcon();
@@ -304,7 +301,6 @@ public class Window extends JFrame {
                     int imageWidth = (int) (TILE_SIZE * 0.8);
                     int imageHeight = (int) (TILE_SIZE * 0.8);
 
-                    // Centrowanie obrazu w kafelku z lekkim przesunięciem w dół
                     int xOffset = (TILE_SIZE - imageWidth) / 2;
                     int yOffset = (TILE_SIZE - imageHeight) / 2 + 1;
 
@@ -319,7 +315,6 @@ public class Window extends JFrame {
         int tileWidth = 50;
         int tileHeight = 50;
 
-        // Obliczanie przesunięcia, aby siatka była wyśrodkowana
         int gridWidth = size.x * tileWidth;
         int gridHeight = size.y * tileHeight;
         int centerX = (getWidth() - gridWidth) / 2 - 200; //FIX
@@ -378,7 +373,7 @@ public class Window extends JFrame {
     private void showAddMenu(int tileX, int tileY) {
         Point tilePosition = new Point(tileX, tileY);
         if (world.isTileOccupied(tilePosition)) {
-            return; // Nie pokazuj menu, jeśli kafelek jest zajęty
+            return;
         }
 
         closeActivePopupMenu();
@@ -476,7 +471,7 @@ public class Window extends JFrame {
     public void setWorld(World loaded) {
         this.world = loaded;
         loaded.setWindow(this);
-        drawingPanel.repaint(); // Odświeżenie planszy gry
+        drawingPanel.repaint();
         addMessage("World loaded from file.");
     }
 }

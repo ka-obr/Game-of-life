@@ -3,11 +3,10 @@ import java.awt.*;
 
 public class Nightshade extends Plant {
     public static final ImageIcon nightshadeIcon = new ImageIcon("images/nightshade.png");
-    public static final Image scaledNightshadeIcon = nightshadeIcon.getImage()
-            .getScaledInstance(30, 30, Image.SCALE_SMOOTH);
+    public static final Image scaledNightshadeIcon = nightshadeIcon.getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH);
 
     public Nightshade(Point position, World world, int age) {
-        super(99, position, world, age); // Siła 99, inicjatywa zawsze 0
+        super(99, position, world, age);
     }
 
     @Override

@@ -6,7 +6,7 @@ public abstract class Plant extends Organism {
         super(strength, 0, position, world, age);
     }
 
-    protected void createPlantByType(Class<? extends Plant> plantType, Point position) {
+    private void createPlantByType(Class<? extends Plant> plantType, Point position) {
         world.createOrganismAtPosition(plantType, position, 0);
         String message = "Organism " + plantType.getSimpleName() + " reproduced";
         world.getWindow().addMessage(message);

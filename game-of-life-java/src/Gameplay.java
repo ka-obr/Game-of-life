@@ -2,7 +2,6 @@ import java.awt.*;
 import java.lang.reflect.InvocationTargetException;
 
 public class Gameplay {
-    private boolean running = true;
     private Window window;
     private World world;
     private Human human;
@@ -18,7 +17,6 @@ public class Gameplay {
         window = new Window(this);
         world.setWindow(window);
 
-        // Inicjalizacja człowieka na pozycji (0,0)
         human = new Human(new Point(0, 0), world, 1);
         world.addOrganism(human);
         world.createOrganism(Sheep.class, 2, 1);
@@ -38,7 +36,7 @@ public class Gameplay {
     private void handleHumanSpecialAbility(Human human) {
         if (human == null || !world.getOrganisms().contains(human)) {
             String message = "Human is dead!";
-            world.getWindow().addMessage(message); // Dodanie wiadomości do okna
+            world.getWindow().addMessage(message);
         } else if (human.getSpecialAbilityCooldown() > 0) {
             String message = "Human special ability is on cooldown for " + human.getSpecialAbilityCooldown() + " turns!";
             world.getWindow().addMessage(message);
@@ -61,11 +59,11 @@ public class Gameplay {
         if (loaded != null) {
             this.world = loaded;
             world.setWindow(window);
-            world.setWorldReferenceForAll(); // Ustawienie referencji do świata dla wszystkich organizmów
+            world.setWorldReferenceForAll();
             this.human = (Human) world.getOrganisms().stream()
                     .filter(o -> o instanceof Human)
                     .findFirst()
-                    .orElse(null); // Przypisanie obiektu Human
+                    .orElse(null);
             window.addMessage("World loaded from file.");
             window.setWorld(loaded);
             window.repaint();

@@ -11,7 +11,6 @@ public class Human extends Animal implements Serializable {
     private int specialAbilityCooldown;
     private int specialAbilityCounter;
 
-    // Dodane gettery i setter dla zmiennych specjalnej umiejętności
     public boolean getSpecialAbilityActive() {
         return specialAbilityActive;
     }
@@ -26,19 +25,18 @@ public class Human extends Animal implements Serializable {
 
 
     public Human(Point location, World world, int age) {
-        super(5, 4, location, world, age); // Siła = 5, Inicjatywa = 4
-        this.position = location; // Ustawienie pozycji na podaną
-        this.world = world; // Ustawienie świata
-        this.age = age; // Ustawienie wieku
+        super(5, 4, location, world, age);
+        this.position = location;
+        this.world = world;
+        this.age = age;
         this.specialAbilityActive = false;
         this.specialAbilityCooldown = 0;
         this.specialAbilityCounter = 5;
     }
 
-    // Zmieniona metoda action(input) umożliwiająca poruszanie się człowieka i podejmowanie walki, jeśli pole jest zajęte
     @Override
     public void action(String input) {
-        age++; // Inkrementacja wieku
+        age++;
         Point newPos = null;
             if (input.equalsIgnoreCase("up")) {
                 newPos = new Point(position.x, position.y - 1);
@@ -54,7 +52,6 @@ public class Human extends Animal implements Serializable {
             if (newPos != null && world.isWithinBounds(newPos) && !haveSavedAttack(occupant)) {
                 occupant = world.getOrganismAtPosition(newPos);
                 if (occupant != null) {
-                    // Jeśli pole jest zajęte, wywołujemy kolizję (human może zabić przeciwnika)
                     collision(occupant);
                 } else {
                     position = newPos;
@@ -71,18 +68,17 @@ public class Human extends Animal implements Serializable {
 
             if(specialAbilityCounter == 0) {
                 specialAbilityActive = false;
-                specialAbilityCooldown = 5; // Ustawienie cooldownu na 5 tur
-                specialAbilityCounter = 5; // Resetowanie licznika umiejętności
+                specialAbilityCooldown = 5;
+                specialAbilityCounter = 5;
                 String message = "Human special ability deactivated!";
                 world.getWindow().addMessage(message);
             }
         }
     }
 
-    // Opcjonalnie: Jeśli action() bez parametrów ma pozostać, można go zdefiniować tak:
     @Override
     public void action() {
-        age++; // Ruch bez podanego inputa nie jest wykonywany
+        age++;
     }
 
     @Override
