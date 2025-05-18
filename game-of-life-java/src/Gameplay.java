@@ -8,6 +8,10 @@ public class Gameplay {
     private Human human;
     private WorldFileManager fileManager;
 
+    public void setHuman(Human human) {
+        this.human = human;
+    }
+
     public Gameplay(World world) {
         this.world = world;
         this.fileManager = new WorldFileManager();
@@ -79,7 +83,7 @@ public class Gameplay {
             loadWorld();
         }
         else {
-            window.clearMessages(); // <--- czyści messageArea przed turą
+            window.clearMessages();
             world.update(input);
         }
     }

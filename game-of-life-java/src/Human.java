@@ -4,8 +4,9 @@ import java.io.Serializable;
 
 public class Human extends Animal implements Serializable {
     private static final ImageIcon humanIcon = new ImageIcon("images/human.png");
+    public static final Image scaledHumanIcon = humanIcon.getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH);
     private static final long serialVersionUID = 1L;
-    // Dodane zmienne specjalnej umiejętności
+
     private boolean specialAbilityActive;
     private int specialAbilityCooldown;
     private int specialAbilityCounter;
@@ -23,13 +24,6 @@ public class Human extends Animal implements Serializable {
         return specialAbilityCooldown;
     }
 
-    public int getSpecialAbilityCounter() {
-        return specialAbilityCounter;
-    }
-
-    public Human(World world) {
-        super(5, 4, new Point(0, 0), world, 0); // Siła = 5, Inicjatywa = 4, pozycja (0,0)
-    }
 
     public Human(Point location, World world, int age) {
         super(5, 4, location, world, age); // Siła = 5, Inicjatywa = 4

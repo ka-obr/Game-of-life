@@ -16,6 +16,7 @@ import java.io.IOException;
 public class Window extends JFrame {
     private static final int TILE_SIZE = 50; // Stały rozmiar kafelka
     private World world;
+    private final Gameplay gameplay;
     private int offsetX = 0, offsetY = 0; // Przesunięcie mapy
     private Point dragStart = null; // Punkt początkowy przeciągania
     private JPopupMenu activePopupMenu = null; // Przechowuje aktualnie otwarte menu
@@ -25,6 +26,7 @@ public class Window extends JFrame {
 
     public Window(Gameplay gameplay) {
         this.world = gameplay.getWorld();
+        this.gameplay = gameplay;
 
         initializeWindow();
         initializeDrawingPanel();
@@ -343,6 +345,11 @@ public class Window extends JFrame {
                 T animal = animalClass.getConstructor(Point.class, World.class, int.class)
                         .newInstance(tilePosition, world, 1);
                 world.addOrganism(animal);
+
+                if (animal instanceof Human) {
+                    gameplay.setHuman((Human) animal);
+                }
+
                 drawingPanel.repaint();
             } catch (Exception ex) {
                 ex.printStackTrace();
@@ -422,6 +429,11 @@ public class Window extends JFrame {
         addAnimalOption(animalMenu, Fox.class, new ImageIcon(Fox.scaledFoxIcon), tilePosition);
         addAnimalOption(animalMenu, Turtle.class, new ImageIcon(Turtle.scaledTurtleIcon), tilePosition);
         addAnimalOption(animalMenu, Antelope.class, new ImageIcon(Antelope.scaledAntelopeIcon), tilePosition);
+
+        boolean humanExists = world.getOrganisms().stream().anyMatch(o -> o instanceof Human);
+        if (!humanExists) {
+            addAnimalOption(animalMenu, Human.class, new ImageIcon(Human.scaledHumanIcon), tilePosition);
+        }
 
         return animalMenu;
     }
