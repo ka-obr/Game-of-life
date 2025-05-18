@@ -79,6 +79,7 @@ public class Gameplay {
             loadWorld();
         }
         else {
+            window.clearMessages(); // <--- czyści messageArea przed turą
             world.update(input);
         }
     }

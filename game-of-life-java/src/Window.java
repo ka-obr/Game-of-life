@@ -251,6 +251,10 @@ public class Window extends JFrame {
         messageArea.setCaretPosition(messageArea.getDocument().getLength()); // Automatyczne przewijanie do końca
     }
 
+    public void clearMessages() {
+        messageArea.setText("");
+    }
+
     private class DrawingPanel extends JPanel {
         @Override
         protected void paintComponent(Graphics g) {
