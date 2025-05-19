@@ -370,6 +370,8 @@ public class Window extends JFrame {
         popupMenu.add(menuItem);
     }
 
+    //ADD MENU
+
     private void showAddMenu(int tileX, int tileY) {
         Point tilePosition = new Point(tileX, tileY);
         if (world.isTileOccupied(tilePosition)) {

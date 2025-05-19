@@ -42,7 +42,6 @@ public class World implements Serializable {
     }
 
     public void update(String input) {
-        // Sortowanie organizmów według inicjatywy, a następnie wieku
         organisms.sort(Comparator.comparingInt(Organism::getInitiative).reversed()
                                   .thenComparingInt(Organism::getAge));
 
@@ -65,7 +64,7 @@ public class World implements Serializable {
                 return true; // Kafelek jest zajęty
             }
         }
-        return false; // Kafelek jest wolny
+        return false;
     }
 
     public void addOrganism(Organism organism) {
@@ -101,7 +100,6 @@ public class World implements Serializable {
         return null; // Brak dostępnych pozycji
     }
 
-    // Nowa metoda generująca losową pozycję w obrębie planszy
     public Point generateRandomPosition() {
         java.util.Random random = new java.util.Random();
         Point position;
@@ -109,7 +107,7 @@ public class World implements Serializable {
             int x = random.nextInt(size.x);
             int y = random.nextInt(size.y);
             position = new Point(x, y);
-        } while (isTileOccupied(position)); // Sprawdzanie, czy pole nie jest zajęte
+        } while (isTileOccupied(position));
         return position;
     }
 
@@ -118,23 +116,23 @@ public class World implements Serializable {
                 new int[]{0, 1}, new int[]{1, 0}, new int[]{-1, 0}, new int[]{0, -1}
         ));
 
-        Collections.shuffle(displacements); // Losowe przetasowanie kierunków
+        Collections.shuffle(displacements);
 
         Organism org = getOrganismAtPosition(position);
 
         for (int[] displacement : displacements) {
             Point neighbor = new Point(position.x + displacement[0], position.y + displacement[1]);
 
-            if (isWithinBounds(neighbor)) { // Sprawdzanie granic planszy
+            if (isWithinBounds(neighbor)) {
                 Organism other = getOrganismAtPosition(neighbor);
                 if (other != null && other.getStrength() > org.getStrength()) {
-                    continue; // Pomijamy, jeśli sąsiad jest silniejszy
+                    continue;
                 }
-                return neighbor; // Zwracamy bezpieczną pozycję
+                return neighbor;
             }
         }
 
-        return position; // Jeśli brak bezpiecznych pozycji, zwracamy bieżącą pozycję
+        return position;
     }
 
     public Organism getOrganismAtPosition(Point position) {
@@ -143,7 +141,7 @@ public class World implements Serializable {
                 return organism;
             }
         }
-        return null; // Brak organizmu na tej pozycji
+        return null;
     }
 
     public void createOrganism(Class<? extends Organism> organismClass, int count, int age) {
@@ -178,7 +176,7 @@ public class World implements Serializable {
 
         for (int i = 0; i < 8; i++) {
             Point neighbor = new Point(position.x + dx[i], position.y + dy[i]);
-            if (isWithinBounds(neighbor)) { // Sprawdzanie granic planszy
+            if (isWithinBounds(neighbor)) {
                 Organism other = getOrganismAtPosition(neighbor);
                 if (other != null) {
                     if (type == 1 && other instanceof Animal) {
@@ -197,8 +195,8 @@ public class World implements Serializable {
 
     public Point getRandomSpaceDoubleMove(Point position) {
         List<int[]> displacements = new ArrayList<>(java.util.Arrays.asList(
-            new int[]{0, 1}, new int[]{0, -1}, new int[]{1, 0}, new int[]{-1, 0}, // Single moves
-            new int[]{0, 2}, new int[]{0, -2}, new int[]{2, 0}, new int[]{-2, 0}  // Double moves
+            new int[]{0, 1}, new int[]{0, -1}, new int[]{1, 0}, new int[]{-1, 0},
+            new int[]{0, 2}, new int[]{0, -2}, new int[]{2, 0}, new int[]{-2, 0}
         ));
 
         java.util.Collections.shuffle(displacements); // Losowe przetasowanie kierunków
@@ -206,31 +204,31 @@ public class World implements Serializable {
         for (int[] displacement : displacements) {
             Point neighbor = new Point(position.x + displacement[0], position.y + displacement[1]);
 
-            if (isWithinBounds(neighbor)) { // Sprawdzanie granic planszy
-                return neighbor; // Zwracamy pierwszą dostępną pozycję
+            if (isWithinBounds(neighbor)) {
+                return neighbor;
             }
         }
 
-        return position; // Jeśli brak dostępnych pozycji, zwracamy bieżącą pozycję
+        return position;
     }
 
     public Point getRandomFreeSpaceAround(Point position) {
         List<int[]> displacements = new ArrayList<>(java.util.Arrays.asList(
-                new int[]{0, 1}, new int[]{0, -1}, new int[]{1, 0}, new int[]{-1, 0}, // Single moves
-                new int[]{1, 1}, new int[]{1, -1}, new int[]{-1, 1}, new int[]{-1, -1} // Diagonal moves
+                new int[]{0, 1}, new int[]{0, -1}, new int[]{1, 0}, new int[]{-1, 0},
+                new int[]{1, 1}, new int[]{1, -1}, new int[]{-1, 1}, new int[]{-1, -1}
         ));
 
-        java.util.Collections.shuffle(displacements); // Losowe przetasowanie kierunków
+        java.util.Collections.shuffle(displacements);
 
         for (int[] displacement : displacements) {
             Point neighbor = new Point(position.x + displacement[0], position.y + displacement[1]);
 
             if (isWithinBounds(neighbor) && getOrganismAtPosition(neighbor) == null) {
-                return neighbor; // Zwracamy pierwsze wolne sąsiednie pole
+                return neighbor;
             }
         }
 
-        return new Point(-1, -1); // Jeśli brak wolnych pól, zwracamy nieprawidłową pozycję
+        return new Point(-1, -1);
     }
 
     public boolean hasFreeSpaceAround(Point position) {
@@ -241,9 +239,9 @@ public class World implements Serializable {
             Point neighbor = new Point(position.x + dx[i], position.y + dy[i]);
 
             if (isWithinBounds(neighbor) && getOrganismAtPosition(neighbor) == null) {
-                return true; // Znaleziono wolne pole
+                return true;
             }
         }
-        return false; // Brak wolnych pól
+        return false;
     }
 }

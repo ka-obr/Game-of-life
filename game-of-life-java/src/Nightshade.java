@@ -2,7 +2,7 @@ import javax.swing.*;
 import java.awt.*;
 
 public class Nightshade extends Plant {
-    public static final ImageIcon nightshadeIcon = new ImageIcon("images/nightshade.png");
+    private static final ImageIcon nightshadeIcon = new ImageIcon("images/nightshade.png");
     public static final Image scaledNightshadeIcon = nightshadeIcon.getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH);
 
     public Nightshade(Point position, World world, int age) {

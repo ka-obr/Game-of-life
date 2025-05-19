@@ -3,7 +3,7 @@ import java.io.*;
 
 public class WorldFileManager {
 
-    private static final String DEFAULT_SAVE_PATH = "save/world.sav";
+    private final String DEFAULT_SAVE_PATH = "save/world.sav";
 
     public void saveWorldToFile(World world) {
         try {
